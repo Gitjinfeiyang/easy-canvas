@@ -22,7 +22,12 @@ export default {
         {
           styles: {},
         },
-        [this.drawSimple(h), this.drawListItem(h), this.drawListItem(h)]
+        [
+          // this.drawBox(h)
+          this.drawSimple(h), 
+          this.drawListItem(h), 
+          this.drawListItem(h)
+        ]
       )
     })
   },
@@ -41,9 +46,9 @@ export default {
             'view',
             {
               styles: {
-                marginLeft: 10,
+                margin: 10,
                 paddingLeft: 10,
-                borderLeftWidth: 8,
+                borderLeftWidth: 10,
                 borderColor: '#8170ff',
               },
             },
@@ -106,8 +111,6 @@ export default {
                   'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg',
               },
               styles: {
-                borderWidth: 1,
-                borderColor: '#ccc',
                 borderRadius: 24,
               },
             }),
@@ -133,7 +136,8 @@ export default {
           styles: {
             height: 20,
             backgroundColor: '#ff6c79',
-            borderRadius: 15,
+            borderRadius: 10,
+            borderColor:'#fff',
           },
         },
         [
@@ -153,6 +157,22 @@ export default {
         ]
       )
     },
+    drawBox(h){
+      return h('view',{styles:{
+        height:50,
+        width:50,
+        paddingTop:10,
+        paddingRight:10,
+        paddingBottom:10,
+        paddingLeft:10,
+        marginTop:10,
+        marginLeft:10,
+        marginBottom:10,
+        borderWidth:10,
+        borderColor:'#666',
+        backgroundColor:'#f00'
+      }})
+    }
   },
 }
 </script>

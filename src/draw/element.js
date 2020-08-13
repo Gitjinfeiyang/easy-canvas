@@ -182,8 +182,11 @@ export default class Element {
 
   // paint队列执行
   _repaint() {
-    this._drawBox()
+    this._drawBackground()
+
     this._drawContent()
+    this._drawBox()
+
   }
 
   // 栈
@@ -196,6 +199,10 @@ export default class Element {
   }
 
   _drawContent() {
+
+  }
+
+  _drawBackground(){
 
   }
 
@@ -280,6 +287,12 @@ export default class Element {
     } else if (isExact(height)) {
       this.renderStyles.height = height + marginTop + marginBottom
     }
+
+    // 处理borderWidth与content重叠,这里实现的是border重叠与margin的内侧
+    this.renderStyles.marginTop += this.renderStyles.borderTopWidth
+    this.renderStyles.marginBottom += this.renderStyles.borderBottomWidth
+    this.renderStyles.marginLeft += this.renderStyles.borderLeftWidth
+    this.renderStyles.marginRight += this.renderStyles.borderRightWidth
   }
 
   // 根据子元素计算宽高
@@ -302,13 +315,7 @@ export default class Element {
 
   // 宽高计算完后，初始化content-box宽度
   _calcContentLayout() {
-    if (this.renderStyles.borderWidth) {
-      // 处理borderWidth与content重叠,这里实现的是border重叠与margin的内侧
-      this.renderStyles.marginTop += this.renderStyles.borderWidth
-      this.renderStyles.marginBottom += this.renderStyles.borderWidth
-      this.renderStyles.marginLeft += this.renderStyles.borderWidth
-      this.renderStyles.marginRight += this.renderStyles.borderWidth
-    }
+   
     const contentLayout = getContentLayout(this)
     this.renderStyles.contentHeight = contentLayout.contentHeight
     this.renderStyles.contentWidth = contentLayout.contentWidth
