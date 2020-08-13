@@ -17,6 +17,12 @@ const POSITION = {
   STATIC: 'static'
 }
 
+const TEXT_ALIGN = {
+  LEFT: 'left',
+  RIGHT: 'right',
+  CENTER: 'center'
+}
+
 const DEFAULT_STYLES = {
   display: DISPLAY.BLOCK,
   fontSize: 14,
@@ -32,12 +38,14 @@ const DEFAULT_STYLES = {
   marginLeft: 0,
   marginRight: 0,
   height: WIDTH.AUTO,
-  borderRadius: 0
+  borderRadius: 0,
+  textAlign: 'left'
 }
 
 export default {
   DISPLAY,
   WIDTH,
   POSITION,
-  DEFAULT_STYLES
+  DEFAULT_STYLES,
+  TEXT_ALIGN
 }

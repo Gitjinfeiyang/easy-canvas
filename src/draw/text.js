@@ -1,7 +1,5 @@
 import Element from './element'
 import STYLES from './constants'
-import pxUtil from './px'
-const px = pxUtil.px
 
 export default class Text extends Element {
   constructor(options, children) {
@@ -27,7 +25,7 @@ export default class Text extends Element {
   _completeFont() {
     if (this.styles.fontSize && !this.styles.lineHeight) {
       this.styles.lineHeight = this.styles.fontSize * 1.4
-    } else {
+    } else if (!this.styles.lineHeight) {
       this.styles.lineHeight = 14
     }
   }
@@ -48,17 +46,24 @@ export default class Text extends Element {
   }
 
   _drawContent() {
-    const { color, width, lineHeight } = this.renderStyles
+    const { color, contentWidth, lineHeight, textAlign } = this.renderStyles
+    let x = this.contentX
     this.ctx.fillStyle = color
+    this.ctx.textAlign = textAlign
     this.ctx.font = this._getFont()
+    if (textAlign === STYLES.TEXT_ALIGN.RIGHT) {
+      x = this.contentX + contentWidth
+    } else if (textAlign === STYLES.TEXT_ALIGN.CENTER) {
+      x = this.contentX + (contentWidth / 2)
+    }
     this._lines.forEach((line, index) => {
-      this.ctx.fillText(line, px(this.contentX), px(this.contentY + this._layout.fontHeight + ((lineHeight - this._layout.fontHeight) / 2) + lineHeight * index))
+      this.ctx.fillText(line, x, this.contentY + this._layout.fontHeight + ((lineHeight - this._layout.fontHeight) / 2) + lineHeight * index)
     })
   }
 
   _getFont() {
     const { fontSize, fontWeight, fontFamily } = this.renderStyles
-    return `${fontWeight} ${px(fontSize)}px ${fontFamily}`
+    return `${fontWeight} ${fontSize}px ${fontFamily}`
   }
 
   _calcLine() {

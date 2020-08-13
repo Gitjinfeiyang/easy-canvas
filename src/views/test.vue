@@ -22,7 +22,12 @@ export default {
         {
           styles: {},
         },
-        [this.drawSimple(h), this.drawFlex(h), this.drawListItem(h)]
+        [
+          this.drawSimple(h),
+          this.drawFlex(h),
+          this.drawListItem(h),
+          this.drawListItem(h),
+        ]
       )
     })
   },
@@ -89,7 +94,6 @@ export default {
             boxShadowColor: '#000',
             backgroundColor: '#f1f1f1',
             marginTop: 10,
-            height: 60,
           },
         },
         [
@@ -105,16 +109,44 @@ export default {
               },
             }),
           ]),
-          h('view', { styles: { flex: 1, paddingLeft: 10 } }, [
-            h('view', {}, [h('text', {}, 'This is title')]),
+          h('view', { styles: { flex: 2, paddingLeft: 10 } }, [
+            h('view', {}, [h('text', {}, '开发指南')]),
             h('view', {}, [
               h(
                 'text',
                 { styles: { fontSize: 12, color: '#666' } },
-                'This is description. balablalalsbalalbalalblalbalblalbalb.'
+                '小程序提供了一个简单、高效的应用开发框架和丰富的组件及API，帮助开发者在微信中开发具有原生 APP 体验的服务'
               ),
             ]),
           ]),
+          h('view', { styles: { flex: 0.5 } }, [this.drawButton(h, '查看')]),
+        ]
+      )
+    },
+    drawButton(h, text) {
+      return h(
+        'view',
+        {
+          styles: {
+            height: 20,
+            backgroundColor: '#ff6c79',
+            borderRadius: 15,
+          },
+        },
+        [
+          h(
+            'text',
+            {
+              styles: {
+                lineHeight: 20,
+                width: '100%',
+                color: '#fff',
+                textAlign: 'center',
+                fontSize: 11,
+              },
+            },
+            text
+          ),
         ]
       )
     },
