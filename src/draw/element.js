@@ -74,8 +74,11 @@ export default class Element {
    * borderwidth到各个边
    */
   _completeBorder() {
-    const { borderWidth, borderLeftWidth, borderRightWidth, borderBottomWidth, borderTopWidth } = this.styles
-    if (!borderWidth) this.styles.borderWidth = 0
+    let { borderWidth, borderLeftWidth, borderRightWidth, borderBottomWidth, borderTopWidth } = this.styles
+    if (!borderWidth) {
+      this.styles.borderWidth = 0
+      borderWidth = 0
+    }
     if (!borderLeftWidth) {
       this.styles.borderLeftWidth = borderWidth
     }

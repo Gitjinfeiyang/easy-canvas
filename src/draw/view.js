@@ -49,14 +49,15 @@ export default class View extends Element {
   }
 
   _drawRadiusBorder() {
-    const { contentWidth, contentHeight, paddingLeft, paddingTop, paddingRight, paddingBottom, boxShadowBlur, boxShadowColor } = this.renderStyles
+    const { contentWidth, contentHeight, paddingLeft, paddingTop,
+      paddingRight, paddingBottom, boxShadowBlur, boxShadowColor,
+      borderLeftWidth, borderRightWidth, borderTopWidth, borderBottomWidth } = this.renderStyles
     let x = this.contentX - this.renderStyles.paddingLeft
     let y = this.contentY - this.renderStyles.paddingTop
     let w = contentWidth + paddingLeft + paddingRight
     let h = contentHeight + paddingTop + paddingBottom
     const angle = Math.PI / 2
     let { borderRadius } = this.renderStyles
-    borderRadius = borderRadius
     if (borderRadius * 2 > contentWidth) {
       // 如果大于一半，则角不是90度，统一限制最大为一半
       borderRadius = contentWidth / 2
@@ -118,6 +119,10 @@ export default class View extends Element {
     })
 
     this._path(() => {
+      // x = this.contentX - this.renderStyles.paddingLeft - borderLeftWidth
+      // y = this.contentY - this.renderStyles.paddingTop - borderTopWidth
+      // w = contentWidth + paddingLeft + paddingRight + borderLeftWidth + borderRightWidth
+      // h = contentHeight + paddingTop + paddingBottom + borderTopWidth + borderBottomWidth
       topBorder()
       rightBorder()
       bottomBorder()

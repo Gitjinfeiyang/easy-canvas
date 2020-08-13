@@ -22,12 +22,7 @@ export default {
         {
           styles: {},
         },
-        [
-          this.drawSimple(h),
-          this.drawFlex(h),
-          this.drawListItem(h),
-          this.drawListItem(h),
-        ]
+        [this.drawSimple(h), this.drawListItem(h), this.drawListItem(h)]
       )
     })
   },
@@ -42,9 +37,29 @@ export default {
           styles: {},
         },
         [
-          h('view', { styles: {} }, [
-            h('text', { styles: { fontSize: 30 } }, 'Hello !'),
-          ]),
+          h(
+            'view',
+            {
+              styles: {
+                marginLeft: 10,
+                paddingLeft: 10,
+                borderLeftWidth: 8,
+                borderColor: '#8170ff',
+              },
+            },
+            [
+              h(
+                'text',
+                {
+                  styles: {
+                    fontSize: 30,
+                    lineHeight: 30,
+                  },
+                },
+                'Hello !'
+              ),
+            ]
+          ),
           h(
             'view',
             {
@@ -64,19 +79,6 @@ export default {
         ]
       )
     },
-    drawFlex(h) {
-      return h('view', { styles: { display: 'flex' } }, [
-        h('view', { styles: { flex: 1, backgroundColor: 'green' } }, [
-          h('text', {}, 'column1'),
-        ]),
-        h('view', { styles: { flex: 1, backgroundColor: 'red' } }, [
-          h('text', {}, 'column2'),
-        ]),
-        h('view', { styles: { width: 30, backgroundColor: 'blue' } }, [
-          h('text', {}, 'column3'),
-        ]),
-      ])
-    },
     drawListItem(h) {
       return h(
         'view',
@@ -93,8 +95,7 @@ export default {
             boxShadowBlur: 10,
             boxShadowColor: '#000',
             backgroundColor: '#f1f1f1',
-            marginTop: 10,
-            height: 60,
+            marginBottom: 10,
           },
         },
         [
