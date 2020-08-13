@@ -57,9 +57,20 @@ function render(ctx, funcList, options) {
   }
 
   function repaint() {
+    let stack = []
     ctx.clearRect(0, 0, options.width, options.height)
     nodes.forEach(item => {
+      ctx.save()
       item._repaint()
+
+      // 这里通过ctx栈实现了overflow
+      if (!item.hasChildren()) {
+        ctx.restore()
+      }
+      if (item.parent && !item.next) {
+        // 最后一个
+        ctx.restore()
+      }
     })
   }
 

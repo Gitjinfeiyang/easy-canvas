@@ -10,10 +10,7 @@ export default class View extends Element {
   }
 
   _repaint() {
-    this._overflow()
     super._repaint()
-    this._overflowHidden()
-
   }
 
   _afterPaint() {
@@ -144,18 +141,4 @@ export default class View extends Element {
 
   }
 
-  // 全部实现为hidden
-  _overflow() {
-    // 不存在前一个兄弟即诶单
-    // if (!this.parent) {
-    this.ctx.save()
-    // }
-  }
-
-  _overflowHidden() {
-    // 裁剪实现hidden
-    // if (!this.next) {
-    this.ctx.restore()
-    // }
-  }
 }

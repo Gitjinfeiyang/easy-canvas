@@ -94,6 +94,7 @@ export default {
             boxShadowColor: '#000',
             backgroundColor: '#f1f1f1',
             marginTop: 10,
+            height: 60,
           },
         },
         [
@@ -106,6 +107,7 @@ export default {
               styles: {
                 borderWidth: 1,
                 borderColor: '#ccc',
+                borderRadius: 24,
               },
             }),
           ]),
