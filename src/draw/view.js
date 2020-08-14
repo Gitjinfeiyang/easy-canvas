@@ -50,6 +50,10 @@ export default class View extends Element {
     }
   }
 
+  _drawBoxShadow() {
+
+  }
+
   _drawBox() {
 
     this._drawRadiusBorder()
@@ -122,7 +126,10 @@ export default class View extends Element {
       y = this.contentY - this.renderStyles.paddingTop - borderTopWidth / 2
       w = contentWidth + paddingLeft + paddingRight + (borderLeftWidth + borderRightWidth) / 2
       h = contentHeight + paddingTop + paddingBottom + (borderTopWidth + borderBottomWidth) / 2
-
+      if (boxShadowBlur) {
+        this.ctx.shadowBlur = boxShadowBlur
+        this.ctx.shadowColor = boxShadowColor
+      }
       if (this.renderStyles.borderTopWidth) {
         topBorder()
         stroke(this.renderStyles.borderTopWidth)
@@ -142,6 +149,7 @@ export default class View extends Element {
         leftBorder()
         stroke(this.renderStyles.borderLeftWidth)
       }
+
 
 
 

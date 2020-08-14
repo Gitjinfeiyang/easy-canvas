@@ -26,7 +26,16 @@ export default {
           this.drawBox(h),
           this.drawSimple(h),
           this.drawListItem(h),
-          this.drawInlineBlock(h),
+          // this.drawInlineBlock(h),
+          h(
+            'text',
+            {},
+            `用户在朋友圈打开分享的小程序页面，并不会真正打开小程序，而是进入一个“小程序单页模式”的页面，“单页模式”有以下特点：
+
+“单页模式”下，页面顶部固定有导航栏，标题显示为当前页面 JSON 配置的标题。底部固定有操作栏，点击操作栏的“前往小程序”可打开小程序的当前页面。顶部导航栏与底部操作栏均不支持自定义样式。
+“单页模式”默认运行的是小程序页面内容，但由于页面固定有顶部导航栏与底部操作栏，很可能会影响小程序页面的布局。因此，请开发者特别注意适配“单页模式”的页面交互，以实现流畅完整的交互体验。
+“单页模式”下，一些组件或接口存在一定限制，详情见下文单页模式下的限制章节`
+          ),
         ]
       )
     })
@@ -97,35 +106,52 @@ export default {
             paddingRight: 5,
             paddingBottom: 5,
             paddingLeft: 5,
-            boxShadowBlur: 10,
-            boxShadowColor: '#000',
             backgroundColor: '#f1f1f1',
             marginBottom: 10,
           },
         },
         [
-          h('view', { styles: { width: 50 } }, [
-            h('image', {
-              attrs: {
-                src:
-                  'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg',
-              },
+          h(
+            'view',
+            {
               styles: {
-                borderRadius: 24,
+                width: 50,
+                boxShadowBlur: 10,
+                boxShadowColor: '#000',
               },
-            }),
-          ]),
+            },
+            [
+              h('image', {
+                attrs: {
+                  src:
+                    'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg',
+                },
+                styles: {
+                  borderRadius: 24,
+                },
+              }),
+            ]
+          ),
           h('view', { styles: { flex: 2, paddingLeft: 10 } }, [
-            h('view', {}, [h('text', {}, '开发指南')]),
             h('view', {}, [
-              h(
-                'text',
-                { styles: { fontSize: 12, color: '#666' } },
-                '小程序提供了一个简单、高效的应用开发框架和丰富的组件及API，帮助开发者在微信中开发具有原生 APP 体验的服务'
-              ),
+              h('text', { styles: { fontSize: 16 } }, '开发指南'),
             ]),
+            h(
+              'view',
+              {
+                styles: {},
+              },
+              [
+                h(
+                  'text',
+                  { styles: { fontSize: 12, color: '#666' } },
+                  '小程序提供了一个简单、高效的应用开发框架和丰富的组件及API，帮助开发者在微信中开发具有原生 APP 体验的服务'
+                ),
+                this.drawInlineBlock(h),
+              ]
+            ),
           ]),
-          h('view', { styles: { flex: 0.5 } }, [this.drawButton(h, '查看')]),
+          // h('view', { styles: { flex: 0.5 } }, [this.drawButton(h, '查看')]),
         ]
       )
     },
@@ -214,9 +240,11 @@ export default {
         'view',
         {
           styles: {
-            backgroundColor: '#f1f1f1',
-            width: 280,
             textAlign: 'right',
+            borderTopWidth: 0.5,
+            borderColor: '#ccc',
+            paddingTop: 4,
+            marginTop: 4,
           },
         },
         [...buttonList]

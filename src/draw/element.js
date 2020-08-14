@@ -118,6 +118,9 @@ export default class Element {
     return STYLES.DEFAULT_STYLES
   }
 
+  /**
+   * 获取入口
+   */
   generateRenderFunc() {
     this.root = this
     let list = this._generateElementFunc()
@@ -335,6 +338,9 @@ export default class Element {
     // this._textAlign('right')
   }
 
+  /**
+   * 获取一行的宽度，撑开父元素
+   */
   _getMaxChildrenWidth() {
     // 需要考虑原本的宽度
     let max = 0
@@ -352,6 +358,9 @@ export default class Element {
     return max
   }
 
+  /**
+   * 计算flex的宽度
+   */
   _getFlexWidth() {
     const containerContentWidth = this._getContainerLayout().contentWidth
     let clearWidth = 0
@@ -366,6 +375,9 @@ export default class Element {
     return (containerContentWidth - clearWidth) * (this.renderStyles.flex / totalFlexSum)
   }
 
+  /**
+   * 计算子元素高度，撑开父元素
+   */
   _getChildrenHeightSum() {
     // todo 没有考虑inline-block
     let complete = true
@@ -400,6 +412,9 @@ export default class Element {
 
   }
 
+  /**
+   * 是否需要新起一行
+   */
   _needNewLine() {
     const { display } = this.renderStyles
     // flex容器内
@@ -432,6 +447,7 @@ export default class Element {
     return false
 
   }
+
 
   _getContainerLayout() {
     let container = this.parent
