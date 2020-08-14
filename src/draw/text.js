@@ -84,10 +84,16 @@ export default class Text extends Element {
       for (let i = 0; i < this.children.length; i++) {
         _layout = this.ctx.measureText(lineText + this.children[i])
         if (_layout.width > parentContentWidth) {
+          if (lineIndex >= this.renderStyles.maxLine) {
+            // 最大行数限制
+            lineText = lineText.substring(0, lineText.length - 2) + '...'
+            break
+          }
           // 超出了
           this._lines.push(lineText)
           lineText = ''
           lineIndex += 1
+
         }
 
         lineText += this.children[i]

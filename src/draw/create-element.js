@@ -85,7 +85,7 @@ function render(ctx, funcList, options) {
   flow()
 
   // inline-block等还需要再重新排一次，后面再优化
-  // reflow()
+  reflow()
 
   repaint()
 

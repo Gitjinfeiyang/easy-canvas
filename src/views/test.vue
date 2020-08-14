@@ -23,9 +23,8 @@ export default {
           styles: {},
         },
         [
-          this.drawBox(h),
-          this.drawSimple(h),
-          this.drawListItem(h),
+          // this.drawBox(h),
+          // this.drawSimple(h),
           // this.drawInlineBlock(h),
           h(
             'text',
@@ -36,6 +35,7 @@ export default {
 “单页模式”默认运行的是小程序页面内容，但由于页面固定有顶部导航栏与底部操作栏，很可能会影响小程序页面的布局。因此，请开发者特别注意适配“单页模式”的页面交互，以实现流畅完整的交互体验。
 “单页模式”下，一些组件或接口存在一定限制，详情见下文单页模式下的限制章节`
           ),
+          this.drawListItem(h),
         ]
       )
     })
@@ -144,7 +144,7 @@ export default {
               [
                 h(
                   'text',
-                  { styles: { fontSize: 12, color: '#666' } },
+                  { styles: { fontSize: 12, color: '#666', maxLine: 2 } },
                   '小程序提供了一个简单、高效的应用开发框架和丰富的组件及API，帮助开发者在微信中开发具有原生 APP 体验的服务'
                 ),
                 this.drawInlineBlock(h),
