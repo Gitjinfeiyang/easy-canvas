@@ -14,17 +14,17 @@ export default class View extends Element {
     this._completePaddingMargin()
   }
 
-  _completePaddingMargin(){
-    if(this.styles.padding){
+  _completePaddingMargin() {
+    if (this.styles.padding) {
       this.styles.paddingLeft = this.styles.padding
-      this.styles.paddingBottom =this.styles.padding
+      this.styles.paddingBottom = this.styles.padding
       this.styles.paddingRight = this.styles.padding
       this.styles.paddingTop = this.styles.padding
     }
 
-    if(this.styles.margin){
-      this.styles.marginLeft =this.styles.margin
-      this.styles.marginBottom =this.styles.margin
+    if (this.styles.margin) {
+      this.styles.marginLeft = this.styles.margin
+      this.styles.marginBottom = this.styles.margin
       this.styles.marginRight = this.styles.margin
       this.styles.marginTop = this.styles.margin
     }
@@ -38,26 +38,26 @@ export default class View extends Element {
     super._afterPaint()
   }
 
-  _drawBackground(){
-    const { backgroundColor, contentWidth, contentHeight,paddingLeft,paddingRight,paddingTop,paddingBottom } = this.renderStyles
+  _drawBackground() {
+    const { backgroundColor, contentWidth, contentHeight, paddingLeft, paddingRight, paddingTop, paddingBottom } = this.renderStyles
     const ctx = this.ctx
 
     this._clip()
-     // draw background
-     if (backgroundColor) {
-       this.ctx.fillStyle = backgroundColor
-       this.ctx.fillRect(this.contentX- paddingLeft,this.contentY-paddingTop,contentWidth+paddingLeft+paddingRight,contentHeight+paddingTop+paddingBottom)
-     }
+    // draw background
+    if (backgroundColor) {
+      this.ctx.fillStyle = backgroundColor
+      this.ctx.fillRect(this.contentX - paddingLeft, this.contentY - paddingTop, contentWidth + paddingLeft + paddingRight, contentHeight + paddingTop + paddingBottom)
+    }
   }
 
   _drawBox() {
-    
-     this._drawRadiusBorder()
+
+    this._drawRadiusBorder()
 
 
     // debug
-    // ctx.strokeStyle = 'green'
-    // ctx.strokeRect(this.contentX, this.contentY, contentWidth, contentHeight)
+    // this.ctx.strokeStyle = 'green'
+    // this.ctx.strokeRect(this.contentX, this.contentY, this.renderStyles.contentWidth, this.renderStyles.contentHeight)
 
     // ctx.strokeStyle = '#fff'
     // ctx.strokeText(`${parseInt(this.contentX)} ${parseInt(this.contentY)} ${contentWidth} ${contentHeight}`, this.contentX + 100, this.contentY + 10)
@@ -67,18 +67,18 @@ export default class View extends Element {
 
   _drawRadiusBorder() {
     const { contentWidth, contentHeight, paddingLeft, paddingTop,
-      paddingRight, paddingBottom, boxShadowBlur, boxShadowColor,backgroundColor,
+      paddingRight, paddingBottom, boxShadowBlur, boxShadowColor, backgroundColor,
       borderLeftWidth, borderRightWidth, borderTopWidth, borderBottomWidth } = this.renderStyles
 
-      const angle = Math.PI / 2
-      let borderRadius = this._getBorderRadius()
-      
+    const angle = Math.PI / 2
+    let borderRadius = this._getBorderRadius()
 
-      // 这里是计算画border的位置，起点位置是在线条中间，所以要考虑线条宽度
-    let x = this.contentX - this.renderStyles.paddingLeft - borderLeftWidth/2
-    let y = this.contentY - this.renderStyles.paddingTop - borderTopWidth/2
-    let w = contentWidth + paddingLeft + paddingRight +(borderLeftWidth+borderRightWidth)/2
-    let h = contentHeight + paddingTop + paddingBottom+(borderTopWidth+borderBottomWidth)/2
+
+    // 这里是计算画border的位置，起点位置是在线条中间，所以要考虑线条宽度
+    let x = this.contentX - this.renderStyles.paddingLeft - borderLeftWidth / 2
+    let y = this.contentY - this.renderStyles.paddingTop - borderTopWidth / 2
+    let w = contentWidth + paddingLeft + paddingRight + (borderLeftWidth + borderRightWidth) / 2
+    let h = contentHeight + paddingTop + paddingBottom + (borderTopWidth + borderBottomWidth) / 2
 
 
     const topBorder = () => {
@@ -111,17 +111,17 @@ export default class View extends Element {
     this.ctx.strokeStyle = this.renderStyles.borderColor
 
     const stroke = (borderWidth) => {
-    // 有样式则绘制出来
-    this.ctx.lineWidth = borderWidth
-    this.ctx.stroke()
+      // 有样式则绘制出来
+      this.ctx.lineWidth = borderWidth
+      this.ctx.stroke()
     }
 
     this._path(() => {
 
-      x = this.contentX - this.renderStyles.paddingLeft - borderLeftWidth/2
-      y = this.contentY - this.renderStyles.paddingTop - borderTopWidth/2
-      w = contentWidth + paddingLeft + paddingRight +(borderLeftWidth+borderRightWidth)/2
-      h = contentHeight + paddingTop + paddingBottom+(borderTopWidth+borderBottomWidth)/2
+      x = this.contentX - this.renderStyles.paddingLeft - borderLeftWidth / 2
+      y = this.contentY - this.renderStyles.paddingTop - borderTopWidth / 2
+      w = contentWidth + paddingLeft + paddingRight + (borderLeftWidth + borderRightWidth) / 2
+      h = contentHeight + paddingTop + paddingBottom + (borderTopWidth + borderBottomWidth) / 2
 
       if (this.renderStyles.borderTopWidth) {
         topBorder()
@@ -143,7 +143,7 @@ export default class View extends Element {
         stroke(this.renderStyles.borderLeftWidth)
       }
 
-      
+
 
     })
 
@@ -152,21 +152,21 @@ export default class View extends Element {
 
   }
 
-  _clip(){
+  _clip() {
     const { contentWidth, contentHeight, paddingLeft, paddingTop,
-      paddingRight, paddingBottom, boxShadowBlur, boxShadowColor,backgroundColor,
+      paddingRight, paddingBottom, boxShadowBlur, boxShadowColor, backgroundColor,
       borderLeftWidth, borderRightWidth, borderTopWidth, borderBottomWidth } = this.renderStyles
 
-      const angle = Math.PI / 2
-      
+    const angle = Math.PI / 2
+
     let borderRadius = this._getBorderRadius()
 
     // 为了把border也切进去
-    let x = this.contentX - this.renderStyles.paddingLeft- borderLeftWidth
-    let y = this.contentY - this.renderStyles.paddingTop- borderTopWidth
-    let w = contentWidth + paddingLeft + paddingRight+borderLeftWidth + borderRightWidth
-    let h = contentHeight + paddingTop + paddingBottom+borderTopWidth + borderBottomWidth
-    
+    let x = this.contentX - this.renderStyles.paddingLeft - borderLeftWidth
+    let y = this.contentY - this.renderStyles.paddingTop - borderTopWidth
+    let w = contentWidth + paddingLeft + paddingRight + borderLeftWidth + borderRightWidth
+    let h = contentHeight + paddingTop + paddingBottom + borderTopWidth + borderBottomWidth
+
     const topBorder = () => {
       // 左上角开始
       this.ctx.moveTo(x, y + borderRadius)
@@ -194,7 +194,7 @@ export default class View extends Element {
     }
 
     this._path(() => {
-      
+
       topBorder()
       rightBorder()
       bottomBorder()
@@ -206,7 +206,7 @@ export default class View extends Element {
 
   }
 
-  _getBorderRadius(){
+  _getBorderRadius() {
     const { contentWidth, contentHeight } = this.renderStyles
     let { borderRadius } = this.renderStyles
     if (borderRadius * 2 > contentWidth) {

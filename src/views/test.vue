@@ -23,10 +23,10 @@ export default {
           styles: {},
         },
         [
-          // this.drawBox(h)
-          this.drawSimple(h), 
-          this.drawListItem(h), 
-          this.drawListItem(h)
+          this.drawBox(h),
+          this.drawSimple(h),
+          this.drawListItem(h),
+          this.drawInlineBlock(h),
         ]
       )
     })
@@ -129,7 +129,7 @@ export default {
         ]
       )
     },
-    drawButton(h, text) {
+    drawButton(h, text = 'text') {
       return h(
         'view',
         {
@@ -137,7 +137,10 @@ export default {
             height: 20,
             backgroundColor: '#ff6c79',
             borderRadius: 10,
-            borderColor:'#fff',
+            borderColor: '#fff',
+            margin: 2,
+            display: 'inline-block',
+            width: '100%',
           },
         },
         [
@@ -146,10 +149,10 @@ export default {
             {
               styles: {
                 lineHeight: 20,
-                width: '100%',
                 color: '#fff',
                 textAlign: 'center',
                 fontSize: 11,
+                width: '100%',
               },
             },
             text
@@ -157,22 +160,68 @@ export default {
         ]
       )
     },
-    drawBox(h){
-      return h('view',{styles:{
-        height:50,
-        width:50,
-        paddingTop:10,
-        paddingRight:10,
-        paddingBottom:10,
-        paddingLeft:10,
-        marginTop:10,
-        marginLeft:10,
-        marginBottom:10,
-        borderWidth:10,
-        borderColor:'#666',
-        backgroundColor:'#f00'
-      }})
-    }
+    drawBox(h) {
+      return h('view', {
+        styles: {
+          height: 50,
+          width: 50,
+          paddingTop: 10,
+          paddingRight: 10,
+          paddingBottom: 10,
+          paddingLeft: 10,
+          marginTop: 10,
+          marginLeft: 10,
+          marginBottom: 10,
+          borderWidth: 10,
+          borderColor: '#666',
+          backgroundColor: '#f00',
+        },
+      })
+    },
+    drawInlineBlock(h) {
+      let buttonList = [0, 0, 0, 0, 0, 0].map((item, index) => {
+        return h(
+          'view',
+          {
+            styles: {
+              height: 20,
+              backgroundColor: '#ff6c79',
+              borderRadius: 10,
+              borderColor: '#fff',
+              margin: 2,
+              paddingLeft: 10,
+              paddingRight: 10,
+              display: 'inline-block',
+            },
+          },
+          [
+            h(
+              'text',
+              {
+                styles: {
+                  lineHeight: 20,
+                  color: '#fff',
+                  textAlign: 'center',
+                  fontSize: 11,
+                },
+              },
+              `查看${index}`
+            ),
+          ]
+        )
+      })
+      return h(
+        'view',
+        {
+          styles: {
+            backgroundColor: '#f1f1f1',
+            width: 280,
+            textAlign: 'right',
+          },
+        },
+        [...buttonList]
+      )
+    },
   },
 }
 </script>

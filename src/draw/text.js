@@ -1,5 +1,6 @@
 import Element from './element'
 import STYLES from './constants'
+import { isExact } from './utils'
 
 export default class Text extends Element {
   constructor(options, children) {
@@ -34,7 +35,8 @@ export default class Text extends Element {
     this._restore(() => {
       this.ctx.font = this._getFont()
       this._layout = this.ctx.measureText(this.children)
-      this._layout.fontHeight = this._layout.actualBoundingBoxAscent
+      // 微信 夸克 有兼容性问题
+      this._layout.fontHeight = this._layout.actualBoundingBoxAscent || this.renderStyles.fontSize
       this._layout.height = this.renderStyles.lineHeight
       this._calcLine()
     })
@@ -69,9 +71,10 @@ export default class Text extends Element {
   _calcLine() {
     if (!this.parent || !this.children) return
     const { width: textWidth, height: textHeight } = this._layout
-    const { contentWidth } = this.parent.renderStyles
+    const { contentWidth: parentContentWidth } = this.parent.renderStyles
+    const { width: parentWidth } = this.parent.styles
     // 如果一行宽度够，或者父级宽度是auto
-    if (contentWidth >= textWidth || typeof contentWidth !== 'number') {
+    if ((isExact(parentContentWidth) && parentContentWidth >= textWidth) || parentWidth === STYLES.WIDTH.AUTO) {
       this._lines = [this.children]
     } else {
       this._lines = []
@@ -80,7 +83,7 @@ export default class Text extends Element {
       let _layout = null
       for (let i = 0; i < this.children.length; i++) {
         _layout = this.ctx.measureText(lineText + this.children[i])
-        if (_layout.width > contentWidth) {
+        if (_layout.width > parentContentWidth) {
           // 超出了
           this._lines.push(lineText)
           lineText = ''

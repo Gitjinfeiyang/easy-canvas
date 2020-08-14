@@ -168,6 +168,8 @@ export default class Element {
    * 实现文档流 需要知道上一个兄弟节点
    */
   _reflow() {
+    // this._initClearWidthHeight()
+
     // 初始化尺寸 位置
     // 到这里renderstyles里的尺寸肯定是数字
 
@@ -202,7 +204,7 @@ export default class Element {
 
   }
 
-  _drawBackground(){
+  _drawBackground() {
 
   }
 
@@ -225,6 +227,7 @@ export default class Element {
     // 到这里 x ，y 肯定是数字
 
     this._calcContentLayout()
+    // this._initStartingPoint()
 
   }
 
@@ -246,8 +249,8 @@ export default class Element {
    * 这个方法现在是父级先算，子再算，浪费了资源
    */
   _walkParentLayout() {
-    // 不是最后一个不计算
-    if (this.next || this.pre) return
+    // 不是最后一个不计算,判断末梢节点
+    if (this.next) return
 
     let curElement = this
     // 循环设置父级尺寸
@@ -256,6 +259,9 @@ export default class Element {
       // 这里应该通知父级改，先直接改了吧
       if (curElement.parent.styles.width === STYLES.WIDTH.AUTO || curElement.parent.styles.height === STYLES.WIDTH.AUTO) {
         curElement.parent._calcLayoutWithChildren()
+      } else {
+        // 这里应该宽度高度分开循环
+        break
       }
       curElement = curElement.parent
     }
@@ -315,24 +321,30 @@ export default class Element {
 
   // 宽高计算完后，初始化content-box宽度
   _calcContentLayout() {
-   
+    const { width, height } = this.styles
     const contentLayout = getContentLayout(this)
-    this.renderStyles.contentHeight = contentLayout.contentHeight
+    // if (width !== STYLES.WIDTH.AUTO) {
     this.renderStyles.contentWidth = contentLayout.contentWidth
+    // }
+    // if (height !== STYLES.WIDTH.AUTO) {
+    this.renderStyles.contentHeight = contentLayout.contentHeight
+    // }
     this.contentX = contentLayout.contentX
     this.contentY = contentLayout.contentY
+
+    // this._textAlign('right')
   }
 
   _getMaxChildrenWidth() {
-    let max = this.renderStyles.width
+    // 需要考虑原本的宽度
+    let max = 0
     let tempMax = max
     this.children.forEach(child => {
       if (child._needNewLine()) {
         // 如果是新起一行，重新计算
         tempMax = 0
-      } else {
-        tempMax += child.renderStyles.width
       }
+      tempMax += child.renderStyles.width
       if (tempMax > max) {
         max = tempMax
       }
@@ -395,15 +407,24 @@ export default class Element {
       return false
     }
 
+    // block等
     if (display === STYLES.DISPLAY.BLOCK || display === STYLES.DISPLAY.FLEX) {
       return true
     }
 
     if (this.pre) {
-      const { display } = this.pre.renderStyles
+      let { width } = this.renderStyles
+      if (width === STYLES.WIDTH.AUTO) width = 0
+      const { display, width: preWidth } = this.pre.renderStyles
+      const { width: containerWidth, x: containerX } = this._getContainerLayout()
       if (display === STYLES.DISPLAY.BLOCK || display === STYLES.DISPLAY.FLEX) {
         return true
+      } else if ((preWidth + this.pre.x + width) >= (containerX + containerWidth)) {
+        // 这里将当前宽度等于上一个的宽度了 因为这里宽度还是0，暂时还没有好的解决方案
+        // 如果inlineblock顶到右边，换行
+        return true
       }
+
     } else {
       return true
     }
@@ -480,6 +501,43 @@ export default class Element {
 
   _measureLayout() {
     return { width: 0, height: 0, x: 0, y: 0 }
+  }
+
+  // 原理 统一从左边往右移动
+  _textAlign(direction) {
+    let lineLast = null
+    let children = null
+    let lineDistance = 0
+    let allowMove = true
+    if (this.hasChildren()) {
+      children = this._getChildren()
+      lineLast = children[children.length - 1]
+    } else {
+      return
+    }
+    const refreshLine = (element) => {
+      lineDistance = (this._getContainerLayout().contentX + this._getContainerLayout().contentWidth) - (element.renderStyles.x + element.renderStyles.width)
+    }
+    if (direction === 'right') {
+      refreshLine(lineLast)
+      for (let i = children.length - 1; i >= 0; i--) {
+
+        if (children[i].renderStyles.display === STYLES.DISPLAY.INLINE || children[i].renderStyles.display === STYLES.DISPLAY.INLINE_BLOCK) {
+          children[i].x -= lineDistance
+          children[i].contentX -= lineDistance
+        } else {
+          allowMove = false
+        }
+        if (children[i]._needNewLine() && i > 0) {
+          // 新起的一行
+          allowMove = true
+          lineLast = children[i - 1]
+          refreshLine(lineLast)
+        }
+      }
+    } else {
+
+    }
   }
 
   _px(num) {

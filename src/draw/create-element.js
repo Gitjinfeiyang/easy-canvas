@@ -52,6 +52,7 @@ function render(ctx, funcList, options) {
 
   function flow() {
     nodes.forEach(item => {
+      !item.hasChildren() && console.log(item.parent._needNewLine())
       item._initLayout()
     })
   }
@@ -61,6 +62,7 @@ function render(ctx, funcList, options) {
     ctx.clearRect(0, 0, options.width, options.height)
     nodes.forEach(item => {
       ctx.save()
+
       item._repaint()
 
       // 这里通过ctx栈实现了overflow
@@ -81,6 +83,9 @@ function render(ctx, funcList, options) {
   nodes[0].container = options
 
   flow()
+
+  // inline-block等还需要再重新排一次，后面再优化
+  // reflow()
 
   repaint()
 
