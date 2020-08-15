@@ -29,3 +29,6 @@
 * 通过栈实现属性继承
 * 支持flex-direction
 
+## Screenshot
+![1](./screenshot/1.png)
+
