@@ -26,16 +26,8 @@ export default {
           // this.drawBox(h),
           // this.drawSimple(h),
           // this.drawInlineBlock(h),
-          h(
-            'text',
-            {},
-            `用户在朋友圈打开分享的小程序页面，并不会真正打开小程序，而是进入一个“小程序单页模式”的页面，“单页模式”有以下特点：
-
-“单页模式”下，页面顶部固定有导航栏，标题显示为当前页面 JSON 配置的标题。底部固定有操作栏，点击操作栏的“前往小程序”可打开小程序的当前页面。顶部导航栏与底部操作栏均不支持自定义样式。
-“单页模式”默认运行的是小程序页面内容，但由于页面固定有顶部导航栏与底部操作栏，很可能会影响小程序页面的布局。因此，请开发者特别注意适配“单页模式”的页面交互，以实现流畅完整的交互体验。
-“单页模式”下，一些组件或接口存在一定限制，详情见下文单页模式下的限制章节`
-          ),
           this.drawListItem(h),
+          this.drawCard(h),
         ]
       )
     })
@@ -155,18 +147,19 @@ export default {
         ]
       )
     },
-    drawButton(h, text = 'text') {
+    drawButton(h, text = 'text', options = {}) {
       return h(
         'view',
         {
           styles: {
             height: 20,
-            backgroundColor: '#ff6c79',
+            backgroundColor: options.backgroundColor || '#ff6c79',
             borderRadius: 10,
             borderColor: '#fff',
             margin: 2,
             display: 'inline-block',
-            width: '100%',
+            paddingLeft: 10,
+            paddingRight: 10,
           },
         },
         [
@@ -175,10 +168,9 @@ export default {
             {
               styles: {
                 lineHeight: 20,
-                color: '#fff',
+                color: options.color || '#fff',
                 textAlign: 'center',
                 fontSize: 11,
-                width: '100%',
               },
             },
             text
@@ -205,14 +197,14 @@ export default {
       })
     },
     drawInlineBlock(h) {
-      let buttonList = [0, 0, 0, 0, 0, 0].map((item, index) => {
+      let buttonList = [0, 0, 0, 0, 0, 0, 0].map((item, index) => {
         return h(
           'view',
           {
             styles: {
               height: 20,
               backgroundColor: '#ff6c79',
-              borderRadius: 10,
+              borderRadius: 4,
               borderColor: '#fff',
               margin: 2,
               paddingLeft: 10,
@@ -248,6 +240,94 @@ export default {
           },
         },
         [...buttonList]
+      )
+    },
+    drawCard(h) {
+      return h(
+        'view',
+        {
+          styles: {
+            backgroundColor: '#ff6c79',
+            margin: 10,
+            padding: 10,
+            borderRadius: 6,
+          },
+        },
+        [
+          h('view', {}, [
+            h(
+              'text',
+              {
+                styles: { color: '#fff' },
+              },
+              '总资产(元)'
+            ),
+          ]),
+          h('view', { styles: { display: 'flex' } }, [
+            h('view', { styles: { flex: 1 } }, [
+              h(
+                'text',
+                { styles: { fontSize: 20, fontWeight: 700, color: '#Fff' } },
+                '23.43'
+              ),
+            ]),
+            h('view', { styles: { flex: 1 } }, [
+              this.drawButton(h, '我的信息', {
+                backgroundColor: '#fff',
+                color: '#ff6c79',
+              }),
+            ]),
+          ]),
+          h('view', {}, [
+            h(
+              'text',
+              { styles: { color: '#fff', fontSize: 12, lineHeight: 20 } },
+              '最新收益0.00'
+            ),
+            h(
+              'view',
+              {
+                styles: {
+                  display: 'inline-block',
+                  marginLeft: 10,
+                  marginTop: 3,
+                  height: 16,
+                  borderRadius: 8,
+                  paddingLeft: 5,
+                  paddingRight: 5,
+                  backgroundColor: '#666',
+                },
+              },
+              [h('text', { styles: { fontSize: 10, color: '#fff' } }, '送京豆')]
+            ),
+          ]),
+          h(
+            'view',
+            {
+              styles: {
+                display: 'flex',
+                marginTop: 20,
+                paddingTop: 20,
+                borderTopWidth: 0.5,
+                borderColor: '#fff',
+              },
+            },
+            [
+              h('view', { styles: { flex: 1 } }, [
+                h('text', {}, '风险评测'),
+                h('text', {}, '风险评测'),
+              ]),
+              h('view', { styles: { flex: 1 } }, [
+                h('text', {}, '我的定投'),
+                h('text', {}, '风险评测'),
+              ]),
+              h('view', { styles: { flex: 1 } }, [
+                h('text', {}, '优惠券'),
+                h('text', {}, '风险评测'),
+              ]),
+            ]
+          ),
+        ]
       )
     },
   },

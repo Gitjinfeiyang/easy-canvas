@@ -72,8 +72,8 @@ function loadImage(src) {
       resolve({
         image,
         info: {
-          width: e.path[0].width,
-          height: e.path[0].height
+          width: e.target.width,
+          height: e.target.height
         }
       })
     }
