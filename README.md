@@ -110,9 +110,10 @@
 
 ## TodoList
 * 支持position
-* inline-block换行以及textAlign
+* ~~inline-block换行以及textAlign~~
 * 通过栈实现属性继承
 * 支持flex-direction
+* box-shadow
 
 ## Screenshot
 ![1](screenshot/01.png)
