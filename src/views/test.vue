@@ -23,9 +23,9 @@ export default {
           styles: {},
         },
         [
-          // this.drawBox(h),
-          // this.drawSimple(h),
-          // this.drawInlineBlock(h),
+          this.drawBox(h),
+          this.drawSimple(h),
+          this.drawInlineBlock(h),
           this.drawListItem(h),
           this.drawCard(h),
         ]
@@ -143,7 +143,6 @@ export default {
               ]
             ),
           ]),
-          // h('view', { styles: { flex: 0.5 } }, [this.drawButton(h, '查看')]),
         ]
       )
     },
