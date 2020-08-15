@@ -27,8 +27,8 @@ export default class $Image extends View {
           this._layoutImage()
 
           // 重新布局绘制
-          this.getRender().reflow()
-          this.getRender().repaint()
+          this.getLayer().reflow()
+          this.getLayer().repaint()
         })
     })
   }
@@ -36,7 +36,7 @@ export default class $Image extends View {
   _drawContent() {
     if (!this._image) return
     const { contentWidth, contentHeight } = this.renderStyles
-    this.ctx.drawImage(this._image, this.contentX, this.contentY, contentWidth, contentHeight)
+    this.getCtx().drawImage(this._image, this.contentX, this.contentY, contentWidth, contentHeight)
   }
 
   _layoutImage() {

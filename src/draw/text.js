@@ -33,8 +33,8 @@ export default class Text extends Element {
 
   _initLayout() {
     this._restore(() => {
-      this.ctx.font = this._getFont()
-      this._layout = this.ctx.measureText(this.children)
+      this.getCtx().font = this._getFont()
+      this._layout = this.getCtx().measureText(this.children)
       // 微信 夸克 有兼容性问题
       this._layout.fontHeight = this._layout.actualBoundingBoxAscent || this.renderStyles.fontSize
       this._layout.height = this.renderStyles.lineHeight
@@ -50,16 +50,16 @@ export default class Text extends Element {
   _drawContent() {
     const { color, contentWidth, lineHeight, textAlign } = this.renderStyles
     let x = this.contentX
-    this.ctx.fillStyle = color
-    this.ctx.textAlign = textAlign
-    this.ctx.font = this._getFont()
+    this.getCtx().fillStyle = color
+    this.getCtx().textAlign = textAlign
+    this.getCtx().font = this._getFont()
     if (textAlign === STYLES.TEXT_ALIGN.RIGHT) {
       x = this.contentX + contentWidth
     } else if (textAlign === STYLES.TEXT_ALIGN.CENTER) {
       x = this.contentX + (contentWidth / 2)
     }
     this._lines.forEach((line, index) => {
-      this.ctx.fillText(line, x, this.contentY + this._layout.fontHeight + ((lineHeight - this._layout.fontHeight) / 2) + lineHeight * index)
+      this.getCtx().fillText(line, x, this.contentY + this._layout.fontHeight + ((lineHeight - this._layout.fontHeight) / 2) + lineHeight * index)
     })
   }
 
@@ -82,10 +82,10 @@ export default class Text extends Element {
       let lineText = ''
       let _layout = null
       for (let i = 0; i < this.children.length; i++) {
-        _layout = this.ctx.measureText(lineText + this.children[i])
+        _layout = this.getCtx().measureText(lineText + this.children[i])
         if (_layout.width > parentContentWidth) {
           if (lineIndex >= this.renderStyles.maxLine) {
-            // 最大行数限制
+            // 最大行数限制 以及maxline省略号实现
             lineText = lineText.substring(0, lineText.length - 2) + '...'
             break
           }

@@ -40,13 +40,13 @@ export default class View extends Element {
 
   _drawBackground() {
     const { backgroundColor, contentWidth, contentHeight, paddingLeft, paddingRight, paddingTop, paddingBottom } = this.renderStyles
-    const ctx = this.ctx
+    const ctx = this.getCtx()
 
     this._clip()
     // draw background
     if (backgroundColor) {
-      this.ctx.fillStyle = backgroundColor
-      this.ctx.fillRect(this.contentX - paddingLeft, this.contentY - paddingTop, contentWidth + paddingLeft + paddingRight, contentHeight + paddingTop + paddingBottom)
+      this.getCtx().fillStyle = backgroundColor
+      this.getCtx().fillRect(this.contentX - paddingLeft, this.contentY - paddingTop, contentWidth + paddingLeft + paddingRight, contentHeight + paddingTop + paddingBottom)
     }
   }
 
@@ -60,8 +60,8 @@ export default class View extends Element {
 
 
     // debug
-    // this.ctx.strokeStyle = 'green'
-    // this.ctx.strokeRect(this.contentX, this.contentY, this.renderStyles.contentWidth, this.renderStyles.contentHeight)
+    // this.getCtx().strokeStyle = 'green'
+    // this.getCtx().strokeRect(this.contentX, this.contentY, this.renderStyles.contentWidth, this.renderStyles.contentHeight)
 
     // ctx.strokeStyle = '#fff'
     // ctx.strokeText(`${parseInt(this.contentX)} ${parseInt(this.contentY)} ${contentWidth} ${contentHeight}`, this.contentX + 100, this.contentY + 10)
@@ -87,37 +87,37 @@ export default class View extends Element {
 
     const topBorder = () => {
       // 左上角开始
-      this.ctx.moveTo(x, y + borderRadius)
-      borderRadius && this.ctx.arc(x + borderRadius, y + borderRadius, borderRadius, 2 * angle, 3 * angle)
-      this.ctx.lineTo(x + w - borderRadius, y)
+      this.getCtx().moveTo(x, y + borderRadius)
+      borderRadius && this.getCtx().arc(x + borderRadius, y + borderRadius, borderRadius, 2 * angle, 3 * angle)
+      this.getCtx().lineTo(x + w - borderRadius, y)
     }
     const rightBorder = () => {
       // 右上角
-      // this.ctx.moveTo(x + w - borderRadius, y)
-      borderRadius && this.ctx.arc(x + w - borderRadius, y + borderRadius, borderRadius, 3 * angle, 4 * angle)
-      this.ctx.lineTo(x + w, y + h - borderRadius)
+      // this.getCtx().moveTo(x + w - borderRadius, y)
+      borderRadius && this.getCtx().arc(x + w - borderRadius, y + borderRadius, borderRadius, 3 * angle, 4 * angle)
+      this.getCtx().lineTo(x + w, y + h - borderRadius)
     }
 
     const bottomBorder = () => {
       // 右下角
-      // this.ctx.moveTo(x + w, y + h - borderRadius)
-      borderRadius && this.ctx.arc(x + w - borderRadius, y + h - borderRadius, borderRadius, 0, angle)
-      this.ctx.lineTo(x + borderRadius, y + h)
+      // this.getCtx().moveTo(x + w, y + h - borderRadius)
+      borderRadius && this.getCtx().arc(x + w - borderRadius, y + h - borderRadius, borderRadius, 0, angle)
+      this.getCtx().lineTo(x + borderRadius, y + h)
     }
 
     const leftBorder = () => {
       // 左下角
-      borderRadius && this.ctx.arc(x + borderRadius, y + h - borderRadius, borderRadius, angle, angle * 2)
-      this.ctx.lineTo(x, y + borderRadius)
+      borderRadius && this.getCtx().arc(x + borderRadius, y + h - borderRadius, borderRadius, angle, angle * 2)
+      this.getCtx().lineTo(x, y + borderRadius)
     }
 
-    this.ctx.lineCap = this.renderStyles.lineCap
-    this.ctx.strokeStyle = this.renderStyles.borderColor
+    this.getCtx().lineCap = this.renderStyles.lineCap
+    this.getCtx().strokeStyle = this.renderStyles.borderColor
 
     const stroke = (borderWidth) => {
       // 有样式则绘制出来
-      this.ctx.lineWidth = borderWidth
-      this.ctx.stroke()
+      this.getCtx().lineWidth = borderWidth
+      this.getCtx().stroke()
     }
 
     this._path(() => {
@@ -127,25 +127,25 @@ export default class View extends Element {
       w = contentWidth + paddingLeft + paddingRight + (borderLeftWidth + borderRightWidth) / 2
       h = contentHeight + paddingTop + paddingBottom + (borderTopWidth + borderBottomWidth) / 2
       if (boxShadowBlur) {
-        this.ctx.shadowBlur = boxShadowBlur
-        this.ctx.shadowColor = boxShadowColor
+        this.getCtx().shadowBlur = boxShadowBlur
+        this.getCtx().shadowColor = boxShadowColor
       }
       if (this.renderStyles.borderTopWidth) {
         topBorder()
         stroke(this.renderStyles.borderTopWidth)
       }
       if (this.renderStyles.borderRightWidth) {
-        this.ctx.moveTo(x + w - borderRadius, y)
+        this.getCtx().moveTo(x + w - borderRadius, y)
         rightBorder()
         stroke(this.renderStyles.borderRightWidth)
       }
       if (this.renderStyles.borderBottomWidth) {
-        this.ctx.moveTo(x + w, y + h - borderRadius)
+        this.getCtx().moveTo(x + w, y + h - borderRadius)
         bottomBorder()
         stroke(this.renderStyles.borderBottomWidth)
       }
       if (this.renderStyles.borderLeftWidth) {
-        this.ctx.moveTo(x + borderRadius, y + h)
+        this.getCtx().moveTo(x + borderRadius, y + h)
         leftBorder()
         stroke(this.renderStyles.borderLeftWidth)
       }
@@ -177,28 +177,28 @@ export default class View extends Element {
 
     const topBorder = () => {
       // 左上角开始
-      this.ctx.moveTo(x, y + borderRadius)
-      borderRadius && this.ctx.arc(x + borderRadius, y + borderRadius, borderRadius, 2 * angle, 3 * angle)
-      this.ctx.lineTo(x + w - borderRadius, y)
+      this.getCtx().moveTo(x, y + borderRadius)
+      borderRadius && this.getCtx().arc(x + borderRadius, y + borderRadius, borderRadius, 2 * angle, 3 * angle)
+      this.getCtx().lineTo(x + w - borderRadius, y)
     }
     const rightBorder = () => {
       // 右上角
-      // this.ctx.moveTo(x + w - borderRadius, y)
-      borderRadius && this.ctx.arc(x + w - borderRadius, y + borderRadius, borderRadius, 3 * angle, 4 * angle)
-      this.ctx.lineTo(x + w, y + h - borderRadius)
+      // this.getCtx().moveTo(x + w - borderRadius, y)
+      borderRadius && this.getCtx().arc(x + w - borderRadius, y + borderRadius, borderRadius, 3 * angle, 4 * angle)
+      this.getCtx().lineTo(x + w, y + h - borderRadius)
     }
 
     const bottomBorder = () => {
       // 右下角
-      // this.ctx.moveTo(x + w, y + h - borderRadius)
-      borderRadius && this.ctx.arc(x + w - borderRadius, y + h - borderRadius, borderRadius, 0, angle)
-      this.ctx.lineTo(x + borderRadius, y + h)
+      // this.getCtx().moveTo(x + w, y + h - borderRadius)
+      borderRadius && this.getCtx().arc(x + w - borderRadius, y + h - borderRadius, borderRadius, 0, angle)
+      this.getCtx().lineTo(x + borderRadius, y + h)
     }
 
     const leftBorder = () => {
       // 左下角
-      borderRadius && this.ctx.arc(x + borderRadius, y + h - borderRadius, borderRadius, angle, angle * 2)
-      this.ctx.lineTo(x, y + borderRadius)
+      borderRadius && this.getCtx().arc(x + borderRadius, y + h - borderRadius, borderRadius, angle, angle * 2)
+      this.getCtx().lineTo(x, y + borderRadius)
     }
 
     this._path(() => {
@@ -210,7 +210,7 @@ export default class View extends Element {
     })
 
 
-    this.ctx.clip()
+    this.getCtx().clip()
 
   }
 

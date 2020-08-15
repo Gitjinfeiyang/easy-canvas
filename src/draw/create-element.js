@@ -1,6 +1,7 @@
 import View from './view'
 import Text from './text'
 import Image from './image'
+import Layer from './layer'
 
 /**
  * 生成一个element tree
@@ -34,65 +35,11 @@ export function createElement(model) {
   return _model
 }
 
-export function generateFunc(vdom, options) {
-  let renderList = vdom.generateRenderFunc()
-  return (ctx) => render(ctx, renderList, options)
+export function generateLayer(ctx,vdom, options) {
+  return new Layer(ctx,vdom,options)
 }
 
 
-
-function render(ctx, funcList, options) {
-  const nodes = funcList.map(item => item(ctx))
-
-  function reflow() {
-    nodes.forEach(item => {
-      item._reflow()
-    })
-  }
-
-  function flow() {
-    nodes.forEach(item => {
-      !item.hasChildren() && console.log(item.parent._needNewLine())
-      item._initLayout()
-    })
-  }
-
-  function repaint() {
-    let stack = []
-    ctx.clearRect(0, 0, options.width, options.height)
-    nodes.forEach(item => {
-      ctx.save()
-
-      item._repaint()
-
-      // 这里通过ctx栈实现了overflow
-      if (!item.hasChildren()) {
-        ctx.restore()
-      }
-      if (item.parent && !item.next) {
-        // 最后一个
-        ctx.restore()
-      }
-    })
-  }
-
-  nodes[0].render = {
-    reflow,
-    repaint
-  }
-  nodes[0].container = options
-
-  flow()
-
-  // inline-block等还需要再重新排一次，后面再优化
-  reflow()
-
-  repaint()
-
-
-
-
-}
 
 
 
