@@ -23,9 +23,9 @@ export default {
           styles: {},
         },
         [
-          this.drawBox(h),
+          // this.drawBox(h),
           this.drawSimple(h),
-          this.drawInlineBlock(h),
+          // this.drawInlineBlock(h),
           this.drawListItem(h),
           this.drawCard(h),
         ]
@@ -296,7 +296,7 @@ export default {
                   backgroundColor: '#666',
                 },
               },
-              [h('text', { styles: { fontSize: 10, color: '#fff' } }, '送京豆')]
+              [h('text', { styles: { fontSize: 10, color: '#fff' } }, '赠送权益')]
             ),
           ]),
           h(
@@ -312,16 +312,16 @@ export default {
             },
             [
               h('view', { styles: { flex: 1,textAlign:'center',color:'#fff' } }, [
-                h('text', {}, '风险评测'),
-                h('text', {}, '风险评测'),
+                h('text', {styles:{color:'#fff'}}, '风险评测'),
+                h('text', {styles:{color:'#fff'}}, '风险评测'),
               ]),
-              h('view', { styles: { flex: 1 } }, [
-                h('text', {}, '我的定投'),
-                h('text', {}, '风险评测'),
+              h('view', { styles: { flex: 1,textAlign:'center' } }, [
+                h('text', {styles:{color:'#fff'}}, '我的定投'),
+                h('text', {styles:{color:'#fff'}}, '风险评测'),
               ]),
-              h('view', { styles: { flex: 1 } }, [
-                h('text', {}, '优惠券'),
-                h('text', {}, '风险评测'),
+              h('view', { styles: { flex: 1,textAlign:'center' } }, [
+                h('text', {styles:{color:'#fff'}}, '优惠券'),
+                h('text', {styles:{color:'#fff'}}, '风险评测'),
               ]),
             ]
           ),
