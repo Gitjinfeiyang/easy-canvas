@@ -3,6 +3,7 @@
 
 ## 支持元素
 - [x] view 基本元素，类似div
+- [x] scrollview 滚动容器，需要在样式里设置direction，并且设置具体高度
 - [x] text
 - [x] image
 
