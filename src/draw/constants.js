@@ -39,7 +39,6 @@ const DEFAULT_STYLES = {
   marginRight: 0,
   height: WIDTH.AUTO,
   borderRadius: 0,
-  textAlign: 'left',
   lineCap:'square'
 }
 

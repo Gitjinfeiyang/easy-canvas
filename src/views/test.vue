@@ -232,7 +232,6 @@ export default {
         'view',
         {
           styles: {
-            textAlign: 'right',
             borderTopWidth: 0.5,
             borderColor: '#ccc',
             paddingTop: 4,
@@ -271,7 +270,7 @@ export default {
                 '23.43'
               ),
             ]),
-            h('view', { styles: { flex: 1 } }, [
+            h('view', { styles: { flex: 1,textAlign:'right' } }, [
               this.drawButton(h, '我的信息', {
                 backgroundColor: '#fff',
                 color: '#ff6c79',
@@ -313,7 +312,7 @@ export default {
               },
             },
             [
-              h('view', { styles: { flex: 1 } }, [
+              h('view', { styles: { flex: 1,textAlign:'center',color:'#fff' } }, [
                 h('text', {}, '风险评测'),
                 h('text', {}, '风险评测'),
               ]),

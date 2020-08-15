@@ -30,6 +30,10 @@ export default class View extends Element {
     }
   }
 
+  _reflow(){
+    super._reflow()
+  }
+
   _repaint() {
     super._repaint()
   }
@@ -227,5 +231,7 @@ export default class View extends Element {
     if (borderRadius < 0) borderRadius = 0
     return borderRadius
   }
+
+ 
 
 }

@@ -14,7 +14,8 @@ export default class Text extends Element {
     return {
       ...STYLES.DEFAULT_STYLES,
       display: STYLES.DISPLAY.INLINE,
-      width: STYLES.WIDTH.AUTO
+      width: STYLES.WIDTH.AUTO,
+      textAlign: 'left',
     }
   }
 

@@ -55,11 +55,25 @@ export default class Element {
   }
 
   _initStyles() {
-    this.styles = Object.assign({}, this._getDefaultStyles(), this.options.styles || {})
+    this.styles = Object.assign({}, this._getDefaultStyles(), this.options.styles || {},this._getParentStyles())
 
     this._completeStyles()
 
     this.renderStyles = { ...this.styles }
+  }
+
+  /**
+   * 需要继承的styles放在这里
+   */
+  _getParentStyles(){
+    let parentStyles = this.parent && this.parent.options.styles || {}
+    return {
+      // textAlign:parentStyles.textAlign,
+      // lineHeight:parentStyles.lineHeight,
+      // fontSize:parentStyles.fontSize,
+      // color:parentStyles.color,
+      // fontFamily:parentStyles.fontFamily
+    }
   }
 
   _completeStyles() {
@@ -147,7 +161,7 @@ export default class Element {
   }
 
   _getChildren() {
-    return this.children
+    return this.hasChildren()?this.children:[]
   }
 
   _setParent(element) {
@@ -176,14 +190,17 @@ export default class Element {
 
     // 初始化尺寸 位置
     // 到这里renderstyles里的尺寸肯定是数字
+    this._initStartingPoint()
+
 
     this._walkParentLayout()
 
-    this._initStartingPoint()
 
     // 到这里 x ，y 肯定是数字
 
     this._calcContentLayout()
+    this._textAlign()
+
   }
 
   // paint队列执行
@@ -239,14 +256,14 @@ export default class Element {
   _initStartingPoint() {
     // 初始化ctx位置
     if (this._needNewLine()) {
-
       // 另起一行
-      this.x = this._getContainerLayout().contentX
+      this.x = this._getContainerLayout().contentX 
       this.y = this._getPreLayout().y + this._getPreLayout().height
     } else {
       this.x = this._getPreLayout().x + this._getPreLayout().width
       this.y = this._getPreLayout().y
     }
+
   }
 
   /**
@@ -435,7 +452,7 @@ export default class Element {
       const { width: containerWidth, x: containerX } = this._getContainerLayout()
       if (display === STYLES.DISPLAY.BLOCK || display === STYLES.DISPLAY.FLEX) {
         return true
-      } else if ((preWidth + this.pre.x + width) >= (containerX + containerWidth)) {
+      } else if ((preWidth + this.pre.x + width) > (containerX + containerWidth)) {
         // 这里将当前宽度等于上一个的宽度了 因为这里宽度还是0，暂时还没有好的解决方案
         // 如果inlineblock顶到右边，换行
         return true
@@ -520,43 +537,6 @@ export default class Element {
     return { width: 0, height: 0, x: 0, y: 0 }
   }
 
-  // 原理 统一从左边往右移动
-  _textAlign(direction) {
-    let lineLast = null
-    let children = null
-    let lineDistance = 0
-    let allowMove = true
-    if (this.hasChildren()) {
-      children = this._getChildren()
-      lineLast = children[children.length - 1]
-    } else {
-      return
-    }
-    const refreshLine = (element) => {
-      lineDistance = (this._getContainerLayout().contentX + this._getContainerLayout().contentWidth) - (element.renderStyles.x + element.renderStyles.width)
-    }
-    if (direction === 'right') {
-      refreshLine(lineLast)
-      for (let i = children.length - 1; i >= 0; i--) {
-
-        if (children[i].renderStyles.display === STYLES.DISPLAY.INLINE || children[i].renderStyles.display === STYLES.DISPLAY.INLINE_BLOCK) {
-          children[i].x -= lineDistance
-          children[i].contentX -= lineDistance
-        } else {
-          allowMove = false
-        }
-        if (children[i]._needNewLine() && i > 0) {
-          // 新起的一行
-          allowMove = true
-          lineLast = children[i - 1]
-          refreshLine(lineLast)
-        }
-      }
-    } else {
-
-    }
-  }
-
   _px(num) {
     // if (num && isExact(num)) {
     //   return num / this.root.container.dpr
@@ -564,6 +544,56 @@ export default class Element {
     return num
   }
 
+  // 原理 统一从左边往右移动
+  _textAlign() {
+    if(!this.parent) return
+    const direction = this.parent.renderStyles.textAlign
+    if(!direction) return
+    let cur
+    let lastInstance
+    const translate = (element) => {
+      element.x +=lastInstance
+      element.contentX+=lastInstance
+      // 子元素重新计算
+      element._getChildren().forEach(child => child._reflow())
+    }
+
+    const refreshInstance = () => {
+      
+      if(direction === 'right'){
+        lastInstance = this._getContainerLayout().contentWidth + this._getContainerLayout().contentX - cur.x - cur.renderStyles.width 
+      }else if(direction === 'center' ){
+        lastInstance = (this._getContainerLayout().contentWidth + this._getContainerLayout().contentX - cur.x - cur.renderStyles.width)/2 
+      }else{
+        lastInstance = 0
+      }
+    }
+
+
+    if((this._needNewLine() || !this.next) && this.pre){
+      cur = this.pre
+      if(!this.next){
+        // 一行中的最后一个
+        cur = this
+      }
+      refreshInstance()
+      //  如果是新的一行，计算上一行的对其
+        while(cur){
+          translate(cur)
+          cur = cur.pre
+          if(cur._needNewLine()){
+            // 当前是换行的，再上一个就是上一行了，所以停止遍历
+            translate(cur)
+            break
+          }
+        }
+    }else if(!this.next && !this.pre){
+      cur = this
+      refreshInstance()
+      // 只有一个
+      translate(cur)
+    }
+  }
 
 }
 
