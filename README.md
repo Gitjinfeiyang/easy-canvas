@@ -1,6 +1,31 @@
 # 简介
 使用render函数，在canvas中创建文档流，实现静态布局。
 
+## 支持元素
+- [x] view 基本元素，类似div
+- [x] text
+- [x] image
+
+## 支持属性
+属性使用像素的地方统一使用数字
+
+- [x] display `block` `inline-block` `flex` text默认是inline的
+- [x] width `auto` `100%` `Number` 这里盒模型使用border-box，不可修改
+- [x] height
+- [x] marginLeft,marginRight,marginTop,marginBottom
+- [x] paddingLeft,paddingRight,paddingTop,paddingBottom
+- [x] backgroundColor
+- [x] borderRadius
+- [x] borderWidth borderTopWidth ... 细边框直接设置0.5
+- [x] borderColor
+- [x] lineHeight 字体相关的只在text内有效
+- [x] color
+- [x] fontSize
+- [x] textAlign `left` `right` `center`
+- [ ] borderStyle
+- [ ] boxShadowBlur
+- [ ] boxShadowColor
+
 
 
 ## Usage
@@ -86,27 +111,9 @@
     }
 
 ```
-## 元素
-- [x] view 基本元素，类似div
-- [x] text
-- [x] image
 
-## 属性
-属性使用像素的地方统一使用数字
-
-- [x] display `block` `inline-block` `flex` text默认是inline的
-- [x] width `auto` `100%` `Number` 这里盒模型使用border-box，不可修改
-- [x] height
-- [x] marginLeft,marginRight,marginTop,marginBottom
-- [x] paddingLeft,paddingRight,paddingTop,paddingBottom
-- [x] backgroundColor
-- [x] borderRadius
-- [x] borderWidth borderTopWidth ...
-- [x] borderColor
-- [ ] borderStyle
-- [ ] lineHeight 字体相关的只在text内有效
-- [ ] color
-- [ ] fontSize
+## Screenshot
+![1](screenshot/01.png)
 
 ## TodoList
 * 支持position
@@ -114,7 +121,3 @@
 * 通过栈实现属性继承
 * 支持flex-direction
 * box-shadow
-
-## Screenshot
-![1](screenshot/01.png)
-
