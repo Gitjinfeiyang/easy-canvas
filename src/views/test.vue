@@ -1,6 +1,9 @@
 <template>
   <div style="width:100vw; height:100vh; backgroundColor:#000;">
-    <canvas id="canvas" width="300" height="600" style="width:300px; height:600px;background:#fff;"></canvas>
+    <canvas id="canvas" width="300" height="600" style="width:300px; height:600px;background:#fff;"
+      @touchstart.stop="ontouchstart"
+      @touchmove.stop="ontouchmove"
+      @touchend.stop="ontouchend"></canvas>
   </div>
 </template>
 <script>
@@ -16,18 +19,29 @@ export default {
     canvas.height = canvas.height * 2
 
     const draw = getDraw(ctx, { dpr: 2, width: 300, height: 600 })
-    draw((h) => {
+    this.layer = draw((h) => {
       return h(
-        'view',
+        'scrollview',
         {
-          styles: {},
+          styles: {direction:'y',height:600},
         },
         [
           // this.drawBox(h),
           this.drawSimple(h),
           // this.drawInlineBlock(h),
           this.drawListItem(h),
+          this.drawListItem(h),
+          this.drawListItem(h),
+          this.drawListItem(h),
           this.drawCard(h),
+          this.drawCard(h),
+          this.drawCard(h),
+          this.drawCard(h),
+          this.drawListItem(h),
+          this.drawListItem(h),
+          this.drawListItem(h),
+          this.drawListItem(h),
+
         ]
       )
     })
@@ -328,6 +342,19 @@ export default {
         ]
       )
     },
+
+    ontouchstart(e){
+      e.preventDefault()
+      this.layer.eventManager.touchstart(e.touches[0].pageX,e.touches[0].pageY)
+    },
+    ontouchmove(e){
+      e.preventDefault()
+      this.layer.eventManager.touchmove(e.touches[0].pageX,e.touches[0].pageY)
+    },
+    ontouchend(e){
+      e.preventDefault()
+      this.layer.eventManager.touchend(e.changedTouches[0].pageX,e.changedTouches[0].pageY)
+    }
   },
 }
 </script>

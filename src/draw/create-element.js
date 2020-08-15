@@ -2,6 +2,7 @@ import View from './view'
 import Text from './text'
 import Image from './image'
 import Layer from './layer'
+import ScrollView from './scroll-view'
 
 /**
  * 生成一个element tree
@@ -27,6 +28,8 @@ export function createElement(model) {
       _element = new Text(options, children)
     } else if (name == 'image') {
       _element = new Image(options, children)
+    }else if(name === 'scrollview'){
+      _element = new ScrollView(options, children)
     }
     return _element
   }

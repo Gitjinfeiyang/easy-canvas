@@ -10,6 +10,7 @@ function getDrawer (ctx, options) {
     const vdom = createElement(model)
     console.log(vdom)
     const layer = generateLayer(ctx,vdom, options)
+    return layer
   }
 }
 

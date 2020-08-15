@@ -15,7 +15,7 @@ module.exports={
             compress:false,
           },
           cache: true,
-          include:path.resolve(__dirname,'../src')
+          include:path.resolve(__dirname,'../src/draw')
         })
       ]
     },
@@ -23,7 +23,7 @@ module.exports={
         
     ],
     resolve: {
-        extensions: [ '.ts', '.js']
+        extensions: ['.js']
     },
     module:{
         rules:[
@@ -38,17 +38,14 @@ module.exports={
                     ]
                   },
                   {
-                      test:/\.ts$/,
-                           exclude: /(node_modules|bower_components)/,
-                      use:[{
-                              loader: 'babel-loader',
-                              // options: {
-                              //   presets: ['es5']
-                              // }
-                            },
-                          {loader:'ts-loader'},
-                           
-                      ],
+                    test: /\.js$/,
+                    exclude: /(node_modules|bower_components)/,
+                    use: {
+                      loader: 'babel-loader',
+                      options: {
+                        presets: ['@babel/preset-env']
+                      }
+                    }
                   }
         ]
     }

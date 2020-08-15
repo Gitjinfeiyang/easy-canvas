@@ -31,7 +31,6 @@ export default class Element {
     this.render = null
     this.root = null
     this.container = null
-    this.init()
   }
 
   init() {

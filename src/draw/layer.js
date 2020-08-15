@@ -1,3 +1,5 @@
+import EventManager from './event-manager'
+
 export default class Layer {
     constructor(ctx,node,options){
         this.ctx = ctx
@@ -5,20 +7,26 @@ export default class Layer {
         this.nodeList = []
         this.renderList = []
         this.options = options
+        this.eventManager = new EventManager()
         this.initRender()
     }
 
     initRender(){
         const nodes = this.nodeList = this.node.tree2List()
 
+        this.node.layer = this
+        this.node.container = this.options
+
+        nodes.forEach(item => {
+            item.init()
+        })
         function flow() {
             nodes.forEach(item => {
                 item._initLayout()
             })
         }
 
-        this.node.layer = this
-        this.node.container = this.options
+        
 
         flow()
 
