@@ -311,9 +311,9 @@ export default {
               },
             },
             [
-              h('view', { styles: { flex: 1,textAlign:'center',color:'#fff' } }, [
+              h('view', { styles: { flex: 1,color:'#fff' } }, [
                 h('text', {styles:{color:'#fff'}}, '风险评测'),
-                h('text', {styles:{color:'#fff'}}, '风险评测'),
+                h('text', {styles:{color:'#fff'}}, '风险评测风险评测风险评测'),
               ]),
               h('view', { styles: { flex: 1,textAlign:'center' } }, [
                 h('text', {styles:{color:'#fff'}}, '我的定投'),

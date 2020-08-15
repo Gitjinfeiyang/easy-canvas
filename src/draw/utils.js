@@ -5,3 +5,12 @@ export function isExact(num) {
 export function isAuto(num) {
   return num === 'auto'
 }
+
+export function walk(element,callback){
+  callback(element)
+  if(element.hasChildren()){
+    element._getChildren().forEach(child => {
+      walk(child,callback)
+    })
+  }
+}

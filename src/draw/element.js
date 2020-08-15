@@ -1,6 +1,6 @@
 import STYLES from './constants'
 import pxUtil from './px'
-import { isExact } from './utils'
+import { isExact,walk } from './utils'
 
 /**
  * inline-block block inline flex
@@ -554,8 +554,8 @@ export default class Element {
     const translate = (element) => {
       element.x +=lastInstance
       element.contentX+=lastInstance
-      // 子元素重新计算
-      element._getChildren().forEach(child => child._reflow())
+      // 子元素重新计算 x y位置 待优化
+      element._getChildren().forEach(child => walk(child,(el) => el._reflow()))
     }
 
     const refreshInstance = () => {

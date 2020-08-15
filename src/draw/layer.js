@@ -10,30 +10,10 @@ export default class Layer {
 
     initRender(){
         const nodes = this.nodeList = this.node.tree2List()
-        // bind ctx
 
         function flow() {
             nodes.forEach(item => {
                 item._initLayout()
-            })
-        }
-
-        function repaint() {
-            let stack = []
-            ctx.clearRect(0, 0, this.options.width, this.options.height)
-            nodes.forEach(item => {
-            ctx.save()
-
-            item._repaint()
-
-            // 这里通过ctx栈实现了overflow
-            if (!item.hasChildren()) {
-                ctx.restore()
-            }
-            if (item.parent && !item.next) {
-                // 最后一个
-                ctx.restore()
-            }
             })
         }
 
@@ -42,7 +22,7 @@ export default class Layer {
 
         flow()
 
-        // inline-block等还需要再重新排一次，后面再优化
+        // inline-block等还需要再重新排一次，待优化
         this.reflow()
 
         this.repaint()
