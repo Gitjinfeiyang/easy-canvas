@@ -38,20 +38,20 @@ export default class Element {
     this._initStyles()
   }
 
-  getRender() {
-    return this.root.render
+  getLayer() {
+    return this.root.layer
   }
 
   _restore(callback) {
-    this.ctx.save()
+    this.getCtx().save()
     callback()
-    this.ctx.restore()
+    this.getCtx().restore()
   }
 
   _path(callback) {
-    this.ctx.beginPath()
+    this.getCtx().beginPath()
     callback()
-    this.ctx.closePath()
+    this.getCtx().closePath()
   }
 
   _initStyles() {
@@ -121,7 +121,7 @@ export default class Element {
   /**
    * 获取入口
    */
-  generateRenderFunc() {
+  tree2List() {
     this.root = this
     let list = this._generateElementFunc()
     return Array.isArray(list) ? list : [list]
@@ -161,10 +161,11 @@ export default class Element {
   }
 
   _generateRender() {
-    return (ctx) => {
-      this.ctx = ctx
       return this
-    }
+  }
+
+  getCtx(){
+    return this.root.layer.ctx
   }
 
   /**
