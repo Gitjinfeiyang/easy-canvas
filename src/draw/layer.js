@@ -45,19 +45,29 @@ export default class Layer {
 
     repaint(){
         this.ctx.clearRect(0, 0, this.options.width, this.options.height)
+
+        // 这里通过ctx状态的stack实现了样式继承，比如overflow以及scrollview的滚动
         this.nodeList.forEach(item => {
-        this.ctx.save()
+            this.ctx.save()
+            item._repaint()
 
-        item._repaint()
-
-        // 这里通过this.ctx栈实现了overflow
-        if (!item.hasChildren()) {
-            this.ctx.restore()
-        }
-        if (item.parent && !item.next) {
-            // 最后一个
-            this.ctx.restore()
-        }
+            // 这里通过this.ctx栈实现了overflow
+            // 第一步判断没有子元素，绘制完成即restore 有子元素需要子元素全部绘制完毕再restore
+            if (!item.hasChildren()) {
+                this.ctx.restore()
+            }
+            
+            // 如果到了层级的最后一个 释放父级的stack
+            if (item.parent && !item.next && !item.hasChildren()) {
+                // 首先释放第一层父级
+                this.ctx.restore()
+                let cur = item.parent
+                while(cur && !cur.next){
+                    // 如果父级也是同级最后一个，再闭合上一个
+                    this.ctx.restore()
+                    cur = cur.parent
+                }
+            }
         })
     }
 }

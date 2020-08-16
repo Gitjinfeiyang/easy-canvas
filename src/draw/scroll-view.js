@@ -4,6 +4,13 @@ import STYLES from './constants'
 
 export default class ScrollView extends View {
 
+    constructor(options,children){
+        super(options,children)
+        // 外面包裹一层容器，内层的滚动
+        this._scrollView = new View(options,[this])
+        return this._scrollView
+    }
+
     _getDefaultStyles(){
         return {
             ...STYLES.DEFAULT_STYLES,
@@ -20,7 +27,6 @@ export default class ScrollView extends View {
             if(isExact(height)){
                 this.styles.height = 'auto'
                 this.renderStyles.height = 'auto'
-                this.offsetHeight = height
             }else{
                 // 必须设置
                 console.error('scroll-view 必须设置明确的高度')
@@ -58,16 +64,16 @@ export default class ScrollView extends View {
         this.getLayer().eventManager.onTouchEnd((e) => {
             startMove = false
             speed = (e.y - lastStart)
-            resistance = -speed*0.1
+            resistance = -speed*0.05
             clearInterval(glideInterval)
             glideInterval = setInterval(() => {
                 this.scrollBy(speed)
                 speed +=resistance
-                if(speed*speed <= 0.1){
+                if(speed*speed <= 0.05){
                     speed = 0
                     clearInterval(glideInterval)
                 }
-            },16)
+            },18)
             e.y = 0
         })
     }
@@ -79,9 +85,8 @@ export default class ScrollView extends View {
     }
 
     calcScrollBound(offset){
-        const {offsetWidth,offsetHeight} = this
+        const {width:offsetWidth,height:offsetHeight} = this._scrollView.renderStyles
         const {width:scrollWidth,height:scrollHeight} = this.renderStyles
-        const {x,y} = this
         if((offsetHeight- this.currentScroll - offset)>scrollHeight){
             return false
         }else if(this.currentScroll+offset>0){

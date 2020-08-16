@@ -435,7 +435,7 @@ export default class Element {
   _needNewLine() {
     const { display } = this.renderStyles
     // flex容器内
-    if (this.parent && this.parent.renderStyles.display === STYLES.DISPLAY.FLEX && this.pre) {
+    if (this.parent && this.parent.renderStyles.display === STYLES.DISPLAY.FLEX && this.pre && this.parent.renderStyles.flexDirection === STYLES.FLEX_DIRECTION.ROW) {
       return false
     }
 

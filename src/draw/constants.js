@@ -23,6 +23,11 @@ const TEXT_ALIGN = {
   CENTER: 'center'
 }
 
+const FLEX_DIRECTION = {
+  ROW:'row',
+  COLUMN:'column'
+}
+
 const DEFAULT_STYLES = {
   display: DISPLAY.BLOCK,
   fontSize: 14,
@@ -39,7 +44,8 @@ const DEFAULT_STYLES = {
   marginRight: 0,
   height: WIDTH.AUTO,
   borderRadius: 0,
-  lineCap:'square'
+  lineCap:'square',
+  flexDirection:FLEX_DIRECTION.ROW
 }
 
 export default {
@@ -47,5 +53,6 @@ export default {
   WIDTH,
   POSITION,
   DEFAULT_STYLES,
-  TEXT_ALIGN
+  TEXT_ALIGN,
+  FLEX_DIRECTION
 }
