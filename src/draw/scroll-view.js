@@ -51,7 +51,7 @@ export default class ScrollView extends View {
             lastStart = start
             startMove = true
             clearInterval(glideInterval)
-        })
+        },this)
         this.getLayer().eventManager.onTouchMove((e) => {
             if(startMove){
                 offset = (e.y - start)
@@ -60,7 +60,7 @@ export default class ScrollView extends View {
                     start = e.y
                 }
             }
-        })
+        },this)
         this.getLayer().eventManager.onTouchEnd((e) => {
             startMove = false
             speed = (e.y - lastStart)
@@ -75,7 +75,7 @@ export default class ScrollView extends View {
                 }
             },18)
             e.y = 0
-        })
+        },this)
     }
 
     _repaint(){
