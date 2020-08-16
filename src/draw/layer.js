@@ -12,10 +12,11 @@ export default class Layer {
     }
 
     initRender(){
-        const nodes = this.nodeList = this.node.tree2List()
-
         this.node.layer = this
         this.node.container = this.options
+
+        const nodes = this.nodeList = this.node.tree2List()
+
 
         nodes.forEach(item => {
             item.init()

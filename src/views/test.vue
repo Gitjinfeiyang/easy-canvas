@@ -1,6 +1,7 @@
 <template>
   <div style="width:100vw; height:100vh; backgroundColor:#000;">
     <canvas id="canvas" width="300" height="600" style="width:300px; height:600px;background:#fff;"
+      @click.stop="onClick"
       @touchstart.stop="ontouchstart"
       @touchmove.stop="ontouchmove"
       @touchend.stop="ontouchend"></canvas>
@@ -106,6 +107,11 @@ export default {
             backgroundColor: '#f1f1f1',
             marginBottom: 10,
           },
+          on:{
+            click(e){
+              console.log(e)
+            }
+          }
         },
         [
           h(
@@ -356,6 +362,10 @@ export default {
     ontouchend(e){
       e.preventDefault()
       this.layer.eventManager.touchend(e.changedTouches[0].pageX,e.changedTouches[0].pageY)
+    },
+    onClick(e){
+      e.preventDefault()
+      this.layer.eventManager.click(e.pageX,e.pageY)
     }
   },
 }

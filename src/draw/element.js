@@ -31,10 +31,19 @@ export default class Element {
     this.render = null
     this.root = null
     this.container = null
+    // this.init()
   }
 
   init() {
     this._initStyles()
+    this.initEvent()
+  }
+
+  initEvent(){
+    if(this.options.on){
+      const {click} = this.options.on
+      this.getLayer().eventManager.onClick(click,this)
+    }
   }
 
   getLayer() {
