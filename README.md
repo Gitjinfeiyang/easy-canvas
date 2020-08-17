@@ -127,3 +127,4 @@
 * box-shadow 待优化
 * 兼容小程序measuretext
 * 兼容小程序image
+* 打包问题解决
