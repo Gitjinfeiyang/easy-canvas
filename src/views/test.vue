@@ -116,7 +116,7 @@ export default {
           },
           on: {
             click(e) {
-              console.log(e)
+              alert(e.type)
             },
           },
         },

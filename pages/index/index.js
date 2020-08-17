@@ -46,25 +46,24 @@ Page({
     //     })
 
     //   })
-    const ctx = wx.createCanvasContext('canvas', this)
-    ctx.fillStyle = '#000000'
-    ctx.fillRect(0, 0, 100, 100)
-    // const draw = getDrawer(ctx, { dpr: 2, width: 300, height: 600 })
-    // draw((h) => {
-    //   return h(
-    //     'view',
-    //     {
-    //       styles: {},
-    //     },
-    //     [
-    //       drawBox(h),
-    //       // drawSimple(h),
-    //       // drawInlineBlock(h),
-    //       // drawListItem(h),
-    //       // drawCard(h),
-    //     ]
-    //   )
-    // })
+    const ctx = wx.createCanvasContext('myCanvas', this)
+    const draw = getDrawer(ctx, { dpr: 1, width: 300, height: 600 })
+    draw((h) => {
+      return h(
+        'view',
+        {
+          styles: {},
+        },
+        [
+          drawBox(h),
+          // drawSimple(h),
+          // drawInlineBlock(h),
+          // drawListItem(h),
+          drawCard(h),
+        ]
+      )
+    })
+    ctx.draw()
 
 
 
