@@ -126,8 +126,6 @@ export default {
             {
               styles: {
                 width: 50,
-                boxShadowBlur: 10,
-                boxShadowColor: '#000',
               },
             },
             [
@@ -138,6 +136,8 @@ export default {
                 },
                 styles: {
                   borderRadius: 24,
+                  shadowBlur: 10,
+                  shadowColor: '#000',
                 },
               }),
             ]
@@ -292,6 +292,10 @@ export default {
             margin: 10,
             padding: 10,
             borderRadius: 6,
+            borderWidth: 0.5,
+            borderColor: '#ff6c79',
+            shadowColor: '#666',
+            shadowBlur: 20,
           },
         },
         [

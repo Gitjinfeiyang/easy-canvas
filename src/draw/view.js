@@ -75,7 +75,7 @@ export default class View extends Element {
 
   _drawRadiusBorder() {
     const { contentWidth, contentHeight, paddingLeft, paddingTop,
-      paddingRight, paddingBottom, boxShadowBlur, boxShadowColor, backgroundColor,
+      paddingRight, paddingBottom, shadowBlur, shadowColor, backgroundColor,
       borderLeftWidth, borderRightWidth, borderTopWidth, borderBottomWidth } = this.renderStyles
 
     const angle = Math.PI / 2
@@ -123,41 +123,51 @@ export default class View extends Element {
       this.getCtx().lineWidth = borderWidth
       this.getCtx().stroke()
     }
+    // 绘制boxshadow
+    if (shadowColor && shadowBlur) {
+      this._restore(() => {
+        this._path(() => {
+          topBorder()
+          rightBorder()
+          bottomBorder()
+          leftBorder()
+        })
+        this.getCtx().shadowBlur = shadowBlur
+        this.getCtx().shadowColor = shadowColor
+        this.getCtx().fillStyle = shadowColor
+        this.getCtx().fill()
+      })
+    }
+    this._restore(() => {
+      this._path(() => {
 
-    this._path(() => {
-
-      x = this.contentX - this.renderStyles.paddingLeft - borderLeftWidth / 2
-      y = this.contentY - this.renderStyles.paddingTop - borderTopWidth / 2
-      w = contentWidth + paddingLeft + paddingRight + (borderLeftWidth + borderRightWidth) / 2
-      h = contentHeight + paddingTop + paddingBottom + (borderTopWidth + borderBottomWidth) / 2
-      if (boxShadowBlur) {
-        this.getCtx().shadowBlur = boxShadowBlur
-        this.getCtx().shadowColor = boxShadowColor
-      }
-      if (this.renderStyles.borderTopWidth) {
-        topBorder()
-        stroke(this.renderStyles.borderTopWidth)
-      }
-      if (this.renderStyles.borderRightWidth) {
-        this.getCtx().moveTo(x + w - borderRadius, y)
-        rightBorder()
-        stroke(this.renderStyles.borderRightWidth)
-      }
-      if (this.renderStyles.borderBottomWidth) {
-        this.getCtx().moveTo(x + w, y + h - borderRadius)
-        bottomBorder()
-        stroke(this.renderStyles.borderBottomWidth)
-      }
-      if (this.renderStyles.borderLeftWidth) {
-        this.getCtx().moveTo(x + borderRadius, y + h)
-        leftBorder()
-        stroke(this.renderStyles.borderLeftWidth)
-      }
-
-
-
-
+        x = this.contentX - this.renderStyles.paddingLeft - borderLeftWidth / 2
+        y = this.contentY - this.renderStyles.paddingTop - borderTopWidth / 2
+        w = contentWidth + paddingLeft + paddingRight + (borderLeftWidth + borderRightWidth) / 2
+        h = contentHeight + paddingTop + paddingBottom + (borderTopWidth + borderBottomWidth) / 2
+        if (this.renderStyles.borderTopWidth) {
+          topBorder()
+          stroke(this.renderStyles.borderTopWidth)
+        }
+        if (this.renderStyles.borderRightWidth) {
+          this.getCtx().moveTo(x + w - borderRadius, y)
+          rightBorder()
+          stroke(this.renderStyles.borderRightWidth)
+        }
+        if (this.renderStyles.borderBottomWidth) {
+          this.getCtx().moveTo(x + w, y + h - borderRadius)
+          bottomBorder()
+          stroke(this.renderStyles.borderBottomWidth)
+        }
+        if (this.renderStyles.borderLeftWidth) {
+          this.getCtx().moveTo(x + borderRadius, y + h)
+          leftBorder()
+          stroke(this.renderStyles.borderLeftWidth)
+        }
+      })
     })
+
+
 
 
 
@@ -166,7 +176,7 @@ export default class View extends Element {
 
   _clip() {
     const { contentWidth, contentHeight, paddingLeft, paddingTop,
-      paddingRight, paddingBottom, boxShadowBlur, boxShadowColor, backgroundColor,
+      paddingRight, paddingBottom, shadowBlur, shadowColor, backgroundColor,
       borderLeftWidth, borderRightWidth, borderTopWidth, borderBottomWidth } = this.renderStyles
 
     const angle = Math.PI / 2
@@ -206,7 +216,6 @@ export default class View extends Element {
     }
 
     this._path(() => {
-
       topBorder()
       rightBorder()
       bottomBorder()

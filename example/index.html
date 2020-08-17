@@ -11,12 +11,12 @@
 </head>
 
 <body>
-    <div style="width:100vw; height:100vh; backgroundColor:#000;">
-        <canvas id="canvas" width="300" height="600" style="width:300px; height:600px;background:#fff;"></canvas>
-      </div>
+  <div style="width:100vw; height:100vh; backgroundColor:#000;">
+    <canvas id="canvas" width="300" height="600" style="width:300px; height:600px;background:#fff;"></canvas>
+  </div>
 
 
-      <script>
+  <script>
 
     function drawSimple(h) {
       return h(
@@ -93,8 +93,8 @@
             {
               styles: {
                 width: 50,
-                boxShadowBlur: 10,
-                boxShadowColor: '#000',
+                shadowBlur: 10,
+                shadowColor: '#000',
               },
             },
             [
@@ -254,7 +254,7 @@
                 '23.43'
               ),
             ]),
-            h('view', { styles: { flex: 1,textAlign:'right' } }, [
+            h('view', { styles: { flex: 1, textAlign: 'right' } }, [
               drawButton(h, '我的信息', {
                 backgroundColor: '#fff',
                 color: '#ff6c79',
@@ -296,50 +296,50 @@
               },
             },
             [
-              h('view', { styles: { flex: 1,color:'#fff' } }, [
-                h('text', {styles:{color:'#fff'}}, '风险评测'),
-                h('text', {styles:{color:'#fff'}}, '风险评测风险评测风险评测'),
+              h('view', { styles: { flex: 1, color: '#fff' } }, [
+                h('text', { styles: { color: '#fff' } }, '风险评测'),
+                h('text', { styles: { color: '#fff' } }, '风险评测风险评测风险评测'),
               ]),
-              h('view', { styles: { flex: 1,textAlign:'center' } }, [
-                h('text', {styles:{color:'#fff'}}, '我的定投'),
-                h('text', {styles:{color:'#fff'}}, '风险评测'),
+              h('view', { styles: { flex: 1, textAlign: 'center' } }, [
+                h('text', { styles: { color: '#fff' } }, '我的定投'),
+                h('text', { styles: { color: '#fff' } }, '风险评测'),
               ]),
-              h('view', { styles: { flex: 1,textAlign:'center' } }, [
-                h('text', {styles:{color:'#fff'}}, '优惠券'),
-                h('text', {styles:{color:'#fff'}}, '风险评测'),
+              h('view', { styles: { flex: 1, textAlign: 'center' } }, [
+                h('text', { styles: { color: '#fff' } }, '优惠券'),
+                h('text', { styles: { color: '#fff' } }, '风险评测'),
               ]),
             ]
           ),
         ]
       )
     }
-          window.onload = function(){
-            const canvas = document.querySelector('#canvas')
+    window.onload = function () {
+      const canvas = document.querySelector('#canvas')
 
-            const ctx = canvas.getContext('2d')
-            canvas.width = canvas.width * 2
-            canvas.height = canvas.height * 2
+      const ctx = canvas.getContext('2d')
+      canvas.width = canvas.width * 2
+      canvas.height = canvas.height * 2
 
-            const draw = getDrawer(ctx, { dpr: 2, width: 300, height: 600 })
-            draw((h) => {
-            return h(
-                'view',
-                {
-                styles: {},
-                },
-                [
-                // drawBox(h),
-                drawSimple(h),
-                // drawInlineBlock(h),
-                drawListItem(h),
-                drawCard(h),
-                ]
-            )
-            })
-          }
+      const draw = getDrawer(ctx, { dpr: 2, width: 300, height: 600 })
+      draw((h) => {
+        return h(
+          'view',
+          {
+            styles: {},
+          },
+          [
+            // drawBox(h),
+            drawSimple(h),
+            // drawInlineBlock(h),
+            drawListItem(h),
+            drawCard(h),
+          ]
+        )
+      })
+    }
 
 
-      </script>
+  </script>
 </body>
 
 </html>

@@ -27,8 +27,8 @@
 - [x] verticalAlign
 - [ ] flexDirection
 - [ ] borderStyle
-- [ ] boxShadowBlur
-- [ ] boxShadowColor
+- [ ] shadowBlur
+- [ ] shadowColor
 
 
 
@@ -75,8 +75,8 @@
             {
               styles: {
                 width: 50,
-                boxShadowBlur: 10,
-                boxShadowColor: '#000',
+                shadowBlur: 10,
+                shadowColor: '#000',
               },
             },
             [

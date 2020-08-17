@@ -66,8 +66,8 @@ export default class $Image extends View {
 
 function loadImage(src) {
   let image = null
-    image = new Image()
-  
+  image = new Image()
+
   image.src = src
   return new Promise((resolve, reject) => {
     image.onload = function (e) {

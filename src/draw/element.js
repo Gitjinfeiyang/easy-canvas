@@ -216,10 +216,11 @@ export default class Element {
 
   // paint队列执行
   _repaint() {
+    this._drawBox()
+
     this._drawBackground()
 
     this._drawContent()
-    this._drawBox()
 
   }
 

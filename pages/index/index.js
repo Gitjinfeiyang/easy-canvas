@@ -11,34 +11,65 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
-  bindViewTap: function() {
+  bindViewTap: function () {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
   onLoad: function () {
-    const ctx =  wx.createCanvasContext('canvas')
-    const draw = getDrawer(ctx, { dpr: 2, width: 300, height: 600 })
-    draw((h) => {
-      return h(
-          'view',
-          {
-          styles: {},
-          },
-          [
-          drawBox(h),
-          // drawSimple(h),
-          // drawInlineBlock(h),
-          // drawListItem(h),
-          // drawCard(h),
-          ]
-      )
-    })
+    // const query = this.createSelectorQuery()
+    // query.select('#canvas')
+    //   .fields({ node: true, size: true })
+    //   .exec((res) => {
+    //     const canvas = res[0].node
+    //     const ctx = canvas.getContext('2d')
 
-    
-   
+    //     const dpr = wx.getSystemInfoSync().pixelRatio
+    //     canvas.display = 'block'
+    //     canvas.width = res[0].width * dpr
+    //     canvas.height = res[0].height * dpr
+    //     const draw = getDrawer(ctx, { dpr: 2, width: 300, height: 600 })
+    //     draw((h) => {
+    //       return h(
+    //         'view',
+    //         {
+    //           styles: {},
+    //         },
+    //         [
+    //           drawBox(h),
+    //           // drawSimple(h),
+    //           // drawInlineBlock(h),
+    //           // drawListItem(h),
+    //           // drawCard(h),
+    //         ]
+    //       )
+    //     })
+
+    //   })
+    const ctx = wx.createCanvasContext('canvas', this)
+    ctx.fillStyle = '#000000'
+    ctx.fillRect(0, 0, 100, 100)
+    // const draw = getDrawer(ctx, { dpr: 2, width: 300, height: 600 })
+    // draw((h) => {
+    //   return h(
+    //     'view',
+    //     {
+    //       styles: {},
+    //     },
+    //     [
+    //       drawBox(h),
+    //       // drawSimple(h),
+    //       // drawInlineBlock(h),
+    //       // drawListItem(h),
+    //       // drawCard(h),
+    //     ]
+    //   )
+    // })
+
+
+
   },
- 
+
 })
 
 
@@ -118,8 +149,8 @@ function drawListItem(h) {
         {
           styles: {
             width: 50,
-            boxShadowBlur: 10,
-            boxShadowColor: '#000',
+            shadowBlur: 10,
+            shadowColor: '#000',
           },
         },
         [
@@ -279,7 +310,7 @@ function drawCard(h) {
             '23.43'
           ),
         ]),
-        h('view', { styles: { flex: 1,textAlign:'right' } }, [
+        h('view', { styles: { flex: 1, textAlign: 'right' } }, [
           drawButton(h, '我的信息', {
             backgroundColor: '#fff',
             color: '#ff6c79',
@@ -321,17 +352,17 @@ function drawCard(h) {
           },
         },
         [
-          h('view', { styles: { flex: 1,color:'#fff' } }, [
-            h('text', {styles:{color:'#fff'}}, '风险评测'),
-            h('text', {styles:{color:'#fff'}}, '风险评测风险评测风险评测'),
+          h('view', { styles: { flex: 1, color: '#fff' } }, [
+            h('text', { styles: { color: '#fff' } }, '风险评测'),
+            h('text', { styles: { color: '#fff' } }, '风险评测风险评测风险评测'),
           ]),
-          h('view', { styles: { flex: 1,textAlign:'center' } }, [
-            h('text', {styles:{color:'#fff'}}, '我的定投'),
-            h('text', {styles:{color:'#fff'}}, '风险评测'),
+          h('view', { styles: { flex: 1, textAlign: 'center' } }, [
+            h('text', { styles: { color: '#fff' } }, '我的定投'),
+            h('text', { styles: { color: '#fff' } }, '风险评测'),
           ]),
-          h('view', { styles: { flex: 1,textAlign:'center' } }, [
-            h('text', {styles:{color:'#fff'}}, '优惠券'),
-            h('text', {styles:{color:'#fff'}}, '风险评测'),
+          h('view', { styles: { flex: 1, textAlign: 'center' } }, [
+            h('text', { styles: { color: '#fff' } }, '优惠券'),
+            h('text', { styles: { color: '#fff' } }, '风险评测'),
           ]),
         ]
       ),
