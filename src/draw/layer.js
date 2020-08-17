@@ -70,5 +70,8 @@ export default class Layer {
         }
       }
     })
+
+    // 兼容小程序
+    this.ctx.draw && this.ctx.draw()
   }
 }
