@@ -1,6 +1,6 @@
 import STYLES from './constants'
 import pxUtil from './px'
-import { isExact,walk } from './utils'
+import { isExact, walk } from './utils'
 
 /**
  * inline-block block inline flex
@@ -39,10 +39,10 @@ export default class Element {
     this.initEvent()
   }
 
-  initEvent(){
-    if(this.options.on){
-      const {click} = this.options.on
-      this.getLayer().eventManager.onClick(click,this)
+  initEvent() {
+    if (this.options.on) {
+      const { click } = this.options.on
+      this.getLayer().eventManager.onClick(click, this)
     }
   }
 
@@ -63,7 +63,7 @@ export default class Element {
   }
 
   _initStyles() {
-    this.styles = Object.assign({}, this._getDefaultStyles(), this.options.styles || {},this._getParentStyles())
+    this.styles = Object.assign({}, this._getDefaultStyles(), this.options.styles || {}, this._getParentStyles())
 
     this._completeStyles()
 
@@ -73,7 +73,7 @@ export default class Element {
   /**
    * 需要继承的styles放在这里
    */
-  _getParentStyles(){
+  _getParentStyles() {
     let parentStyles = this.parent && this.parent.options.styles || {}
     return {
       // textAlign:parentStyles.textAlign,
@@ -169,7 +169,7 @@ export default class Element {
   }
 
   _getChildren() {
-    return this.hasChildren()?this.children:[]
+    return this.hasChildren() ? this.children : []
   }
 
   _setParent(element) {
@@ -183,10 +183,10 @@ export default class Element {
   }
 
   _generateRender() {
-      return this
+    return this
   }
 
-  getCtx(){
+  getCtx() {
     return this.root.layer.ctx
   }
 
@@ -207,7 +207,7 @@ export default class Element {
     // 到这里 x ，y 肯定是数字
 
     this._calcContentLayout()
-    this._textAlign()
+    this._patchAlign()
 
   }
 
@@ -265,7 +265,7 @@ export default class Element {
     // 初始化ctx位置
     if (this._needNewLine()) {
       // 另起一行
-      this.x = this._getContainerLayout().contentX 
+      this.x = this._getContainerLayout().contentX
       this.y = this._getPreLayout().y + this._getPreLayout().height
     } else {
       this.x = this._getPreLayout().x + this._getPreLayout().width
@@ -361,7 +361,7 @@ export default class Element {
     this.contentX = contentLayout.contentX
     this.contentY = contentLayout.contentY
 
-    // this._textAlign('right')
+    // this._pathTextAlign('right')
   }
 
   /**
@@ -553,53 +553,93 @@ export default class Element {
   }
 
   // 原理 统一从左边往右移动
-  _textAlign() {
-    if(!this.parent) return
-    const direction = this.parent.renderStyles.textAlign
-    if(!direction) return
+  _patchAlign() {
+    if (!this.parent) return
+    if (!(this.renderStyles.display === STYLES.DISPLAY.INLINE_BLOCK || this.parent.renderStyles.display === STYLES.DISPLAY.FLEX)) return
+    const textAlign = this.parent.renderStyles.textAlign
+    const verticalAlign = this.renderStyles.verticalAlign
     let cur
-    let lastInstance
-    const translate = (element) => {
-      element.x +=lastInstance
-      element.contentX+=lastInstance
+    let lastXOffset
+    let maxHeight = 0
+    const translateX = (element) => {
+      element.x += lastXOffset
+      element.contentX += lastXOffset
       // 子元素重新计算 x y位置 待优化
-      element._getChildren().forEach(child => walk(child,(el) => el._reflow()))
+      element._getChildren().forEach(child => walk(child, (el) => el._reflow()))
     }
 
-    const refreshInstance = () => {
-      
-      if(direction === 'right'){
-        lastInstance = this._getContainerLayout().contentWidth + this._getContainerLayout().contentX - cur.x - cur.renderStyles.width 
-      }else if(direction === 'center' ){
-        lastInstance = (this._getContainerLayout().contentWidth + this._getContainerLayout().contentX - cur.x - cur.renderStyles.width)/2 
-      }else{
-        lastInstance = 0
+    const translateY = (element) => {
+      let offset = 0
+      if (element.renderStyles.verticalAlign === 'middle') {
+        offset = (maxHeight - element.renderStyles.height) / 2
+      } else if (element.renderStyles.verticalAlign === 'bottom') {
+        offset = maxHeight - element.renderStyles.height
+      }
+      element.y += offset
+      element.contentY += offset
+      // 子元素重新计算 x y位置 待优化
+      element._getChildren().forEach(child => walk(child, (el) => el._reflow()))
+    }
+
+    const refreshXOffset = () => {
+
+      if (textAlign === 'right') {
+        lastXOffset = this._getContainerLayout().contentWidth + this._getContainerLayout().contentX - cur.x - cur.renderStyles.width
+      } else if (textAlign === 'center') {
+        lastXOffset = (this._getContainerLayout().contentWidth + this._getContainerLayout().contentX - cur.x - cur.renderStyles.width) / 2
+      } else {
+        lastXOffset = 0
       }
     }
 
+    const refreshYOffset = () => {
+      if (cur.renderStyles.height <= maxHeight) return
+      maxHeight = cur.renderStyles.height
+    }
 
-    if((this._needNewLine() || !this.next) && this.pre){
+
+    if ((this._needNewLine() || !this.next) && this.pre) {
       cur = this.pre
-      if(!this.next){
+      if (!this.next) {
         // 一行中的最后一个
         cur = this
       }
-      refreshInstance()
+      refreshXOffset()
       //  如果是新的一行，计算上一行的对其
-        while(cur){
-          translate(cur)
-          cur = cur.pre
-          if(cur._needNewLine()){
-            // 当前是换行的，再上一个就是上一行了，所以停止遍历
-            translate(cur)
-            break
-          }
+      while (cur) {
+        refreshYOffset()
+        translateX(cur)
+        cur = cur.pre
+        if (cur._needNewLine()) {
+          refreshYOffset()
+          // 当前是换行的，再上一个就是上一行了，所以停止遍历
+          translateX(cur)
+          break
         }
-    }else if(!this.next && !this.pre){
+      }
+
+      // if (verticalAlign !== 'top') {
+      // 取到最大的高度后 对所有的进行对齐
+      cur = this.pre
+      if (!this.next) {
+        // 一行中的最后一个
+        cur = this
+      }
+      while (cur) {
+        translateY(cur)
+        cur = cur.pre
+        if (cur._needNewLine()) {
+          // 当前是换行的，再上一个就是上一行了，所以停止遍历
+          translateY(cur)
+          break
+        }
+      }
+      // }
+    } else if (!this.next && !this.pre) {
       cur = this
-      refreshInstance()
+      refreshXOffset()
       // 只有一个
-      translate(cur)
+      translateX(cur)
     }
   }
 

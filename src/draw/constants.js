@@ -24,8 +24,8 @@ const TEXT_ALIGN = {
 }
 
 const FLEX_DIRECTION = {
-  ROW:'row',
-  COLUMN:'column'
+  ROW: 'row',
+  COLUMN: 'column'
 }
 
 const DEFAULT_STYLES = {
@@ -44,8 +44,9 @@ const DEFAULT_STYLES = {
   marginRight: 0,
   height: WIDTH.AUTO,
   borderRadius: 0,
-  lineCap:'square',
-  flexDirection:FLEX_DIRECTION.ROW
+  lineCap: 'square',
+  flexDirection: FLEX_DIRECTION.ROW,
+  verticalAlign: 'top'
 }
 
 export default {

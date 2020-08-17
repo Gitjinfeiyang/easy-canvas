@@ -24,6 +24,8 @@
 - [x] fontSize
 - [x] textAlign `left` `right` `center`
 - [x] maxLine 最大行数，超出自动省略号，支持在text中使用
+- [x] verticalAlign
+- [ ] flexDirection
 - [ ] borderStyle
 - [ ] boxShadowBlur
 - [ ] boxShadowColor
