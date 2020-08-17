@@ -1,5 +1,5 @@
 # 简介
-使用render函数，在canvas中创建文档流，实现静态布局。
+使用render函数，在canvas中创建文档流，实现静态布局。使用场景：海报分享图等
 
 ## 支持元素
 - [x] view 基本元素，类似div
@@ -27,8 +27,8 @@
 - [x] verticalAlign
 - [ ] flexDirection
 - [ ] borderStyle
-- [ ] shadowBlur
-- [ ] shadowColor
+- [x] shadowBlur
+- [x] shadowColor 目前阴影会被父容器截取 待优化
 
 
 
@@ -124,4 +124,6 @@
 * ~~inline-block换行以及textAlign~~
 * 通过栈实现属性继承
 * 支持flex-direction
-* box-shadow
+* box-shadow 待优化
+* 兼容小程序measuretext
+* 兼容小程序image
