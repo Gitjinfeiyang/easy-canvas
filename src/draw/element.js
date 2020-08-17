@@ -63,7 +63,7 @@ export default class Element {
   }
 
   _initStyles() {
-    this.styles = Object.assign({}, this._getDefaultStyles(), this.options.styles || {}, this._getParentStyles())
+    this.styles = Object.assign({}, this._getDefaultStyles(), this._getParentStyles(), this.options.styles || {})
 
     this._completeStyles()
 
@@ -74,14 +74,17 @@ export default class Element {
    * 需要继承的styles放在这里
    */
   _getParentStyles() {
-    let parentStyles = this.parent && this.parent.options.styles || {}
-    return {
-      // textAlign:parentStyles.textAlign,
-      // lineHeight:parentStyles.lineHeight,
-      // fontSize:parentStyles.fontSize,
-      // color:parentStyles.color,
-      // fontFamily:parentStyles.fontFamily
-    }
+    let { textAlign, lineHeight, fontSize, color, fontFamily, alignItems } = this.parent && this.parent.styles || {}
+    let extendStyles = {}
+    if (textAlign) extendStyles.textAlign = textAlign
+    if (lineHeight) extendStyles.lineHeight = lineHeight
+    if (fontSize) extendStyles.fontSize = fontSize
+    if (color) extendStyles.color = color
+    if (fontFamily) extendStyles.fontFamily = fontFamily
+    if (alignItems === 'flex-start') extendStyles.verticalAlign = 'left'
+    if (alignItems === 'center') extendStyles.verticalAlign = 'middle'
+    if (alignItems === 'flex-end') extendStyles.verticalAlign = 'bottom'
+    return extendStyles
   }
 
   _completeStyles() {
