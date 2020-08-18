@@ -125,7 +125,8 @@ export default class ScrollView extends View {
   scrollBy(offset) {
     if (this.calcScrollBound(offset)) {
       this.currentScroll += offset
-      this.getLayer().repaint(this._scrollView)
+      this.getLayer().repaint()
+      // this.getLayer().repaint(this._scrollView)
       return true
     } else {
       return false
