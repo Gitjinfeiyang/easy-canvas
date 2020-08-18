@@ -20,7 +20,7 @@ export default {
 
     this.layer = ef.createLayer(ctx, { dpr: 2, width: 300, height: 600 })
     const node = ef.createElement((h) => {
-      return h('scrollview', { styles: { direction: 'y', height: 600 } }, [
+      return h('view', { styles: { direction: 'y', height: 600 } }, [
         // this.drawBox(h),
         this.drawSimple(h),
         this.drawInlineBlock(h),
