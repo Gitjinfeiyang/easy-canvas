@@ -54,26 +54,24 @@ export default class View extends Element {
     }
   }
 
-  _drawBoxShadow() {
-
-  }
-
   _drawBox() {
 
     this._drawRadiusBorder()
 
+    // for debug
+    if (this.getLayer().options && this.getLayer().options.debug) {
+      this.getCtx().strokeStyle = 'green'
+      this.getCtx().strokeRect(this.contentX, this.contentY, this.renderStyles.contentWidth, this.renderStyles.contentHeight)
+      // ctx.strokeStyle = '#fff'
+      // ctx.strokeText(`${parseInt(this.contentX)} ${parseInt(this.contentY)} ${contentWidth} ${contentHeight}`, this.contentX + 100, this.contentY + 10)
 
-    // debug
-    // this.getCtx().strokeStyle = 'green'
-    // this.getCtx().strokeRect(this.contentX, this.contentY, this.renderStyles.contentWidth, this.renderStyles.contentHeight)
+      //
+    }
 
-    // ctx.strokeStyle = '#fff'
-    // ctx.strokeText(`${parseInt(this.contentX)} ${parseInt(this.contentY)} ${contentWidth} ${contentHeight}`, this.contentX + 100, this.contentY + 10)
-
-    //
   }
 
   _drawRadiusBorder() {
+    if (!(this.renderStyles.borderColor || this.renderStyles.shadowBlur)) return
     const { contentWidth, contentHeight, paddingLeft, paddingTop,
       paddingRight, paddingBottom, shadowBlur, shadowColor, backgroundColor,
       borderLeftWidth, borderRightWidth, borderTopWidth, borderBottomWidth } = this.renderStyles
@@ -175,6 +173,7 @@ export default class View extends Element {
   }
 
   _clip() {
+    if (this.renderStyles.overflow !== 'hidden') return
     const { contentWidth, contentHeight, paddingLeft, paddingTop,
       paddingRight, paddingBottom, shadowBlur, shadowColor, backgroundColor,
       borderLeftWidth, borderRightWidth, borderTopWidth, borderBottomWidth } = this.renderStyles

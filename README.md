@@ -3,7 +3,7 @@
 
 ## 支持元素
 - [x] view 基本元素，类似div
-- [x] scrollview 滚动容器，需要在样式里设置direction，并且设置具体高度
+- [x] scrollview 滚动容器，需要在样式里设置direction，并且设置具体尺寸
 - [x] text
 - [x] image
 
@@ -23,8 +23,10 @@
 - [x] color
 - [x] fontSize
 - [x] textAlign `left` `right` `center`
-- [x] maxLine 最大行数，超出自动省略号，支持在text中使用
 - [x] verticalAlign
+- [x] maxLine 最大行数，超出自动省略号，只支持在text中使用
+- [x] whiteSpace `normal` `nowrap` 控制换行，不能控制字体
+- [x] overflow `hidden` 如果添加了圆角，会自动加上 hidden
 - [ ] flexDirection
 - [ ] borderStyle
 - [x] shadowBlur

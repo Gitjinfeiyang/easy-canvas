@@ -7,6 +7,7 @@ export default class ScrollView extends View {
   constructor(options, children) {
     super(options, children)
     // 外面包裹一层容器，内层的滚动
+    options.styles.overflow = 'hidden'
     this._scrollView = new View(options, [this])
     return this._scrollView
   }
@@ -14,7 +15,7 @@ export default class ScrollView extends View {
   _getDefaultStyles() {
     return {
       ...STYLES.DEFAULT_STYLES,
-      direction: 'y'
+      direction: 'y',
     }
   }
 
@@ -73,11 +74,13 @@ export default class ScrollView extends View {
     this.getLayer().eventManager.onTouchEnd((e) => {
       if (startMove) {
         startMove = false
-        speed = (e[direction] - lastStart)
-        resistance = -speed * 0.05
+        speed = (e[direction] - lastStart) * 2
+        resistance = -speed * 0.02
         clearInterval(glideInterval)
         glideInterval = setInterval(() => {
-          this.scrollBy(speed)
+          if (!this.scrollBy(speed)) {
+            clearInterval(glideInterval)
+          }
           speed += resistance
           if (speed * speed <= 0.05) {
             speed = 0
@@ -122,7 +125,7 @@ export default class ScrollView extends View {
   scrollBy(offset) {
     if (this.calcScrollBound(offset)) {
       this.currentScroll += offset
-      this.getLayer().repaint()
+      this.getLayer().repaint(this._scrollView)
       return true
     } else {
       return false

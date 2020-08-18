@@ -103,7 +103,7 @@ export default class Element {
    * borderwidth到各个边
    */
   _completeBorder() {
-    let { borderWidth, borderLeftWidth, borderRightWidth, borderBottomWidth, borderTopWidth } = this.styles
+    let { borderWidth, borderLeftWidth, borderRightWidth, borderBottomWidth, borderTopWidth, borderRadius } = this.styles
     if (!borderWidth) {
       this.styles.borderWidth = 0
       borderWidth = 0
@@ -119,6 +119,9 @@ export default class Element {
     }
     if (!borderTopWidth) {
       this.styles.borderTopWidth = borderWidth
+    }
+    if (borderRadius) {
+      this.styles.overflow = 'hidden'
     }
   }
 
@@ -220,6 +223,8 @@ export default class Element {
 
   // paint队列执行
   _repaint() {
+    this.getCtx().save()
+
     this._drawBox()
 
     this._drawBackground()
@@ -230,7 +235,23 @@ export default class Element {
 
   // 栈
   _afterPaint() {
+    // 这里通过this.ctx栈实现了overflow
+    // 第一步判断没有子元素，绘制完成即restore 有子元素需要子元素全部绘制完毕再restore
+    if (!this.hasChildren()) {
+      this.getCtx().restore()
+    }
 
+    // 如果到了层级的最后一个 释放父级的stack
+    if (this.parent && !this.next && !this.hasChildren()) {
+      // 首先释放第一层父级
+      this.getCtx().restore()
+      let cur = this.parent
+      while (cur && !cur.next) {
+        // 如果父级也是同级最后一个，再闭合上一个
+        this.getCtx().restore()
+        cur = cur.parent
+      }
+    }
   }
 
   _drawBox() {
