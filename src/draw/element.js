@@ -453,6 +453,7 @@ export default class Element {
    */
   _needNewLine() {
     const { display } = this.renderStyles
+    const { whiteSpace } = this.parent && this.parent.renderStyles || {}
     // flex容器内
     if (this.parent && this.parent.renderStyles.display === STYLES.DISPLAY.FLEX && this.pre && this.parent.renderStyles.flexDirection === STYLES.FLEX_DIRECTION.ROW) {
       return false
@@ -463,6 +464,8 @@ export default class Element {
       return true
     }
 
+    // 到这里都是inline-block或者inline了
+    if (whiteSpace === 'nowrap') return false
     if (this.pre) {
       let { width } = this.renderStyles
       if (width === STYLES.WIDTH.AUTO) width = 0
@@ -620,7 +623,9 @@ export default class Element {
         refreshYOffset()
         translateX(cur)
         cur = cur.pre
-        if (cur._needNewLine()) {
+        if (!cur) {
+          break
+        } else if (cur._needNewLine()) {
           refreshYOffset()
           // 当前是换行的，再上一个就是上一行了，所以停止遍历
           translateX(cur)
@@ -638,7 +643,9 @@ export default class Element {
       while (cur) {
         translateY(cur)
         cur = cur.pre
-        if (cur._needNewLine()) {
+        if (!cur) {
+          break
+        } else if (cur._needNewLine()) {
           // 当前是换行的，再上一个就是上一行了，所以停止遍历
           translateY(cur)
           break

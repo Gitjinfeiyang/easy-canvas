@@ -20,11 +20,12 @@ export default {
 
     this.layer = ef.createLayer(ctx, { dpr: 2, width: 300, height: 600 })
     const node = ef.createElement((h) => {
-      return h('view', {}, [
+      return h('scrollview', { styles: { direction: 'y', height: 600 } }, [
         // this.drawBox(h),
         this.drawSimple(h),
-        // this.drawInlineBlock(h),
+        this.drawInlineBlock(h),
         this.drawCard(h),
+        this.drawScrollViewX(h),
         this.drawScrollView(h),
       ])
     })
@@ -408,12 +409,11 @@ export default {
         ]
       )
     },
-
     drawScrollView(h) {
       return h(
         'scrollview',
         {
-          styles: { direction: 'y', height: 200 },
+          styles: { direction: 'y', height: 400 },
         },
         [
           this.drawListItem(h),
@@ -423,7 +423,29 @@ export default {
         ]
       )
     },
-
+    drawScrollViewX(h) {
+      return h(
+        'scrollview',
+        {
+          styles: {
+            direction: 'x',
+            whiteSpace: 'nowrap',
+          },
+        },
+        [0, 0, 0, 0, 0, 0, 0, 0, 0].map((item, index) => {
+          return h(
+            'view',
+            {
+              styles: {
+                display: 'inline-block',
+                padding: 10,
+              },
+            },
+            [h('text', {}, '导航' + index)]
+          )
+        })
+      )
+    },
     ontouchstart(e) {
       e.preventDefault()
       this.layer.eventManager.touchstart(e.touches[0].pageX, e.touches[0].pageY)

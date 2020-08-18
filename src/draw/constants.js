@@ -46,7 +46,8 @@ const DEFAULT_STYLES = {
   borderRadius: 0,
   lineCap: 'square',
   flexDirection: FLEX_DIRECTION.ROW,
-  verticalAlign: 'top'
+  verticalAlign: 'top',
+  whiteSpace: 'normal'
 }
 
 export default {

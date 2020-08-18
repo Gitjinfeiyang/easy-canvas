@@ -1,5 +1,5 @@
 import View from './view'
-import { easeInOutElastic, isExact } from './utils'
+import { easeInOutElastic, isExact, isAuto } from './utils'
 import STYLES from './constants'
 
 export default class ScrollView extends View {
@@ -24,7 +24,7 @@ export default class ScrollView extends View {
 
     const { height, width, direction } = this.styles
     if (direction === 'y') {
-      if (isExact(height)) {
+      if (!isAuto(height)) {
         this.styles.height = 'auto'
         this.renderStyles.height = 'auto'
       } else {
@@ -32,13 +32,20 @@ export default class ScrollView extends View {
         console.error('scroll-view 必须设置明确的高度')
       }
     } else if (direction === 'x') {
-
+      if (!isAuto(width)) {
+        this.styles.width = 'auto'
+        this.renderStyles.width = 'auto'
+      } else {
+        // 必须设置
+        console.error('scroll-view 必须设置明确的宽度')
+      }
     }
   }
 
   addEventListener() {
     // 监听滚动
     this.currentScroll = 0
+    let direction = this.styles.direction
     let start = 0
     let lastStart = 0
     let startMove = false
@@ -47,49 +54,66 @@ export default class ScrollView extends View {
     let glideInterval = null
     let resistance = 1
     this.getLayer().eventManager.onTouchStart((e) => {
-      start = e.y
+      e.stopPropagation()
+      start = e[direction]
       lastStart = start
       startMove = true
       clearInterval(glideInterval)
     }, this)
     this.getLayer().eventManager.onTouchMove((e) => {
       if (startMove) {
-        offset = (e.y - start)
+        e.stopPropagation()
+        offset = (e[direction] - start)
         if (this.scrollBy(offset)) {
           lastStart = start
-          start = e.y
+          start = e[direction]
         }
       }
     }, this)
     this.getLayer().eventManager.onTouchEnd((e) => {
-      startMove = false
-      speed = (e.y - lastStart)
-      resistance = -speed * 0.05
-      clearInterval(glideInterval)
-      glideInterval = setInterval(() => {
-        this.scrollBy(speed)
-        speed += resistance
-        if (speed * speed <= 0.05) {
-          speed = 0
-          clearInterval(glideInterval)
-        }
-      }, 18)
+      if (startMove) {
+        startMove = false
+        speed = (e[direction] - lastStart)
+        resistance = -speed * 0.05
+        clearInterval(glideInterval)
+        glideInterval = setInterval(() => {
+          this.scrollBy(speed)
+          speed += resistance
+          if (speed * speed <= 0.05) {
+            speed = 0
+            clearInterval(glideInterval)
+          }
+        }, 18)
+      }
     }, this)
   }
 
   _repaint() {
     // 滚动实现 目前是计算一次重新绘制一次，有需要再优化
-    this.getCtx().translate(0, this.currentScroll)
+    const { direction } = this.renderStyles
+    if (direction === 'y') {
+      this.getCtx().translate(0, this.currentScroll)
+    } else {
+      this.getCtx().translate(this.currentScroll, 0)
+    }
     super._repaint()
   }
 
   calcScrollBound(offset) {
     const { width: offsetWidth, height: offsetHeight } = this._scrollView.renderStyles
-    const { width: scrollWidth, height: scrollHeight } = this.renderStyles
-    if ((offsetHeight - this.currentScroll - offset) > scrollHeight) {
-      return false
-    } else if (this.currentScroll + offset > 0) {
-      return false
+    const { width: scrollWidth, height: scrollHeight, direction } = this.renderStyles
+    if (direction === 'y') {
+      if ((offsetHeight - this.currentScroll - offset) > scrollHeight) {
+        return false
+      } else if (this.currentScroll + offset > 0) {
+        return false
+      }
+    } else {
+      if ((offsetWidth - this.currentScroll - offset) > scrollWidth) {
+        return false
+      } else if (this.currentScroll + offset > 0) {
+        return false
+      }
     }
 
     return true
