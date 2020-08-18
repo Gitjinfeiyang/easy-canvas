@@ -50,6 +50,10 @@ export default class Element {
     return this.root.layer
   }
 
+  mount(layer) {
+    layer.mountNode(this)
+  }
+
   _restore(callback) {
     this.getCtx().save()
     callback()

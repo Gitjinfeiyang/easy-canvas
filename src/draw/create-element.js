@@ -13,7 +13,7 @@ import ScrollView from './scroll-view'
 export function createElement(model) {
   let callbacks = []
   // 生成树
-  function h(name, options, children = []) {
+  function c(name, options, children = []) {
     // if (name === 'text') {
     //     // text组件 children只能为string
     //     if (typeof options === 'string') {
@@ -28,18 +28,18 @@ export function createElement(model) {
       _element = new Text(options, children)
     } else if (name == 'image') {
       _element = new Image(options, children)
-    }else if(name === 'scrollview'){
+    } else if (name === 'scrollview') {
       _element = new ScrollView(options, children)
     }
     return _element
   }
-  const _model = model(h)
+  const _model = model(c)
   // 挂载children
   return _model
 }
 
-export function generateLayer(ctx,vdom, options) {
-  return new Layer(ctx,vdom,options)
+export function createLayer(ctx, options) {
+  return new Layer(ctx, options)
 }
 
 

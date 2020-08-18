@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import getDraw from '../draw'
+import ef from '../draw'
 // import draw from '../draw-canvas'
 
 export default {
@@ -16,9 +16,10 @@ export default {
     const ctx = canvas.getContext('2d')
     canvas.width = canvas.width * 2
     canvas.height = canvas.height * 2
+    ctx.scale(2, 2)
 
-    const draw = getDraw(ctx, { dpr: 2, width: 300, height: 600 })
-    this.layer = draw((h) => {
+    this.layer = ef.createLayer(ctx, { dpr: 2, width: 300, height: 600 })
+    const node = ef.createElement((h) => {
       return h('view', {}, [
         // this.drawBox(h),
         this.drawSimple(h),
@@ -27,6 +28,7 @@ export default {
         this.drawScrollView(h),
       ])
     })
+    node.mount(this.layer)
   },
   methods: {
     drawSimple(h) {

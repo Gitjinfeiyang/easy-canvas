@@ -1,15 +1,15 @@
 
-import { createElement, generateLayer } from './create-element'
+import { createElement, createLayer } from './create-element'
 import px from './px'
 import './weapp-adapter'
+import Layer from './layer'
 
 function getDrawer(ctx, options) {
-  ctx.scale(options.dpr, options.dpr)
   // px.init(options)
   return function (model) {
     const vdom = createElement(model)
     console.log(vdom)
-    const layer = generateLayer(ctx, vdom, options)
+    const layer = createLayer(ctx, options)
     return layer
   }
 }
@@ -19,5 +19,8 @@ if (_global) {
   _global.getDrawer = getDrawer
 }
 
-export default getDrawer
+export default {
+  createLayer,
+  createElement
+}
 

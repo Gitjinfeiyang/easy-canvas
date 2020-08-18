@@ -1,22 +1,25 @@
 import EventManager from './event-manager'
 
 export default class Layer {
-  constructor(ctx, node, options) {
+  constructor(ctx, options) {
     this.ctx = ctx
-    this.node = node
+    this.node = null
     this.nodeList = []
     this.renderList = []
     this.options = options
     this.eventManager = new EventManager(options)
+  }
+
+  mountNode(node) {
+    this.node = node
+    this.node.layer = this
+    this.node.container = this.options
+
     this.initRender()
   }
 
   initRender() {
-    this.node.layer = this
-    this.node.container = this.options
-
     const nodes = this.nodeList = this.node.tree2List()
-
 
     nodes.forEach(item => {
       item.init()
@@ -26,8 +29,6 @@ export default class Layer {
         item._initLayout()
       })
     }
-
-
 
     flow()
 
