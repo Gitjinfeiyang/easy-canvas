@@ -1,6 +1,6 @@
 <template>
-  <div style="width:100vw; height:100vh; backgroundColor:#000;">
-    <canvas id="canvas" width="350" height="650" style="width:350px; height:650px;background:#fff;"
+  <div style="width:100vw; height:100vh; backgroundColor:#000; text-align:center; padding-top:5px;">
+    <canvas id="canvas" width="350" height="650" style="width:350px; height:650px;background:#fff; display:inline-block;"
       @click.stop="onClick" @touchstart.stop="ontouchstart" @touchmove.stop="ontouchmove"
       @touchend.stop="ontouchend"></canvas>
   </div>
@@ -20,7 +20,7 @@ export default {
 
     this.layer = ef.createLayer(ctx, { dpr: 2, width: 350, height: 650,debug:false })
     const node = ef.createElement((h) => {
-      return h('view', { styles: { direction: 'y', height: 800 } }, [
+      return h('view', { styles: { direction: 'y', height: 650 } }, [
         // this.drawBox(h),
         this.drawSimple(h),
         this.drawInlineBlock(h),
@@ -412,7 +412,7 @@ export default {
       return h(
         'scrollview',
         {
-          styles: { direction: 'y', height: 400 },
+          styles: { direction: 'y', height: 200 },
         },
         [
           this.drawListItem(h),
