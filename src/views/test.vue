@@ -20,7 +20,7 @@ export default {
 
     this.layer = ef.createLayer(ctx, { dpr: 2, width: 350, height: 650,debug:false })
     const node = ef.createElement((h) => {
-      return h('view', { styles: { direction: 'y', height: 650 } }, [
+      return h('view', { styles: { direction: 'y', height: 650, } }, [
         // this.drawBox(h),
         this.drawSimple(h),
         this.drawInlineBlock(h),

@@ -14,7 +14,8 @@ export default class Layer {
     this.node = node
     this.node.layer = this
     this.node.container = this.options
-
+    // 事件也清空一下，重新挂载
+    this.eventManager.clear()
     this.initRender()
   }
 

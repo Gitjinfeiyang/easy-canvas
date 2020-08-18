@@ -9,6 +9,13 @@ export default class EventManager {
     this.simulateClick = simulateClick // 是否模拟移动端点击事件
   }
 
+  clear(){
+    this.clickList = []
+    this.touchstartList = []
+    this.touchmoveList = []
+    this.touchendList = []
+  }
+
   click(x, y) {
     let event = new Event({ x, y, type: 'click' })
     this._emit(event)
