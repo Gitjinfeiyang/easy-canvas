@@ -637,6 +637,11 @@ export default class Element {
       if (!this.next) {
         // 一行中的最后一个
         cur = this
+        if(this._needNewLine()){
+          refreshXOffset()
+          translateX(cur)
+          cur = this.pre
+        }
       }
       refreshXOffset()
       //  如果是新的一行，计算上一行的对其
@@ -656,6 +661,7 @@ export default class Element {
 
       // if (verticalAlign !== 'top') {
       // 取到最大的高度后 对所有的进行对齐
+      // TODO: 这里可能还有问题
       cur = this.pre
       if (!this.next) {
         // 一行中的最后一个

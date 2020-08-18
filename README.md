@@ -1,11 +1,11 @@
 # 简介
-使用render函数，在canvas中创建文档流，实现静态布局。使用场景：海报分享图等
+使用render函数，在canvas中创建文档流，实现静态布局。
 
 ## 支持元素
 - [x] view 基本元素，类似div
 - [x] scrollview 滚动容器，需要在样式里设置direction，并且设置具体尺寸
-- [x] text
-- [x] image
+- [x] text 文本 支持自动换行以及超过省略等功能
+- [x] image 图片 src
 
 ## 支持属性
 属性使用像素的地方统一使用数字

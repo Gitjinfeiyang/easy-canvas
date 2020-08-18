@@ -1,6 +1,6 @@
 <template>
   <div style="width:100vw; height:100vh; backgroundColor:#000;">
-    <canvas id="canvas" width="300" height="600" style="width:300px; height:600px;background:#fff;"
+    <canvas id="canvas" width="350" height="650" style="width:350px; height:650px;background:#fff;"
       @click.stop="onClick" @touchstart.stop="ontouchstart" @touchmove.stop="ontouchmove"
       @touchend.stop="ontouchend"></canvas>
   </div>
@@ -18,9 +18,9 @@ export default {
     canvas.height = canvas.height * 2
     ctx.scale(2, 2)
 
-    this.layer = ef.createLayer(ctx, { dpr: 2, width: 300, height: 600 })
+    this.layer = ef.createLayer(ctx, { dpr: 2, width: 350, height: 650,debug:false })
     const node = ef.createElement((h) => {
-      return h('view', { styles: { direction: 'y', height: 600 } }, [
+      return h('view', { styles: { direction: 'y', height: 800 } }, [
         // this.drawBox(h),
         this.drawSimple(h),
         this.drawInlineBlock(h),
@@ -264,7 +264,6 @@ export default {
                 styles: {
                   lineHeight: 20,
                   color: '#fff',
-                  textAlign: 'center',
                   fontSize: 11,
                 },
               },
@@ -281,7 +280,7 @@ export default {
             borderColor: '#ccc',
             paddingTop: 4,
             marginTop: 4,
-            textAlign: 'right',
+            textAlign: 'center',
           },
         },
         [...buttonList]

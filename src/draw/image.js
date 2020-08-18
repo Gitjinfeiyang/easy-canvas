@@ -64,7 +64,7 @@ export default class $Image extends View {
 
 }
 
-function loadImage(src) {
+function loadImage(src,ctx) {
   let image = null
   image = new Image()
 
