@@ -254,6 +254,7 @@ export default class Element {
   _initLayout() {
 
     this._initClearWidthHeight()
+    this._calcContentLayout()
 
     // 到这里renderstyles里的尺寸肯定是数字
 
@@ -263,7 +264,6 @@ export default class Element {
 
     // 到这里 x ，y 肯定是数字
 
-    this._calcContentLayout()
     // this._initStartingPoint()
 
   }
@@ -343,14 +343,16 @@ export default class Element {
     // 到这一步默认没有inline元素，因为inline元素内不允许其他element
     const { width, height } = this.styles
     if (width === STYLES.WIDTH.AUTO) {
-      this.renderStyles.contentWidth = this._getMaxChildrenWidth()
+      this.renderStyles.contentWidth = this._calcContentWidthWidthChildren()
     }
     if (height === STYLES.WIDTH.AUTO) {
-      this.renderStyles.contentHeight = this._getChildrenHeightSum()
+      this.renderStyles.contentHeight = this._calcContentHeightWidthChildren()
     }
     this._calcLayoutWithContent()
   }
 
+  // 这里是根据width 和height去计算自身的高度
+  // 跟上面不同的是，上面的是parent根据子元素计算
   _calcLayoutWithContent() {
     this.renderStyles.height = this.renderStyles.contentHeight + this.renderStyles.paddingTop + this.renderStyles.paddingBottom + this.renderStyles.marginTop + this.renderStyles.marginBottom
     this.renderStyles.width = this.renderStyles.contentWidth + this.renderStyles.paddingLeft + this.renderStyles.paddingRight + this.renderStyles.marginLeft + this.renderStyles.marginRight
@@ -375,7 +377,7 @@ export default class Element {
   /**
    * 获取一行的宽度，撑开父元素
    */
-  _getMaxChildrenWidth() {
+  _calcContentWidthWidthChildren() {
     // 需要考虑原本的宽度
     let max = 0
     let tempMax = max
@@ -412,7 +414,7 @@ export default class Element {
   /**
    * 计算子元素高度，撑开父元素
    */
-  _getChildrenHeightSum() {
+  _calcContentHeightWidthChildren() {
     // todo 没有考虑inline-block
     let complete = true
     let lineHeight = 0

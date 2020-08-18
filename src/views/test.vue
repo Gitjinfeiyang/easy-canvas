@@ -280,6 +280,7 @@ export default {
             borderColor: '#ccc',
             paddingTop: 4,
             marginTop: 4,
+            textAlign: 'right',
           },
         },
         [...buttonList]
