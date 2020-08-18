@@ -1,6 +1,6 @@
 import STYLES from './constants'
 import pxUtil from './px'
-import { isExact, walk } from './utils'
+import { isExact, walk, isOuter, parseOuter } from './utils'
 
 /**
  * inline-block block inline flex
@@ -310,9 +310,9 @@ export default class Element {
     const layout = this._measureLayout()
 
     // 初始化宽度高度
-    if (width === STYLES.WIDTH.OUTER) {
+    if (isOuter(width)) {
       // 不填默认当100%
-      this.renderStyles.width = this._getContainerLayout().contentWidth
+      this.renderStyles.width = this._getContainerLayout().contentWidth * parseOuter(width)
     } else if (width === STYLES.WIDTH.AUTO) {
       //  否则先计算自身
       this.renderStyles.width = layout.width
@@ -322,9 +322,9 @@ export default class Element {
       this.renderStyles.width = width + marginLeft + marginRight
     }
 
-    if (height === STYLES.WIDTH.OUTER) {
+    if (isOuter(height)) {
       // 不填就是auto
-      this.renderStyles.height = this._getContainerLayout().contentHeight
+      this.renderStyles.height = this._getContainerLayout().contentHeight * parseOuter(height)
     } else if (height === STYLES.WIDTH.AUTO) {
       this.renderStyles.height = layout.height
     } else if (isExact(height)) {
