@@ -7,7 +7,7 @@ export default class Layer {
     this.nodeList = []
     this.renderList = []
     this.options = options
-    this.eventManager = new EventManager()
+    this.eventManager = new EventManager(options)
     this.initRender()
   }
 
