@@ -97,6 +97,7 @@ export default class Element {
     this._completeWidth()
 
     this._completeBorder()
+
   }
 
   /**
@@ -127,7 +128,7 @@ export default class Element {
 
   _completeWidth() {
     if (!this.styles.width && !this.styles.flex) {
-      if (this.styles.display === STYLES.DISPLAY.INLINE_BLOCK) {
+      if (this.styles.display === STYLES.DISPLAY.INLINE_BLOCK || !this.isInFlow()) {
         this.styles.width = STYLES.WIDTH.AUTO
       } else if (this.styles.display === STYLES.DISPLAY.BLOCK || this.styles.display === STYLES.DISPLAY.FLEX) {
         this.styles.width = STYLES.WIDTH.OUTER
@@ -155,18 +156,20 @@ export default class Element {
    */
   tree2List() {
     this.root = this
-    let list = this._generateElementFunc()
+    let list = this._connectChildren()
     return Array.isArray(list) ? list : [list]
   }
 
-  _generateElementFunc() {
+
+  // 遍历全部的子节点
+  _connectChildren() {
     if (this.hasChildren()) {
       const childrenRender = this._getChildren().map((child, index) => {
         // 设置parent
         child._setParent(this)
         // 设置了上一个兄弟节点
         child._setSibling(this._getChildren()[index - 1], this._getChildren()[index + 1])
-        return child._generateElementFunc()
+        return child._connectChildren()
       }).reduce((sum, val) => [...sum, ...val])
       return [this._generateRender(), ...childrenRender]
     } else {
@@ -180,6 +183,17 @@ export default class Element {
 
   _getChildren() {
     return this.hasChildren() ? this.children : []
+  }
+
+  // 获取文档流中的子节点
+  _getChildrenInFlow(){
+    return this._getChildren().filter(item => item.isInFlow())
+  }
+
+  // 是否在文档流中
+  isInFlow(){
+    const {position,display} = this.styles
+    return position !== STYLES.POSITION.ABSOLUTE && position !== STYLES.POSITION.FIXED
   }
 
   _setParent(element) {
@@ -292,7 +306,22 @@ export default class Element {
   // 初始化起点
   _initStartingPoint() {
     // 初始化ctx位置
-    if (this._needNewLine()) {
+    if(!this.isInFlow()){
+      // 不在文档流中
+      const {top,bottom,right,left,width,height} = this.renderStyles
+      let {contentX,contentY,contentWidth,contentHeight} = this._getContainerLayout()
+      if(top){
+        this.y = contentY + top
+      }else if(bottom){
+        this.y = contentY + contentHeight - bottom- height
+      }
+
+      if(left){
+        this.x = contentX + left
+      }else if(right){
+        this.x = contentX + contentWidth - right- width
+      }
+    }else if (this._needNewLine()) {
       // 另起一行
       this.x = this._getContainerLayout().contentX
       this.y = this._getPreLayout().y + this._getPreLayout().height
@@ -422,7 +451,7 @@ export default class Element {
     const containerContentWidth = this._getContainerLayout().contentWidth
     let clearWidth = 0
     let totalFlexSum = 0
-    this.parent._getChildren().forEach(item => {
+    this.parent._getChildrenInFlow().forEach(item => {
       if (item.renderStyles.width > 0) {
         clearWidth += item.renderStyles.width
       } else if (item.renderStyles.flex) {
@@ -557,13 +586,19 @@ export default class Element {
     }
   }
 
+  // 这里前一个节点必须在文档流中
   _getPreLayout() {
-    if (this.pre) {
+    let cur = this.pre
+    while(cur && !cur.isInFlow()){
+      cur = cur.pre
+    }
+    // 如果没有前一个或者前面的都不在文档流中，获取容器的
+    if (cur) {
       return {
-        width: this.pre.renderStyles.width,
-        height: this.pre.renderStyles.height,
-        x: this.pre.x,
-        y: this.pre.y
+        width: cur.renderStyles.width,
+        height: cur.renderStyles.height,
+        x: cur.x,
+        y: cur.y
       }
     } else {
       return {
@@ -575,6 +610,8 @@ export default class Element {
     }
   }
 
+
+  // 计算自身的高度
   _measureLayout() {
     return { width: 0, height: 0, x: 0, y: 0 }
   }
@@ -599,7 +636,7 @@ export default class Element {
       element.x += lastXOffset
       element.contentX += lastXOffset
       // 子元素重新计算 x y位置 待优化
-      element._getChildren().forEach(child => walk(child, (el) => el._reflow()))
+      element._getChildrenInFlow().forEach(child => walk(child, (el) => el.isInFlow() && el._reflow()))
     }
 
     const translateY = (element) => {
@@ -612,7 +649,7 @@ export default class Element {
       element.y += offset
       element.contentY += offset
       // 子元素重新计算 x y位置 待优化
-      element._getChildren().forEach(child => walk(child, (el) => el._reflow()))
+      element._getChildrenInFlow().forEach(child => walk(child, (el) =>el.isInFlow() &&  el._reflow()))
     }
 
     const refreshXOffset = () => {

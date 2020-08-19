@@ -27,6 +27,7 @@ export default {
         this.drawCard(h),
         this.drawScrollViewX(h),
         this.drawScrollView(h),
+          this.drawAbsolute(h)
       ])
     })
     node.mount(this.layer)
@@ -444,6 +445,9 @@ export default {
           )
         })
       )
+    },
+    drawAbsolute(h){
+      return h('view',{styles:{position:'absolute',bottom:10,right:10}},[this.drawButton(h,'Absolute')])
     },
     ontouchstart(e) {
       e.preventDefault()

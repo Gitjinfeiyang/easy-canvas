@@ -2,7 +2,8 @@ const DISPLAY = {
   BLOCK: 'block',
   INLINE_BLOCK: 'inline-block',
   INLINE: 'inline', // 用户不能设置inline，text默认为inline
-  FLEX: 'flex'
+  FLEX: 'flex',
+  NONE:'none'
 }
 
 const WIDTH = {
