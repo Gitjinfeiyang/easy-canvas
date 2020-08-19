@@ -22,6 +22,8 @@ export default class Layer {
   initRender() {
     const nodes = this.nodeList = this.node.tree2List()
 
+    this.initPaintList()
+
     nodes.forEach(item => {
       item.init()
     })
@@ -40,6 +42,15 @@ export default class Layer {
 
   }
 
+  initPaintList() {
+    // 这里实现index
+    this.renderList = this.nodeList.sort((a, b) => {
+      // 父子不能比较
+      if (b.parent === a || !a.next) return 0
+      return b.zIndex - a.zIndex
+    })
+  }
+
   reflow() {
     this.nodeList.forEach(item => {
       item._reflow()
@@ -51,16 +62,21 @@ export default class Layer {
    * @param {Element} element
    */
   repaint(element = this.node) {
-    let width = element.renderStyles.width
-    let height = element.renderStyles.height
-    let x = element.x
-    let y = element.y
-    this.ctx.clearRect(x, y, width, height)
-    walk(element, (item) => {
-      item._repaint()
-      item._afterPaint()
-    })
+    // let width = element.renderStyles.width
+    // let height = element.renderStyles.height
+    // let x = element.x
+    // let y = element.y
+    // this.ctx.clearRect(x, y, width, height)
+    // walk(element, (item) => {
+    //   item._repaint()
+    //   item._afterPaint()
+    // })
 
+    this.ctx.clearRect(this.node.x, this.node.y, this.node.renderStyles.width, this.node.renderStyles.height)
+    this.renderList.forEach(element => {
+      element._repaint()
+      element._afterPaint()
+    })
     // 兼容小程序
     this.ctx.draw && this.ctx.draw()
   }

@@ -16,6 +16,7 @@
 - [x] marginLeft,marginRight,marginTop,marginBottom
 - [x] paddingLeft,paddingRight,paddingTop,paddingBottom
 - [x] backgroundColor
+- [ ] backgroundImage
 - [x] borderRadius
 - [x] borderWidth borderTopWidth ... 细边框直接设置0.5
 - [x] borderColor
