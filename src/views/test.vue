@@ -22,12 +22,13 @@ export default {
     const node = ef.createElement((h) => {
       return h('view', { styles: { direction: 'y', height: 650, } }, [
         // this.drawBox(h),
+          this.drawAbsolute(h),
+
         this.drawSimple(h),
         this.drawInlineBlock(h),
         this.drawCard(h),
         this.drawScrollViewX(h),
         this.drawScrollView(h),
-          this.drawAbsolute(h)
       ])
     })
     node.mount(this.layer)
@@ -447,7 +448,7 @@ export default {
       )
     },
     drawAbsolute(h){
-      return h('view',{styles:{position:'absolute',bottom:10,right:10}},[this.drawButton(h,'Absolute')])
+      return h('view',{styles:{position:'absolute',top:10,left:10,zIndex:10}},[this.drawButton(h,'Absolute')])
     },
     ontouchstart(e) {
       e.preventDefault()

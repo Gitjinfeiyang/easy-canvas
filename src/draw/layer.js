@@ -44,11 +44,7 @@ export default class Layer {
 
   initPaintList() {
     // 这里实现index
-    this.renderList = this.nodeList.sort((a, b) => {
-      // 父子不能比较
-      if (b.parent === a || !a.next) return 0
-      return b.zIndex - a.zIndex
-    })
+    this.renderList = this.nodeList
   }
 
   reflow() {

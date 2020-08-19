@@ -32,6 +32,7 @@
 - [ ] borderStyle
 - [x] shadowBlur
 - [x] shadowColor 目前阴影会被父容器截取 待优化
+- [x] position `static` `absolute`
 
 
 
@@ -59,12 +60,12 @@
 ![1](screenshot/01.png)
 
 ## TodoList
-* 支持position
+* ~~支持position~~
 * ~~inline-block换行以及textAlign~~
-* 通过栈实现属性继承
+* ~~通过栈实现属性继承~~
 * 支持flex-direction
 * box-shadow 待优化
 * 兼容小程序measuretext
-* 兼容小程序image
+* ~~兼容小程序image~~
 * 打包问题解决
 * scrollview嵌套 translate值继承
