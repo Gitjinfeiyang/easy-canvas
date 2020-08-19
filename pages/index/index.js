@@ -59,7 +59,8 @@ Page({
           drawSimple(h),
           drawCard(h),
           drawScrollViewX(h),
-          drawScrollView(h)
+          drawScrollView(h),
+          drawAbsolute(h)
         ]
       )
     })
@@ -84,7 +85,9 @@ Page({
     this.layer.eventManager.click(e.x, e.y)
   },
 })
-
+function drawAbsolute(h){
+  return h('view',{styles:{position:'absolute',top:10,left:10,zIndex:10}},[drawButton(h,'Absolute')])
+}
 
 function drawSimple(h) {
   return h(
