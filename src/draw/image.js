@@ -1,6 +1,7 @@
 import View from './view'
 import STYLES from './constants'
-import { isExact, isAuto } from './utils'
+import { isExact, isAuto,isWX } from './utils'
+import {getImage} from './weapp-adapter'
 
 export default class $Image extends View {
 
@@ -65,19 +66,24 @@ export default class $Image extends View {
 }
 
 function loadImage(src,ctx) {
-  let image = null
-  image = new Image()
-
-  image.src = src
+  
   return new Promise((resolve, reject) => {
-    image.onload = function (e) {
-      resolve({
-        image,
-        info: {
-          width: e.target.width,
-          height: e.target.height
-        }
-      })
+    if(isWX()){
+      getImage(src)
+        .then((res) => resolve(res))
+        .catch((err) => reject(err))
+    }else{
+      let image = new Image()
+      image.src = src
+      image.onload = function (e) {
+        resolve({
+          image,
+          info: {
+            width: e.target.width,
+            height: e.target.height
+          }
+        })
+      }
     }
 
   })
