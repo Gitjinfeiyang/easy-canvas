@@ -1,43 +1,29 @@
 {
-  "name": "test-app-vue",
-  "version": "0.1.0",
-  "private": true,
+  "name": "easyflow",
+  "version": "1.0.0",
+  "description": "A canvas lib helps us easy to layout with canvas.",
+  "main": "index.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "node ./build.js",
-    "lint": "vue-cli-service lint"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ./build/build.js",
+    "copy": "cp ./dist/easyFlow.min.js ./example/weapp && cp ./example/draw.js ./example/weapp"
   },
-  "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^2.6.11",
-    "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gitjinfeiyang/easyFlow.git"
   },
+  "author": "jinfeiyang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gitjinfeiyang/easyFlow/issues"
+  },
+  "homepage": "https://github.com/Gitjinfeiyang/easyFlow#readme",
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
-    "@babel/preset-es2015": "^7.0.0-beta.53",
-    "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-eslint": "~4.4.0",
-    "@vue/cli-plugin-router": "~4.4.0",
-    "@vue/cli-plugin-vuex": "~4.4.0",
-    "@vue/cli-service": "~4.4.0",
-    "@vue/eslint-config-standard": "^5.1.2",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
-    "eslint": "^6.7.2",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^6.2.2",
-    "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
+    "copy-webpack-plugin": "^6.0.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "vue-template-compiler": "^2.6.11"
+    "webpack": "^4.44.1"
   }
 }

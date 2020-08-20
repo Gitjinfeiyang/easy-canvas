@@ -1,6 +1,6 @@
-import ef from '../../src/draw/index'
 //index.js
 //获取应用实例
+import ef from '../../easyFlow.min'
 const app = getApp()
 
 Page({
@@ -17,37 +17,9 @@ Page({
     })
   },
   onLoad: function () {
-    // const query = createSelectorQuery()
-    // query.select('#canvas')
-    //   .fields({ node: true, size: true })
-    //   .exec((res) => {
-    //     const canvas = res[0].node
-    //     const ctx = canvas.getContext('2d')
-
-    //     const dpr = wx.getSystemInfoSync().pixelRatio
-    //     canvas.display = 'block'
-    //     canvas.width = res[0].width * dpr
-    //     canvas.height = res[0].height * dpr
-    //     const draw = getDrawer(ctx, { dpr: 2, width: 300, height: 600 })
-    //     draw((h) => {
-    //       return h(
-    //         'view',
-    //         {
-    //           styles: {},
-    //         },
-    //         [
-    //           drawBox(h),
-    //           // drawSimple(h),
-    //           // drawInlineBlock(h),
-    //           // drawListItem(h),
-    //           // drawCard(h),
-    //         ]
-    //       )
-    //     })
-
-    //   })
     const ctx = wx.createCanvasContext('myCanvas', this)
-    this.layer = ef.createLayer(ctx, { dpr: 1, width: 300, height: 600 })
+    // ctx.scale(2, 2)
+    this.layer = ef.createLayer(ctx, { dpr: 2, width: 300, height: 600 })
     const node = ef.createElement((h) => {
       return h(
         'view',
@@ -66,8 +38,6 @@ Page({
     })
     node.mount(this.layer)
 
-
-
   },
   ontouchstart(e) {
     this.layer.eventManager.touchstart(e.touches[0].x, e.touches[0].y)
@@ -85,9 +55,6 @@ Page({
     this.layer.eventManager.click(e.x, e.y)
   },
 })
-function drawAbsolute(h){
-  return h('view',{styles:{position:'absolute',top:10,left:10,zIndex:10}},[drawButton(h,'Absolute')])
-}
 
 function drawSimple(h) {
   return h(
@@ -501,4 +468,7 @@ function drawScrollViewX(h) {
       )
     })
   )
+}
+function drawAbsolute(h) {
+  return h('view', { styles: { position: 'absolute', top: 10, left: 10, zIndex: 10 } }, [drawButton(h, 'Absolute')])
 }

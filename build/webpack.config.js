@@ -1,11 +1,13 @@
 const path = require("path")
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
 process.env.mode = 'development'
 
 module.exports = {
-  entry: './src/draw/index.js',
+  entry: path.resolve(__dirname, '../lib/index.js'),
   output: {
-    path: path.resolve(__dirname, './dist'),
+    libraryTarget: 'umd',
+    path: path.resolve(__dirname, '../dist'),
     filename: 'easyFlow.min.js'
   },
   optimization: {
@@ -15,7 +17,7 @@ module.exports = {
           compress: false,
         },
         cache: true,
-        include: path.resolve(__dirname, '../src/draw')
+        include: path.resolve(__dirname, '../lib')
       })
     ]
   },
@@ -27,16 +29,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.css$/,
-        use: [
-          {
-            loader: "style-loader"
-          }, {
-            loader: "css-loader"
-          }
-        ]
-      },
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
