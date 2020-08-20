@@ -37,7 +37,7 @@
             canvas.width = window.innerWidth * 2
             canvas.height = window.innerHeight * 2
             ctx.scale(2, 2)
-            layer = easyFlow.createLayer(ctx, { dpr: 2, width: window.innerWidth, height: window.innerHeight, })
+            layer = easyFlow.createLayer(ctx, { dpr: 2, width: window.innerWidth, height: window.innerHeight})
 
             const node = easyFlow.createElement((h) => {
                 return h('view', { styles: { backgroundColor: '#fff' } }, [
@@ -52,10 +52,6 @@
                 ])
             })
             node.mount(layer)
-
-            
-            console.log(window.innerWidth,window.innerHeight)
-            console.log(node)
         }
 
         // 注册全局组件
