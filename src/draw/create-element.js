@@ -10,26 +10,22 @@ import ScrollView from './scroll-view'
  * @param {Function} options
  */
 
+const elementFactory = {}
+//
+registerComponent('view', (options, children) => new View(options, children))
+registerComponent('text', (options, children) => new Text(options, children))
+registerComponent('image', (options, children) => new Image(options, children))
+registerComponent('scroll-view', (options, children) => new ScrollView(options, children))
+registerComponent('scrollview', (options, children) => new ScrollView(options, children))
+
 export function createElement(model) {
-  let callbacks = []
   // 生成树
   function c(name, options, children = []) {
-    // if (name === 'text') {
-    //     // text组件 children只能为string
-    //     if (typeof options === 'string') {
-    //         children = options
-    //         options = {}
-    //     }
-    // }
     let _element = null
-    if (name === 'view') {
-      _element = new View(options, children)
-    } else if (name === 'text') {
-      _element = new Text(options, children)
-    } else if (name == 'image') {
-      _element = new Image(options, children)
-    } else if (name === 'scrollview') {
-      _element = new ScrollView(options, children)
+    if (elementFactory[name]) {
+      _element = elementFactory[name](options, children)
+    } else {
+      throw Error(`Unknown tag name [${name}] !`)
     }
     return _element
   }
@@ -40,6 +36,14 @@ export function createElement(model) {
 
 export function createLayer(ctx, options) {
   return new Layer(ctx, options)
+}
+
+// 注册全局组件
+export function registerComponent(name, factory) {
+  if (elementFactory[name]) {
+    throw Error(`Already exist tag name [${name}] !`)
+  }
+  elementFactory[name] = factory
 }
 
 
