@@ -1,7 +1,8 @@
 <canvas
+  type="2d"
   style="width:300px; height:600px;"
   canvas-id="myCanvas"
-  id="canvas"
+  id="myCanvas"
   bindtouchstart="ontouchstart"
   bindtouchmove="ontouchmove"
   bindtouchend="ontouchend"

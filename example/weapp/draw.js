@@ -1,71 +1,7 @@
-//index.js
-//获取应用实例
-import ef from '../../easyFlow.min'
-const app = getApp()
 
-Page({
-  data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
-  },
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  onLoad: function () {
-    const query = wx.createSelectorQuery()
-    query.select('#myCanvas')
-      .fields({ node: true, size: true })
-      .exec((res) => {
-        const canvas = res[0].node
-        const ctx = canvas.getContext('2d')
 
-        const dpr = wx.getSystemInfoSync().pixelRatio
-        canvas.width = res[0].width * dpr
-        canvas.height = res[0].height * dpr
-        ctx.scale(dpr, dpr)
 
-        this.layer = ef.createLayer(ctx, { dpr, width: 300, height: 600, canvas })
-        const node = ef.createElement((h) => {
-          return h(
-            'view',
-            {
-              styles: {},
-            },
-            [
-              // drawBox(h),
-              drawSimple(h),
-              drawCard(h),
-              drawScrollViewX(h),
-              drawScrollView(h),
-              drawAbsolute(h)
-            ]
-          )
-        })
-        node.mount(this.layer)
-      })
-
-  },
-  ontouchstart(e) {
-    this.layer.eventManager.touchstart(e.touches[0].x, e.touches[0].y)
-  },
-  ontouchmove(e) {
-    this.layer.eventManager.touchmove(e.touches[0].x, e.touches[0].y)
-  },
-  ontouchend(e) {
-    this.layer.eventManager.touchend(
-      e.changedTouches[0].x,
-      e.changedTouches[0].y
-    )
-  },
-  onClick(e) {
-    this.layer.eventManager.click(e.x, e.y)
-  },
-})
+let layer = null
 
 function drawSimple(h) {
   return h(
@@ -483,3 +419,26 @@ function drawScrollViewX(h) {
 function drawAbsolute(h) {
   return h('view', { styles: { position: 'absolute', top: 10, left: 10, zIndex: 10 } }, [drawButton(h, 'Absolute')])
 }
+function setLayer(_layer) {
+  layer = _layer
+}
+function ontouchstart(e) {
+  e.preventDefault()
+  layer.eventManager.touchstart(e.touches[0].pageX, e.touches[0].pageY)
+}
+function ontouchmove(e) {
+  e.preventDefault()
+  layer.eventManager.touchmove(e.touches[0].pageX, e.touches[0].pageY)
+}
+function ontouchend(e) {
+  e.preventDefault()
+  layer.eventManager.touchend(
+    e.changedTouches[0].pageX,
+    e.changedTouches[0].pageY
+  )
+}
+function onClick(e) {
+  e.preventDefault()
+  layer.eventManager.click(e.pageX, e.pageY)
+}
+
