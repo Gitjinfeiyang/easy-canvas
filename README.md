@@ -45,13 +45,22 @@
     canvas.height = canvas.height * 2
     ctx.scale(2, 2)
 
-    const layer = ef.createLayer(ctx, { dpr: 2, width: 300, height: 600 })
+    // create a layer bind with ctx
+    const layer = ef.createLayer(ctx, {
+      dpr: 2,
+      width: 300,
+      height: 600,
+      canvas   // 小程序环境必传
+    })
 
+    // create a node tree
     const node = ef.createElement((h) => {
       return h('view', { styles: { backgroundColor:'#000' } }, [
         h('text',{color:'#fff'},'Hello World')
       ])
     })
+
+    // mount
     node.mount(layer)
 
 ```
