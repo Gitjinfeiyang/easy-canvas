@@ -2,10 +2,10 @@
   "name": "easyflow",
   "version": "1.0.0",
   "description": "A canvas lib helps us easy to layout with canvas.",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node ./build/build.js",
+    "build": "rollup -c ./build/rollup.config.js",
     "copy": "cp ./dist/easyFlow.min.js ./example/weapp && cp ./example/draw.js ./example/weapp"
   },
   "repository": {
@@ -19,11 +19,6 @@
   },
   "homepage": "https://github.com/Gitjinfeiyang/easyFlow#readme",
   "devDependencies": {
-    "@babel/core": "^7.11.1",
-    "@babel/preset-env": "^7.11.0",
-    "babel-loader": "^8.1.0",
-    "copy-webpack-plugin": "^6.0.3",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.44.1"
+    "rollup-plugin-terser": "^7.0.0"
   }
 }
