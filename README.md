@@ -1,11 +1,15 @@
 # 简介
-使用render函数，在canvas中创建文档流，实现静态布局，几乎0学习成本。
+使用render函数，在canvas中创建文档流，实现静态布局.
+
+- 支持文档流，参照web，无需设置x、y以及宽高
+- 兼容小程序以及web，无第三方依赖
+- 支持组件化，全局组件以及局部组件
 
 ## 支持元素
 - [x] view 基本元素，类似div
-- [x] scrollview 滚动容器，需要在样式里设置direction，并且设置具体尺寸 实验性功能
 - [x] text 文本 支持自动换行以及超过省略等功能
 - [x] image 图片 src
+- [x] scroll-view 滚动容器，需要在样式里设置direction，并且设置具体尺寸 实验性功能
 
 ## 支持属性
 属性使用像素的地方统一使用数字
@@ -35,9 +39,16 @@
 - [x] position `static` `absolute`
 
 
+## Screenshot
+![1](screenshot/01.png)
+
 
 ## Usage
+
+### Basic
 ``` javascript
+    import ef from 'easyflow'
+
     const canvas = document.querySelector('#canvas')
 
     const ctx = canvas.getContext('2d')
@@ -54,9 +65,9 @@
     })
 
     // create a node tree
-    const node = ef.createElement((h) => {
-      return h('view', { styles: { backgroundColor:'#000' } }, [
-        h('text',{color:'#fff'},'Hello World')
+    const node = ef.createElement((c) => {
+      return c('view', { styles: { backgroundColor:'#000' } }, [
+        c('text',{color:'#fff'},'Hello World')
       ])
     })
 
@@ -64,9 +75,53 @@
     node.mount(layer)
 
 ```
+### Register Component
+``` javascript
+    ...
 
-## Screenshot
-![1](screenshot/01.png)
+    function button(c,text){
+      return h(
+        'view',
+        {
+          styles: {
+            height: 20,
+            backgroundColor: '#ff6c79',
+            borderRadius: 10,
+            borderColor: '#fff',
+            margin: 2,
+            display: 'inline-block',
+            paddingLeft: 10,
+            paddingRight: 10,
+          },
+        },
+        [
+          h(
+            'text',
+            {
+              styles: {
+                lineHeight: 20,
+                color: '#fff',
+                textAlign: 'center',
+                fontSize: 11,
+              },
+            },
+            text
+          ),
+        ]
+      )
+    }
+
+    ef.component('button',(opt,children,c) => button(c,children))
+
+    const node = ef.createElement((c) => {
+      return c('view',{},[
+        c('button',{},'这是全局组件')
+      ])
+    })
+
+    ...
+
+```
 
 ## TodoList
 * ~~支持position~~
@@ -76,5 +131,6 @@
 * box-shadow 待优化
 * 兼容小程序measuretext
 * ~~兼容小程序image~~
-* 打包问题解决
+* ~~打包问题解决~~
 * scrollview嵌套 translate值继承
+* 补充其他属性

@@ -25,6 +25,10 @@
             canvas.height = canvas.height * 2
             ctx.scale(2, 2)
             layer = easyFlow.createLayer(ctx, { dpr: 2, width: 350, height: 650, debug: false })
+
+            // 注册全局组件
+            easyFlow.component('button', (opt, children, h) => this.drawButton(h, children))
+
             const node = easyFlow.createElement((h) => {
                 return h('view', { styles: { direction: 'y', height: 650, backgroundColor: '#fff' } }, [
                     // this.drawBox(h),
@@ -34,7 +38,7 @@
                     this.drawScrollViewX(h),
                     this.drawScrollView(h),
                     this.drawAbsolute(h),
-
+                    h('button', {}, '这是全局组件')
                 ])
             })
             node.mount(layer)
