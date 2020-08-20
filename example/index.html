@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <script src="http://cdn.jsdelivr.net/npm/eruda"></script>
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
     <style>
         * {
@@ -22,19 +22,22 @@
     <script src="./draw.js"></script>
     <script>
         window.onload = function () {
+            main()
+            
+        }
+        window.onresize = function(){
+            main()
+        }
+
+        function main(){
             const canvas = document.querySelector('#canvas')
-            canvas.ontouchstart = ontouchstart
-            canvas.ontouchmove = ontouchmove
-            canvas.ontouchend = ontouchend
+            
             const ctx = canvas.getContext('2d')
 
             canvas.width = window.innerWidth * 2
             canvas.height = window.innerHeight * 2
             ctx.scale(2, 2)
             layer = easyFlow.createLayer(ctx, { dpr: 2, width: window.innerWidth, height: window.innerHeight, })
-
-            // 注册全局组件
-            easyFlow.component('button', (opt, children, h) => this.drawButton(h, children))
 
             const node = easyFlow.createElement((h) => {
                 return h('view', { styles: { backgroundColor: '#fff' } }, [
@@ -49,8 +52,17 @@
                 ])
             })
             node.mount(layer)
+
+            
+            console.log(window.innerWidth,window.innerHeight)
             console.log(node)
         }
+
+        // 注册全局组件
+        easyFlow.component('button', (opt, children, h) => this.drawButton(h, children))
+        canvas.ontouchstart = ontouchstart
+        canvas.ontouchmove = ontouchmove
+        canvas.ontouchend = ontouchend
     </script>
 </body>
 
