@@ -9,7 +9,7 @@
 ## 支持元素
 - [x] view 基本元素，类似div
 - [x] text 文本 支持自动换行以及超过省略等功能
-- [x] image 图片 src
+- [x] image 图片 src mode支持aspectFit以及aspectFill，其他css特性同web
 - [x] scroll-view 滚动容器，需要在样式里设置direction，并且设置具体尺寸 实验性功能
 
 ## Styles
