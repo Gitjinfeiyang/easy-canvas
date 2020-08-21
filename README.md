@@ -4,6 +4,7 @@
 - 支持文档流，参照web，无需设置x、y以及宽高
 - 兼容小程序以及web，无第三方依赖
 - 支持组件化，全局组件以及局部组件
+- 支持事件
 
 ## 支持元素
 - [x] view 基本元素，类似div
@@ -132,5 +133,5 @@
 * 兼容小程序measuretext
 * ~~兼容小程序image~~
 * ~~打包问题解决~~
-* scrollview嵌套 translate值继承
+* scroll-view嵌套 translate值继承
 * 补充其他属性
