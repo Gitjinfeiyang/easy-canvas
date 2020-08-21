@@ -16,7 +16,7 @@
 </head>
 
 <body style="background:#fff;">
-    <canvas id="canvas" style="width:100vw; height:100vh;position:absolute;"></canvas>
+    <canvas id="canvas" style="width:350px; height:650px;position:absolute;"></canvas>
 
     <script src="../dist/easyFlow.min.js"></script>
     <script src="./draw.js"></script>
@@ -34,10 +34,10 @@
             
             const ctx = canvas.getContext('2d')
 
-            canvas.width = window.innerWidth * 2
-            canvas.height = window.innerHeight * 2
+            canvas.width = 350 * 2
+            canvas.height = 650 * 2
             ctx.scale(2, 2)
-            layer = easyFlow.createLayer(ctx, { dpr: 2, width: window.innerWidth, height: window.innerHeight})
+            layer = easyFlow.createLayer(ctx, { dpr: 2, width: 350, height: 650})
 
             const node = easyFlow.createElement((h) => {
                 return h('view', { styles: { backgroundColor: '#fff' } }, [
