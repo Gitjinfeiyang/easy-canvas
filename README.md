@@ -12,7 +12,7 @@
 - [x] image 图片 src
 - [x] scroll-view 滚动容器，需要在样式里设置direction，并且设置具体尺寸 实验性功能
 
-## 支持属性
+## Styles
 属性使用像素的地方统一使用数字
 
 - [x] display `block` `inline-block` `flex` text默认是inline的
@@ -36,7 +36,9 @@
 - [ ] flexDirection
 - [ ] borderStyle
 - [x] shadowBlur
-- [x] shadowColor 目前阴影会被父容器截取 待优化
+- [x] shadowColor  待优化
+- [ ] shadowOffsetX
+- [ ] shadowOffsetY
 - [x] position `static` `absolute`
 
 
@@ -135,3 +137,4 @@
 * ~~打包问题解决~~
 * scroll-view嵌套 translate值继承
 * 补充其他属性
+* image 支持mode
