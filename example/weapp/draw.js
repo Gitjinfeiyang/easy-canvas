@@ -352,11 +352,11 @@ function drawCard(h) {
               styles: {
                 flex: 1,
                 textAlign: 'center',
-                verticalAlign: 'bottom',
+                verticalAlign: 'middle',
               },
             },
             [
-              h('text', { styles: { color: '#fff' } }, '我的定投'),
+              h('text', { styles: { color: '#fff',textAlign:'center',width:'100%' } }, '我的定投'),
               h('text', { styles: { color: '#fff' } }, '风险评测'),
             ]
           ),
@@ -366,11 +366,11 @@ function drawCard(h) {
               styles: {
                 flex: 1,
                 textAlign: 'center',
-                verticalAlign: 'bottom',
+                verticalAlign: 'middle',
               },
             },
             [
-              h('text', { styles: { color: '#fff' } }, '优惠券'),
+              h('text', { styles: { color: '#fff',textAlign:'center' } }, '优惠券'),
               h('text', { styles: { color: '#fff' } }, '风险评测'),
             ]
           ),
