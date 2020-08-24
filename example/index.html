@@ -16,28 +16,28 @@
 </head>
 
 <body style="background:#fff;">
-    <canvas id="canvas" style="width:100vw; height:100vh;position:absolute;"></canvas>
+    <canvas id="canvas" style="width:100vw; height:100vh;position:fixed;"></canvas>
 
     <script src="../dist/easyFlow.min.js"></script>
     <script src="./draw.js"></script>
     <script>
         window.onload = function () {
             main()
-            
+
         }
-        window.onresize = function(){
+        window.onresize = function () {
             main()
         }
 
-        function main(){
+        function main() {
             const canvas = document.querySelector('#canvas')
-            
+
             const ctx = canvas.getContext('2d')
 
             canvas.width = window.innerWidth * 2
             canvas.height = window.innerHeight * 2
             ctx.scale(2, 2)
-            layer = easyFlow.createLayer(ctx, { dpr: 2, width: window.innerWidth, height: window.innerHeight})
+            layer = easyFlow.createLayer(ctx, { dpr: 2, width: window.innerWidth, height: window.innerHeight })
 
             const node = easyFlow.createElement((h) => {
                 return h('view', { styles: { backgroundColor: '#fff' } }, [
