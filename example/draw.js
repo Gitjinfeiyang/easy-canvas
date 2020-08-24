@@ -426,40 +426,6 @@ function drawAbsolute(h) {
 }
 
 
-function Card(h,children){
-  return h('view',{
-    styles:{
-      padding:8,
-      backgroundColor:'#fff',
-      shadowColor:'#ccc',
-      shadowBlur:10,
-      borderRadius:4,
-      margin:5,
-      textAlign:'center'
-    }
-  },children)
-}
-easyFlow.component('card',(opt,children,h) => Card(h,children))
-
-function Title(h,level,title){
-  return h('view',{
-    styles:{
-      padding:10,
-      fontSize:30 - level*2,
-      borderBottomWidth:0.5,
-      borderColor:'#f1f1f1',
-      fontWeight:800,
-      marginBottom:8
-    }
-  },[h('text',{styles:{
-    
-  }},title)])
-}
-[1,2,3,4,5,6].forEach(level => {
-  easyFlow.component(`h${level}`,(opt,children,h) => Title(h,level,children))
-})
-
-
 function setLayer(_layer) {
   layer = _layer
 }
