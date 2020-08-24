@@ -29,6 +29,13 @@
             main()
         }
 
+        const host = 'https://gitjinfeiyang.github.io/easyFlow/example/'
+        const examples = [
+            {title:'Basic',desc:'Basic example',url:'basic.html'},
+            {title:'Image',desc:'Image usage',url:'image.html'},
+            {title:'Demo',desc:'This is a demo.',url:'test.html'}
+        ]
+
         function main() {
             const canvas = document.querySelector('#canvas')
 
@@ -40,22 +47,31 @@
             layer = easyFlow.createLayer(ctx, { dpr: 2, width: window.innerWidth, height: window.innerHeight })
 
             const node = easyFlow.createElement((h) => {
-                return h('view', { styles: { backgroundColor: '#fff' } }, [
-                    // this.drawBox(h),
-                    this.drawSimple(h),
-                    this.drawInlineBlock(h),
-                    this.drawCard(h),
-                    this.drawScrollViewX(h),
-                    this.drawScrollView(h),
-                    this.drawAbsolute(h),
-                    h('button', {}, '这是全局组件')
-                ])
+                return h('scroll-view', { styles: { backgroundColor: '#f1f1f1',height:window.innerHeight } },
+                    examples.map(item => {
+                        return h('view',{
+                            data:item,
+                            on:{
+                                click(e){
+                                    window.location.href=host + item.url
+                                }
+                            },
+                            styles:{
+                                backgroundColor:'#fff',
+                                padding:10,
+                                marginBottom:10,
+                            }
+                        },[
+                            h('view',{styles:{color:'#333',fontSize:18,fontWeight:800}},[h('text',{},item.title)]),
+                            h('view',{styles:{color:'#999'}},[h('text',{},item.desc)])
+                        ])
+                    })
+                )
             })
             node.mount(layer)
         }
 
         // 注册全局组件
-        easyFlow.component('button', (opt, children, h) => this.drawButton(h, children))
         canvas.ontouchstart = ontouchstart
         canvas.ontouchmove = ontouchmove
         canvas.ontouchend = ontouchend

@@ -16,61 +16,49 @@
 </head>
 
 <body style="background:#fff;">
-    <canvas id="canvas" style="width:100vw; height:100vh;position:absolute;"></canvas>
+    <canvas id="canvas" style="width:100vw; height:100vh;position:fixed;"></canvas>
 
     <script src="../dist/easyFlow.min.js"></script>
     <script src="./draw.js"></script>
     <script>
         window.onload = function () {
-            // main()
+            main()
 
         }
         window.onresize = function () {
-            refresh()
+            main()
         }
 
+        function main() {
+            const canvas = document.querySelector('#canvas')
 
+            const ctx = canvas.getContext('2d')
 
-        const canvas = document.querySelector('#canvas')
-
-        const ctx = canvas.getContext('2d')
-
-        canvas.width = window.innerWidth * 2
-        canvas.height = window.innerHeight * 2
-        ctx.scale(2, 2)
-        layer = easyFlow.createLayer(ctx, { dpr: 2, width: window.innerWidth, height: window.innerHeight })
-
-        // 注册全局组件
-        easyFlow.component('button', (opt, children, h) => this.drawButton(h, children))
-
-        const node = easyFlow.createElement((h) => {
-            return h('view', { styles: { backgroundColor: '#fff' } }, [
-                // this.drawBox(h),
-                this.drawSimple(h),
-                this.drawInlineBlock(h),
-                this.drawCard(h),
-                this.drawScrollViewX(h),
-                this.drawScrollView(h),
-                this.drawAbsolute(h),
-                h('button', {}, '这是全局组件')
-            ])
-        })
-        node.mount(layer)
-
-        canvas.ontouchstart = ontouchstart
-        canvas.ontouchmove = ontouchmove
-        canvas.ontouchend = ontouchend
-
-
-        function refresh() {
             canvas.width = window.innerWidth * 2
             canvas.height = window.innerHeight * 2
             ctx.scale(2, 2)
-            layer.update(ctx, { dpr: 2, width: window.innerWidth, height: window.innerHeight })
-            layer.flow()
-            layer.repaint()
-            console.log(node)
+            layer = easyFlow.createLayer(ctx, { dpr: 2, width: window.innerWidth, height: window.innerHeight })
+
+            const node = easyFlow.createElement((h) => {
+                return h('view', { styles: { backgroundColor: '#fff' } }, [
+                    // this.drawBox(h),
+                    this.drawSimple(h),
+                    this.drawInlineBlock(h),
+                    this.drawCard(h),
+                    this.drawScrollViewX(h),
+                    this.drawScrollView(h),
+                    this.drawAbsolute(h),
+                    h('button', {}, '这是全局组件')
+                ])
+            })
+            node.mount(layer)
         }
+
+        // 注册全局组件
+        easyFlow.component('button', (opt, children, h) => this.drawButton(h, children))
+        canvas.ontouchstart = ontouchstart
+        canvas.ontouchmove = ontouchmove
+        canvas.ontouchend = ontouchend
     </script>
 </body>
 
