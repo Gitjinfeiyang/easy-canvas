@@ -16,7 +16,7 @@
 </head>
 
 <body style="background:#fff;">
-    <canvas id="canvas" style="width:100vw; height:100vh;"></canvas>
+    <canvas id="canvas" style="width:100vw; height:100vh;position:fixed;"></canvas>
 
     <script src="../dist/easyFlow.min.js"></script>
     <script src="./draw.js"></script>
@@ -68,11 +68,13 @@
             const canvas = document.querySelector('#canvas')
 
             const ctx = canvas.getContext('2d')
-
-            canvas.width = window.innerWidth * 2
-            canvas.height = window.innerHeight * 2
-            ctx.scale(2, 2)
-            layer = easyFlow.createLayer(ctx, { dpr: 2, width: window.innerWidth, height: window.innerHeight })
+            const dpr = window.devicePixelRatio
+            const w = window.innerWidth
+            const h = window.innerHeight
+            canvas.width = w * dpr
+            canvas.height = h * dpr
+            ctx.scale(dpr, dpr)
+            layer = easyFlow.createLayer(ctx, { dpr, width: w, height: h })
 
             const node = easyFlow.createElement((h) => {
                 return h('scroll-view', { styles: { backgroundColor: '#fff', height: window.innerHeight } },
