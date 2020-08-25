@@ -31,44 +31,47 @@
 
         const host = 'https://gitjinfeiyang.github.io/easyFlow/example/'
         const examples = [
-            {title:'Basic',desc:'Basic example',url:'basic.html'},
-            {title:'Image',desc:'Image usage',url:'image.html'},
-            {title:'Demo',desc:'This is a demo.',url:'test.html'}
+            { title: 'Basic', desc: 'Basic example', url: 'basic.html' },
+            { title: 'Image', desc: 'Image usage', url: 'image.html' },
+            { title: 'Demo', desc: 'This is a demo.', url: 'test.html' }
         ]
 
         function main() {
             const canvas = document.querySelector('#canvas')
 
             const ctx = canvas.getContext('2d')
-
-            canvas.width = window.innerWidth * 2
-            canvas.height = window.innerHeight * 2
-            ctx.scale(2, 2)
-            layer = easyFlow.createLayer(ctx, { dpr: 2, width: window.innerWidth, height: window.innerHeight })
+            const dpr = window.devicePixelRatio
+            const w = window.innerWidth
+            const h = window.innerHeight
+            canvas.width = w * dpr
+            canvas.height = h * dpr
+            ctx.scale(dpr, dpr)
+            layer = easyFlow.createLayer(ctx, { dpr, width: w, height: h })
 
             const node = easyFlow.createElement((h) => {
-                return h('scroll-view', { styles: { backgroundColor: '#f1f1f1',height:window.innerHeight } },
+                return h('scroll-view', { styles: { backgroundColor: '#f1f1f1', height: window.innerHeight } },
                     examples.map(item => {
-                        return h('view',{
-                            data:item,
-                            on:{
-                                click(e){
-                                    window.location.href=host + item.url
+                        return h('view', {
+                            data: item,
+                            on: {
+                                click(e) {
+                                    window.location.href = host + item.url
                                 }
                             },
-                            styles:{
-                                backgroundColor:'#fff',
-                                padding:10,
-                                marginBottom:10,
+                            styles: {
+                                backgroundColor: '#fff',
+                                padding: 10,
+                                marginBottom: 10,
                             }
-                        },[
-                            h('view',{styles:{color:'#333',fontSize:18,fontWeight:800}},[h('text',{},item.title)]),
-                            h('view',{styles:{color:'#999'}},[h('text',{},item.desc)])
+                        }, [
+                            h('view', { styles: { color: '#333', fontSize: 18, fontWeight: 800 } }, [h('text', {}, item.title)]),
+                            h('view', { styles: { color: '#999' } }, [h('text', {}, item.desc)])
                         ])
                     })
                 )
             })
             node.mount(layer)
+            console.log(node, w, h, dpr)
         }
 
         // 注册全局组件
