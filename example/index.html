@@ -31,9 +31,10 @@
 
         const host = 'https://gitjinfeiyang.github.io/easyFlow/example/'
         const examples = [
-            { title: 'Basic', desc: 'Basic example', url: 'basic.html' },
-            { title: 'Image', desc: 'Image usage', url: 'image.html' },
-            { title: 'Demo', desc: 'This is a demo.', url: 'test.html' }
+            { title: 'Basic', desc: '基本布局', url: 'basic.html' },
+            { title: 'Event 事件', desc: '事件监听', url: 'event.html' },
+            { title: 'Image 图片', desc: '图片缩放类型', url: 'image.html' },
+            { title: 'Demo', desc: '展示了滚动、事件、flex布局、文本换行对齐等能力', url: 'test.html' },
         ]
 
         function main() {
@@ -48,9 +49,9 @@
             ctx.scale(dpr, dpr)
             layer = easyFlow.createLayer(ctx, { dpr, width: w, height: h })
 
+            const background = 'https://tse1-mm.cn.bing.net/th/id/OIP.Dkj8fnK1SsPHIBmAN9XnUAHaNK?pid=Api&rs=1'
             const node = easyFlow.createElement((h) => {
-                return h('scroll-view', { styles: { backgroundColor: '#f1f1f1', height: window.innerHeight } },
-                    examples.map(item => {
+                const list = examples.map(item => {
                         return h('view', {
                             data: item,
                             on: {
@@ -68,6 +69,14 @@
                             h('view', { styles: { color: '#999' } }, [h('text', {}, item.desc)])
                         ])
                     })
+                return h('scroll-view', { styles: { backgroundColor: '#f1f1f1', height: window.innerHeight } },
+                    [
+                        h('view',{styles:{height:300}},[
+                            h('image',{styles:{width:'100%',height:'100%',position:'absolute'},attrs:{src:background,mode:'aspectFill'},}),
+                            h('view',{styles:{backgroundColor:'rgba(255,255,255,0.5)',fontSize:30,padding:10,position:'absolute',bottom:0,left:0,width:'100%',textAlign:'center'}},[h('text',{styles:{}},'easyFlow')])
+                        ]),
+                        ...list
+                    ]   
                 )
             })
             node.mount(layer)

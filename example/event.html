@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body style="background:#fff;">
+    <canvas id="canvas" style="width:100vw; height:100vh;position:fixed;"></canvas>
+
+    <script src="../dist/easyFlow.min.js"></script>
+    <script src="./draw.js"></script>
+    <script>
+        window.onload = function () {
+            main()
+
+        }
+        window.onresize = function () {
+            main()
+        }
+
+        function main() {
+            const canvas = document.querySelector('#canvas')
+
+            const ctx = canvas.getContext('2d')
+            const dpr = window.devicePixelRatio
+            const w = window.innerWidth
+            const h = window.innerHeight
+            canvas.width = w * dpr
+            canvas.height = h * dpr
+            ctx.scale(dpr, dpr)
+            layer = easyFlow.createLayer(ctx, { dpr, width: w, height: h })
+
+            const node = easyFlow.createElement((h) => {
+                return h('scroll-view', { styles: { backgroundColor: '#fff', height: window.innerHeight } },
+                    [
+                        h('view',{
+                            styles:{fontSize:40},
+                            on:{
+                                click(){
+                                    alert('Thank you!')
+                                }
+                            }
+                        },
+                        [
+                            h('text',{},'点我 Click me')
+                        ])
+                    ]
+                )
+            })
+
+            console.log(node)
+            node.mount(layer)
+        }
+
+        // 注册全局组件
+        canvas.ontouchstart = ontouchstart
+        canvas.ontouchmove = ontouchmove
+        canvas.ontouchend = ontouchend
+    </script>
+</body>
+
+</html>
