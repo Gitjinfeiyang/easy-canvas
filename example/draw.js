@@ -269,7 +269,7 @@ function drawCard(h) {
       styles: {
         backgroundColor: '#ff6c79',
         margin: 10,
-        padding: 10,
+        padding: [10,20],
         borderRadius: 6,
         borderWidth: 0.5,
         borderColor: '#ff6c79',
