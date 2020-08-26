@@ -84,22 +84,20 @@
     ...
 
     function button(c,text){
-      return h(
+      return c(
         'view',
         {
           styles: {
-            height: 20,
             backgroundColor: '#ff6c79',
             borderRadius: 10,
             borderColor: '#fff',
-            margin: 2,
             display: 'inline-block',
-            paddingLeft: 10,
-            paddingRight: 10,
+            margin: 2,
+            padding:[0,10]
           },
         },
         [
-          h(
+          c(
             'text',
             {
               styles: {
