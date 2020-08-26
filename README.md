@@ -1,5 +1,6 @@
 # 简介
 使用render函数，在canvas中创建文档流，实现静态布局.
+点击查看 [DEMO](https://gitjinfeiyang.github.io/easyFlow/example/)
 
 - 支持文档流，参照web，无需设置x、y以及宽高
 - 兼容小程序以及web，无第三方依赖
@@ -18,8 +19,8 @@
 - [x] display `block` `inline-block` `flex` text默认是inline的
 - [x] width `auto` `100%` `Number` 这里盒模型使用border-box，不可修改
 - [x] height
-- [x] marginLeft,marginRight,marginTop,marginBottom
-- [x] paddingLeft,paddingRight,paddingTop,paddingBottom
+- [x] margin marginLeft,marginRight,marginTop,marginBottom margin支持数组缩写例如 [10,20] [10,20,10,20]
+- [x] paddingLeft,paddingRight,paddingTop,paddingBottom 同上
 - [x] backgroundColor
 - [ ] backgroundImage
 - [x] borderRadius
