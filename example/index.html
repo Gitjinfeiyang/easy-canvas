@@ -16,7 +16,7 @@
 </head>
 
 <body style="background:#fff;">
-    <canvas id="canvas" style="width:375px; height:100vh;position:absolute;left:50%;margin-left:-187px;"></canvas>
+    <canvas id="canvas" style="width:100vw; height:100vh; position:fixed;"></canvas>
 
     <script src="../dist/easyFlow.min.js"></script>
     <script src="./draw.js"></script>
@@ -35,6 +35,7 @@
             { title: 'Event 事件', desc: '事件监听', url: 'event.html' },
             { title: 'Image 图片', desc: '图片缩放类型', url: 'image.html' },
             { title: 'Demo', desc: '展示了滚动、事件、flex布局、文本换行对齐等能力', url: 'test.html' },
+            { title: 'Test', desc: '测试用', url: 'test1.html' },
         ]
 
         function main() {
@@ -42,7 +43,7 @@
 
             const ctx = canvas.getContext('2d')
             const dpr = window.devicePixelRatio
-            const w = 375
+            const w = window.innerWidth
             const h = window.innerHeight
             canvas.width = w * dpr
             canvas.height = h * dpr

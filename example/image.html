@@ -16,7 +16,7 @@
 </head>
 
 <body style="background:#fff;">
-    <canvas id="canvas" style="width:375px; height:100vh;position:absolute;left:50%;margin-left:-187px;"></canvas>
+    <canvas id="canvas" style="width:100vw; height:100vh; position:fixed;"></canvas>
 
     <script src="../dist/easyFlow.min.js"></script>
     <script src="./draw.js"></script>
@@ -72,7 +72,7 @@
 
             const ctx = canvas.getContext('2d')
             const dpr = window.devicePixelRatio
-            const w = 375
+            const w = window.innerWidth
             const h = window.innerHeight
             canvas.width = w * dpr
             canvas.height = h * dpr
