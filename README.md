@@ -1,6 +1,7 @@
 # 简介
 使用render函数，在canvas中创建文档流，实现静态布局.
-点击查看 [DEMO](https://gitjinfeiyang.github.io/easyFlow/example/)
+
+*点击查看 [DEMO](https://gitjinfeiyang.github.io/easyFlow/example/)*
 
 - 支持文档流，参照web，无需设置x、y以及宽高
 - 兼容小程序以及web，无第三方依赖
@@ -44,15 +45,17 @@
 - [x] position `static` `absolute`
 
 
-## Screenshot
-![1](screenshot/01.png)
+## Installation
 
+``` bash
+npm install easy-canvas-layout --save
+```
 
 ## Usage
 
 ### Basic
 ``` javascript
-    import ef from 'easyflow'
+    import easyCanvas from 'easy-canvas-layout'
 
     const canvas = document.querySelector('#canvas')
 
@@ -62,7 +65,7 @@
     ctx.scale(2, 2)
 
     // create a layer bind with ctx
-    const layer = ef.createLayer(ctx, {
+    const layer = easyCanvas.createLayer(ctx, {
       dpr: 2,
       width: 300,
       height: 600,
@@ -70,7 +73,7 @@
     })
 
     // create a node tree
-    const node = ef.createElement((c) => {
+    const node = easyCanvas.createElement((c) => {
       return c('view', { styles: { backgroundColor:'#000' } }, [
         c('text',{color:'#fff'},'Hello World')
       ])
@@ -114,9 +117,9 @@
       )
     }
 
-    ef.component('button',(opt,children,c) => button(c,children))
+    easyCanvas.component('button',(opt,children,c) => button(c,children))
 
-    const node = ef.createElement((c) => {
+    const node = easyCanvas.createElement((c) => {
       return c('view',{},[
         c('button',{},'这是全局组件')
       ])
