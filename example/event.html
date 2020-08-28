@@ -16,7 +16,7 @@
 </head>
 
 <body style="background:#fff;">
-    <canvas id="canvas" style="width:100vw; height:100vh;position:fixed;"></canvas>
+    <canvas id="canvas" style="width:100%; height:100%;position:fixed;"></canvas>
 
     <script src="../dist/easyFlow.min.js"></script>
     <script src="./draw.js"></script>
@@ -42,19 +42,19 @@
             layer = easyFlow.createLayer(ctx, { dpr, width: w, height: h })
 
             const node = easyFlow.createElement((h) => {
-                return h('view', { styles: { } },
+                return h('view', { styles: {} },
                     [
-                        h('view',{
-                            styles:{fontSize:40},
-                            on:{
-                                click(){
+                        h('view', {
+                            styles: { fontSize: 40 },
+                            on: {
+                                click() {
                                     alert('Thank you!')
                                 }
                             }
                         },
-                        [
-                            h('text',{},'点我 Click me')
-                        ])
+                            [
+                                h('text', {}, '点我 Click me')
+                            ])
                     ]
                 )
             })

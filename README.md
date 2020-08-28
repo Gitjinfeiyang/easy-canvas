@@ -19,6 +19,7 @@
 - [x] display `block` `inline-block` `flex` text默认是inline的
 - [x] width `auto` `100%` `Number` 这里盒模型使用border-box，不可修改
 - [x] height
+- [x] minWidth maxWidth minHeight maxHeight 如果设置了具体宽度高度不生效
 - [x] margin marginLeft,marginRight,marginTop,marginBottom margin支持数组缩写例如 [10,20] [10,20,10,20]
 - [x] paddingLeft,paddingRight,paddingTop,paddingBottom 同上
 - [x] backgroundColor
@@ -130,10 +131,13 @@
 * ~~inline-block换行以及textAlign~~
 * ~~通过栈实现属性继承~~
 * 支持flex-direction
-* box-shadow 待优化
+* ~~box-shadow 待优化~~
 * 兼容小程序measuretext
 * ~~兼容小程序image~~
 * ~~打包问题解决~~
-* scroll-view嵌套 translate值继承
+* scroll-view嵌套 ~~translate值继承~~
 * 补充其他属性
-* image 支持mode
+* ~~image 支持mode~~
+* 发布npm
+* ~~max-width~~
+* vue模版支持

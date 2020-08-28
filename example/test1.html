@@ -16,7 +16,7 @@
 </head>
 
 <body style="background:#fff;">
-    <canvas id="canvas" style="width:100vw; height:100vh; position:fixed;"></canvas>
+    <canvas id="canvas" style="width:100%; height:100%; position:fixed;"></canvas>
 
     <script src="../dist/easyFlow.min.js"></script>
     <script src="./draw.js"></script>
@@ -39,9 +39,9 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            
-            ctx.fillStyle='green'
-            ctx.fillRect(100,100,100,100)
+
+            ctx.fillStyle = 'green'
+            ctx.fillRect(100, 100, 100, 100)
         }
     </script>
 </body>
