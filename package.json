@@ -1,12 +1,12 @@
 {
-  "name": "easyflow",
-  "version": "1.0.0",
+  "name": "easy-canvas",
+  "version": "0.0.1",
   "description": "A canvas lib helps us easy to layout with canvas.",
   "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c ./build/rollup.config.js",
-    "copy": "cp ./dist/easyFlow.min.js ./example/weapp && cp ./example/draw.js ./example/weapp"
+    "copy": "cp ./dist/easy-canvas.min.js ./example/weapp && cp ./example/draw.js ./example/weapp"
   },
   "repository": {
     "type": "git",

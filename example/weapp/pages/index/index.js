@@ -1,6 +1,6 @@
 //index.js
 //获取应用实例
-import ef from '../../easyFlow.min'
+import ef from '../../easy-canvas.min'
 const app = getApp()
 
 Page({

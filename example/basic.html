@@ -18,7 +18,7 @@
 <body style="background:#fff;">
     <canvas id="canvas" style="width:100%; height:100%; position:fixed;"></canvas>
 
-    <script src="../dist/easyFlow.min.js"></script>
+    <script src="../dist/easy-canvas.min.js"></script>
     <script src="./draw.js"></script>
     <script>
         window.onload = function () {
@@ -43,7 +43,7 @@
                 }
             }, children)
         }
-        easyFlow.component('card', (opt, children, h) => Card(h, children))
+        easyCanvas.component('card', (opt, children, h) => Card(h, children))
 
         function Title(h, level, title) {
             return h('view', {
@@ -62,7 +62,7 @@
             }, title)])
         }
         [1, 2, 3, 4, 5, 6].forEach(level => {
-            easyFlow.component(`h${level}`, (opt, children, h) => Title(h, level, children))
+            easyCanvas.component(`h${level}`, (opt, children, h) => Title(h, level, children))
         })
         function main() {
             const canvas = document.querySelector('#canvas')
@@ -74,9 +74,9 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            layer = easyFlow.createLayer(ctx, { dpr, width: w, height: h })
+            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h })
 
-            const node = easyFlow.createElement((h) => {
+            const node = easyCanvas.createElement((h) => {
                 return h('scroll-view', { styles: { backgroundColor: '#fff', height: window.innerHeight } },
                     [
                         drawListItem(h),
