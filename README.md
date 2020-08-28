@@ -1,7 +1,7 @@
 # 简介
 使用render函数，在canvas中创建文档流，实现静态布局.
 
-*点击查看 [DEMO](https://gitjinfeiyang.github.io/easyFlow/example/)*
+*点击查看 [DEMO](https://gitjinfeiyang.github.io/easy-canvas/example/)*
 
 - 支持文档流，参照web，无需设置x、y以及宽高
 - 兼容小程序以及web，无第三方依赖
