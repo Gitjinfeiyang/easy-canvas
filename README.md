@@ -3,6 +3,7 @@
 
 *点击查看 [DEMO](https://gitjinfeiyang.github.io/easy-canvas/example/)*
 
+- vue组件 [vue-easy-canvas](https://github.com/Gitjinfeiyang/vue-easy-canvas)
 - 支持文档流，参照web，无需设置x、y以及宽高
 - 兼容小程序以及web，无第三方依赖
 - 支持组件化，全局组件以及局部组件
