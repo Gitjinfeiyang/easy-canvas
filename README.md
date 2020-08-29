@@ -1,7 +1,7 @@
 # 简介
 使用render函数，在canvas中创建文档流，实现静态布局.
 
-*点击查看 [DEMO](https://gitjinfeiyang.github.io/easy-canvas/example/)*
+> *使用中有问题查看example中的代码，点击查看 [DEMO](https://gitjinfeiyang.github.io/easy-canvas/example/)*
 
 - vue组件 [vue-easy-canvas](https://github.com/Gitjinfeiyang/vue-easy-canvas)
 - 支持文档流，参照web，无需设置x、y以及宽高
@@ -10,42 +10,42 @@
 - 支持事件
 
 ## 支持元素
-- [x] view 基本元素，类似div
-- [x] text 文本 支持自动换行以及超过省略等功能
-- [x] image 图片 src mode支持aspectFit以及aspectFill，其他css特性同web 支持load事件
-- [x] scroll-view 滚动容器，需要在样式里设置direction，并且设置具体尺寸 实验性功能
+- [x] `view` 基本元素，类似div
+- [x] `text` 文本 支持自动换行以及超过省略等功能,目前text实现为inline-block
+- [x] `image` 图片 `src` `mode`支持aspectFit以及aspectFill，其他css特性同web 支持`load`事件监听图片加载并且绘制完成
+- [x] `scroll-view` 滚动容器，需要在样式里设置`direction`，并且设置具体尺寸 实验性功能
 
 ## Styles
 属性使用像素的地方统一使用数字
 
-- [x] display `block` `inline-block` `flex` text默认是inline的
-- [x] width `auto` `100%` `Number` 这里盒模型使用border-box，不可修改
-- [x] height
-- [x] minWidth maxWidth minHeight maxHeight 如果设置了具体宽度高度不生效
-- [x] margin marginLeft,marginRight,marginTop,marginBottom margin支持数组缩写例如 [10,20] [10,20,10,20]
-- [x] paddingLeft,paddingRight,paddingTop,paddingBottom 同上
-- [x] backgroundColor
-- [ ] backgroundImage
-- [x] borderRadius
-- [x] borderWidth borderTopWidth ... 细边框直接设置0.5
-- [x] borderColor
-- [x] lineHeight 字体相关的只在text内有效
-- [x] color
-- [x] fontSize
-- [x] textAlign `left` `right` `center`
-- [x] verticalAlign `top` `middle` `bottom`
-- [x] alignItems `flex-start` `center` `flex-end` flex布局 垂直方向对其 
-- [x] maxLine 最大行数，超出自动省略号，只支持在text中使用
-- [x] whiteSpace `normal` `nowrap` 控制换行，不能控制字体
-- [x] overflow `hidden` 如果添加了圆角，会自动加上 hidden
-- [ ] flexDirection
-- [x] borderStyle `dash` `Number`
-- [x] shadowBlur 设置了阴影会自动加上 overflow:hidden;
-- [x] shadowColor 
-- [x] shadowOffsetX
-- [x] shadowOffsetY
-- [x] position `static` `absolute`
-- [x] opacity `Number`
+- [x] `display` block | inline-block | flex, text默认是inline的
+- [x] `width` auto 100% Number 这里盒模型使用border-box，不可修改
+- [x] `height`
+- [x] `minWidth` `maxWidth` `minHeight` `maxHeight` 如果设置了具体宽度高度不生效
+- [x] `margin` `marginLeft`,`marginRight`,`marginTop`,`marginBottom` margin支持数组缩写例如 [10,20] [10,20,10,20]
+- [x] `paddingLeft`,`paddingRight`,`paddingTop`,`paddingBottom` 同上
+- [x] `backgroundColor`
+- [ ] `backgroundImage`
+- [x] `borderRadius`
+- [x] `borderWidth` `borderTopWidth` ... 细边框直接设置0.5
+- [x] `borderColor`
+- [x] `lineHeight` 字体相关的只在text内有效
+- [x] `color`
+- [x] `fontSize`
+- [x] `textAlign` left right center
+- [x] `verticalAlign` top middle bottom
+- [x] `alignItems` flex-start center flex-end flex布局 垂直方向对其 
+- [x] `maxLine` 最大行数，超出自动省略号，只支持在text中使用
+- [x] `whiteSpace` normal nowrap 控制换行，不能控制字体
+- [x] `overflow` hidden 如果添加了圆角，会自动加上 hidden
+- [ ] `flexDirection`
+- [x] `borderStyle` dash Number
+- [x] `shadowBlur` 设置了阴影会自动加上 overflow:hidden;
+- [x] `shadowColor` 
+- [x] `shadowOffsetX`
+- [x] `shadowOffsetY`
+- [x] `position` `static` `absolute`
+- [x] `opacity` `Number`
 
 
 ## Installation
@@ -60,13 +60,6 @@ npm install easy-canvas-layout --save
 ``` javascript
     import easyCanvas from 'easy-canvas-layout'
 
-    const canvas = document.querySelector('#canvas')
-
-    const ctx = canvas.getContext('2d')
-    canvas.width = canvas.width * 2
-    canvas.height = canvas.height * 2
-    ctx.scale(2, 2)
-
     // create a layer bind with ctx
     const layer = easyCanvas.createLayer(ctx, {
       dpr: 2,
@@ -76,8 +69,14 @@ npm install easy-canvas-layout --save
     })
 
     // create a node tree
+    // c(tag,options,children)
     const node = easyCanvas.createElement((c) => {
-      return c('view', { styles: { backgroundColor:'#000' } }, [
+      return c('view', { 
+        styles: { backgroundColor:'#000' }, // 样式
+        attrs:{},                           // 属性 比如src
+        on:{}                               // 事件 如click load 
+      }, 
+      [
         c('text',{color:'#fff'},'Hello World')
       ])
     })
@@ -144,9 +143,9 @@ npm install easy-canvas-layout --save
 * scroll-view嵌套 ~~translate值继承~~
 * 补充其他属性
 * ~~image 支持mode~~
-* 发布npm
+* ~~发布npm~~
 * ~~max-width~~
-* vue模版支持
+* ~~vue模版支持~~
 
 ## MIT License
 
