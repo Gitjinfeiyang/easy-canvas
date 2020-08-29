@@ -84,7 +84,7 @@
                     [
                         h('card', {}, [
                             h('h6', {}, 'normal'),
-                            h('image', { attrs: { src } }, [])
+                            h('image', { attrs: { src },on:{load(img){console.log('image load',img)}} }, [])
                         ]),
                         h('card', {}, [
                             h('h6', {}, 'widthFix'),

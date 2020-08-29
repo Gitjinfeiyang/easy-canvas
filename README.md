@@ -12,7 +12,7 @@
 ## 支持元素
 - [x] view 基本元素，类似div
 - [x] text 文本 支持自动换行以及超过省略等功能
-- [x] image 图片 src mode支持aspectFit以及aspectFill，其他css特性同web
+- [x] image 图片 src mode支持aspectFit以及aspectFill，其他css特性同web 支持load事件
 - [x] scroll-view 滚动容器，需要在样式里设置direction，并且设置具体尺寸 实验性功能
 
 ## Styles
@@ -33,17 +33,19 @@
 - [x] color
 - [x] fontSize
 - [x] textAlign `left` `right` `center`
-- [x] verticalAlign
+- [x] verticalAlign `top` `middle` `bottom`
+- [x] alignItems `flex-start` `center` `flex-end` flex布局 垂直方向对其 
 - [x] maxLine 最大行数，超出自动省略号，只支持在text中使用
 - [x] whiteSpace `normal` `nowrap` 控制换行，不能控制字体
 - [x] overflow `hidden` 如果添加了圆角，会自动加上 hidden
 - [ ] flexDirection
-- [ ] borderStyle
-- [x] shadowBlur
-- [x] shadowColor  待优化
-- [ ] shadowOffsetX
-- [ ] shadowOffsetY
+- [x] borderStyle `dash` `Number`
+- [x] shadowBlur 设置了阴影会自动加上 overflow:hidden;
+- [x] shadowColor 
+- [x] shadowOffsetX
+- [x] shadowOffsetY
 - [x] position `static` `absolute`
+- [x] opacity `Number`
 
 
 ## Installation
