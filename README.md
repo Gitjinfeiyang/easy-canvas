@@ -34,14 +34,14 @@
 - [x] `fontSize`
 - [x] `textAlign` left right center
 - [x] `verticalAlign` top middle bottom
-- [x] `alignItems` flex-start center flex-end flex布局 垂直方向对其 
+- [x] `alignItems` flex-start center flex-end flex布局 垂直方向对其
 - [x] `maxLine` 最大行数，超出自动省略号，只支持在text中使用
 - [x] `whiteSpace` normal nowrap 控制换行，不能控制字体
 - [x] `overflow` hidden 如果添加了圆角，会自动加上 hidden
 - [ ] `flexDirection`
 - [x] `borderStyle` dash Number
 - [x] `shadowBlur` 设置了阴影会自动加上 overflow:hidden;
-- [x] `shadowColor` 
+- [x] `shadowColor`
 - [x] `shadowOffsetX`
 - [x] `shadowOffsetY`
 - [x] `position` `static` `absolute`
@@ -71,11 +71,11 @@ npm install easy-canvas-layout --save
     // create a node tree
     // c(tag,options,children)
     const node = easyCanvas.createElement((c) => {
-      return c('view', { 
+      return c('view', {
         styles: { backgroundColor:'#000' }, // 样式
         attrs:{},                           // 属性 比如src
-        on:{}                               // 事件 如click load 
-      }, 
+        on:{}                               // 事件 如click load
+      },
       [
         c('text',{color:'#fff'},'Hello World')
       ])
@@ -146,6 +146,7 @@ npm install easy-canvas-layout --save
 * ~~发布npm~~
 * ~~max-width~~
 * ~~vue模版支持~~
+* scroll-view点击区域判断
 
 ## MIT License
 

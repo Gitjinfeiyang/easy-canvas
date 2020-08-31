@@ -146,10 +146,10 @@ function drawListItem(h, tag) {
 function drawButton(h, text = 'text', options = {}) {
   return h(
     'view',
-    {
+    Object.assign({
       styles: {
         height: 20,
-        backgroundColor: options.backgroundColor || '#ff6c79',
+        backgroundColor: '#ff6c79',
         borderRadius: 10,
         borderColor: '#fff',
         margin: 2,
@@ -157,7 +157,7 @@ function drawButton(h, text = 'text', options = {}) {
         paddingLeft: 10,
         paddingRight: 10,
       },
-    },
+    }, options),
     [
       h(
         'text',
@@ -269,7 +269,7 @@ function drawCard(h) {
       styles: {
         backgroundColor: '#ff6c79',
         margin: 10,
-        padding: [10,20],
+        padding: [10, 20],
         borderRadius: 6,
         borderWidth: 0.5,
         borderColor: '#ff6c79',

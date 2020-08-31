@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body style="background:#fff;">
+    <canvas id="canvas" style="width:100%; height:100%; position:fixed;"></canvas>
+
+    <script src="../dist/easy-canvas.min.js"></script>
+    <script src="./draw.js"></script>
+    <script>
+        window.onload = function () {
+            main()
+
+        }
+        window.onresize = function () {
+            main()
+        }
+
+        function main() {
+            const canvas = document.querySelector('#canvas')
+
+            const ctx = canvas.getContext('2d')
+            const dpr = window.devicePixelRatio
+            const w = window.innerWidth
+            const h = window.innerHeight
+            canvas.width = w * dpr
+            canvas.height = h * dpr
+            ctx.scale(dpr, dpr)
+            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h })
+
+
+            const node = easyCanvas.createElement((h) => {
+                const add = () => {
+                    const ab = node.getElementBy('id', 'add')[0]
+                    ab.append(h('button', {}, 'hello'))
+                }
+                const deleteItem = () => node.removeChild(node.children[node.children.length - 1])
+                return h('view', { styles: { backgroundColor: '#fff' } }, [
+                    h('button', {
+                        attrs: { id: 'add' },
+                        on: {
+                            click(e) {
+                                add()
+                            }
+                        }
+                    }, 'Add'),
+                    h('button', {
+                        on: {
+                            click() {
+                                deleteItem()
+                            }
+                        }
+                    }, 'Delete'),
+                ])
+            })
+            node.mount(layer)
+        }
+
+        // 注册全局组件
+        easyCanvas.component('button', (opt, children, h) => this.drawButton(h, children, opt))
+        canvas.ontouchstart = ontouchstart
+        canvas.ontouchmove = ontouchmove
+        canvas.ontouchend = ontouchend
+        canvas.onclick = onClick
+
+    </script>
+</body>
+
+</html>
