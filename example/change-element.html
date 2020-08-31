@@ -44,8 +44,7 @@
 
             const node = easyCanvas.createElement((h) => {
                 const add = () => {
-                    const ab = node.getElementBy('id', 'add')[0]
-                    ab.append(h('button', {}, 'hello'))
+                    node.appendChild(h('button', {}, 'hello'))
                 }
                 const deleteItem = () => node.removeChild(node.children[node.children.length - 1])
                 return h('view', { styles: { backgroundColor: '#fff' } }, [
