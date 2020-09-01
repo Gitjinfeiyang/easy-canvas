@@ -39,7 +39,7 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h })
+            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, })
 
 
             const node = easyCanvas.createElement((h) => {
@@ -47,6 +47,23 @@
                     node.appendChild(h('button', {}, 'hello'))
                 }
                 const deleteItem = () => node.removeChild(node.children[node.children.length - 1])
+                let dialog = null
+                const toggleDialog = () => {
+                    if(dialog){
+                        node.removeChild(dialog)
+                        dialog = null
+                    }else{
+                        dialog = node.appendChild(Dialog(h,{
+                            on:{
+                                click(){
+                                    toggleDialog()
+                                }
+                            },
+                            title:'提示',
+                            content:'easy-canvas实现了在canvas中创建文档流，并且可以很轻松的支持组件化开发，并且没有第三方依赖，只要支持标准的canvas就可以使用，在实现基本功能的基础上添加了事件、scroll-view等支持。基础版支持小程序、web。'
+                        }))
+                    }
+                }
                 return h('view', { styles: { backgroundColor: '#fff' } }, [
                     h('button', {
                         attrs: { id: 'add' },
@@ -57,12 +74,21 @@
                         }
                     }, 'Add'),
                     h('button', {
+                        attrs: { id: 'add' },
+                        on: {
+                            click(e) {
+                                toggleDialog()
+                            }
+                        }
+                    }, 'Toggle Dialog'),
+                    h('button', {
                         on: {
                             click() {
                                 deleteItem()
                             }
                         }
                     }, 'Delete'),
+
                 ])
             })
             node.mount(layer)
