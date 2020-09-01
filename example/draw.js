@@ -256,10 +256,11 @@ function drawInlineBlock(h) {
         borderColor: '#ccc',
         paddingTop: 4,
         marginTop: 4,
-        textAlign: 'center',
       },
     },
-    [...buttonList]
+    [
+      ...buttonList,
+    ]
   )
 }
 function drawCard(h) {

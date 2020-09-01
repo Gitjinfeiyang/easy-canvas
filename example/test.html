@@ -50,7 +50,11 @@
                     this.drawScrollViewX(h),
                     this.drawScrollView(h),
                     this.drawAbsolute(h),
-                    h('button', {}, '这是全局组件')
+                    h('view', { styles: { textAlign: 'left' } }, [
+                        ...('如果需要在text中间增加inline-block元素，请使用split将text分割成每个文字一个text元素，这种模式下maxline不生效'.split('').map(w => h('text', {}, w))),
+                        h('button', { styles: { backgroundColor: '#ffd8bf' } }, 'Inline Block'),
+                        h('text', {}, '系统级')
+                    ])
                 ])
             })
             node.mount(layer)
