@@ -67,7 +67,10 @@
                             marginBottom: 10,
                         }
                     }, [
-                        h('view', { styles: { color: '#333', fontSize: 18, fontWeight: 800 } }, [h('text', {}, item.title)]),
+                        h('view', { styles: { color: '#333', fontSize: 18, fontWeight: 800,display:'flex',alignItems:'center' } }, [
+                            h('view',{styles:{flex:1}},[h('text', {styles:{}}, item.title),]),
+                            h('image',{styles:{width:30},attrs:{src:'./images/arrow-right.png'}})
+                        ]),
                         h('view', { styles: { color: '#999' } }, [h('text', {}, item.desc)])
                     ])
                 })
