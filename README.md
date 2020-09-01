@@ -34,13 +34,14 @@
 - [x] `color`
 - [x] `fontSize`
 - [x] `textAlign` left right center
+- [x] `textIndent` Number
 - [x] `verticalAlign` top middle bottom
 - [x] `alignItems` flex-start center flex-end flex布局 垂直方向对其
 - [x] `maxLine` 最大行数，超出自动省略号，只支持在text中使用
 - [x] `whiteSpace` normal nowrap 控制换行，不能控制字体
 - [x] `overflow` hidden 如果添加了圆角，会自动加上 hidden
 - [ ] `flexDirection`
-- [x] `borderStyle` dash Number
+- [x] `borderStyle` dash Array 详见ctx.setLineDash()
 - [x] `shadowBlur` 设置了阴影会自动加上 overflow:hidden;
 - [x] `shadowColor`
 - [x] `shadowOffsetX`
