@@ -256,6 +256,7 @@ function drawInlineBlock(h) {
         borderColor: '#ccc',
         paddingTop: 4,
         marginTop: 4,
+        textAlign: 'right'
       },
     },
     [
@@ -427,27 +428,29 @@ function drawAbsolute(h) {
   return h('view', { styles: { position: 'absolute', top: 10, left: 10, zIndex: 10 } }, [drawButton(h, 'Absolute')])
 }
 
-function Dialog(h,options){
-  return h('view',{attrs:{className:'dialog'},styles:{
-    position:'absolute',top:0,left:0,width:window.innerWidth,height:window.innerHeight,backgroundColor:'rgba(0,0,0,0.5)'
-  }},[
-    h('view',{
-      styles:{
-        width:300,
-        flex:1,
-        padding:20,
-        borderRadius:4,
-        backgroundColor:'#fff',
-        position:'absolute',
-        left:window.innerWidth/2,
-        top:window.innerHeight/2,
-        marginLeft:-150,
-        marginTop:-100
+function Dialog(h, options) {
+  return h('view', {
+    attrs: { className: 'dialog' }, styles: {
+      position: 'absolute', top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, backgroundColor: 'rgba(0,0,0,0.5)'
+    }
+  }, [
+    h('view', {
+      styles: {
+        width: 300,
+        flex: 1,
+        padding: 20,
+        borderRadius: 4,
+        backgroundColor: '#fff',
+        position: 'absolute',
+        left: window.innerWidth / 2,
+        top: window.innerHeight / 2,
+        marginLeft: -150,
+        marginTop: -100
       },
-      
-    },[
-      h('view',{styles:{textAlign:'center',fontWeight:'bold',fontSize:20,borderBottomWidth:0.5,borderColor:'#ccc'}},[h('text',{},options.title || 'Notice')]),
-      h('view',{styles:{paddingTop:20,color:'#666'}},[h('text',{},options.content||'')])
+
+    }, [
+      h('view', { styles: { textAlign: 'center', fontWeight: 'bold', fontSize: 20, borderBottomWidth: 0.5, borderColor: '#ccc' } }, [h('text', {}, options.title || 'Notice')]),
+      h('view', { styles: { paddingTop: 20, color: '#666' } }, [h('text', {}, options.content || '')])
     ])
   ])
 }
