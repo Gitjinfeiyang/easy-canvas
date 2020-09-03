@@ -290,7 +290,7 @@ function drawCard(h) {
           '总资产(元)'
         ),
       ]),
-      h('view', { styles: { display: 'flex' } }, [
+      h('view', { styles: { display: 'flex', justifyContent: 'flex-start' } }, [
         h('view', { styles: { flex: 1 } }, [
           h(
             'text',
@@ -343,6 +343,7 @@ function drawCard(h) {
             paddingTop: 20,
             borderTopWidth: 0.5,
             borderColor: '#fff',
+            alignItems: 'top'
           },
         },
         [
@@ -360,7 +361,6 @@ function drawCard(h) {
               styles: {
                 flex: 1,
                 textAlign: 'center',
-                verticalAlign: 'middle',
               },
             },
             [
@@ -431,21 +431,16 @@ function drawAbsolute(h) {
 function Dialog(h, options) {
   return h('view', {
     attrs: { className: 'dialog' }, styles: {
-      position: 'absolute', top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, backgroundColor: 'rgba(0,0,0,0.5)'
+      position: 'absolute', top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, backgroundColor: 'rgba(0,0,0,0.5)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center'
     }
   }, [
     h('view', {
       styles: {
         width: 300,
-        flex: 1,
         padding: 20,
         borderRadius: 4,
         backgroundColor: '#fff',
-        position: 'absolute',
-        left: window.innerWidth / 2,
-        top: window.innerHeight / 2,
-        marginLeft: -150,
-        marginTop: -100
       },
 
     }, [

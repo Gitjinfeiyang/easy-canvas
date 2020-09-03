@@ -26,7 +26,6 @@
 - [x] `margin` `marginLeft`,`marginRight`,`marginTop`,`marginBottom` margin支持数组缩写例如 [10,20] [10,20,10,20]
 - [x] `paddingLeft`,`paddingRight`,`paddingTop`,`paddingBottom` 同上
 - [x] `backgroundColor`
-- [ ] `backgroundImage`
 - [x] `borderRadius`
 - [x] `borderWidth` `borderTopWidth` ... 细边框直接设置0.5
 - [x] `borderColor`
@@ -36,6 +35,7 @@
 - [x] `textAlign` left right center
 - [x] `textIndent` Number
 - [x] `verticalAlign` top middle bottom
+- [x] `justifyContent` flex-start center flex-end flex布局 水平方向对其
 - [x] `alignItems` flex-start center flex-end flex布局 垂直方向对其
 - [x] `maxLine` 最大行数，超出自动省略号，只支持在text中使用
 - [x] `whiteSpace` normal nowrap 控制换行，不能控制字体
