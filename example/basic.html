@@ -74,27 +74,24 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h })
+            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h,debug:true })
 
             const node = easyCanvas.createElement((h) => {
-                return h('scroll-view', { styles: { backgroundColor: '#fff', height: window.innerHeight } },
+                return h('view', { styles: { backgroundColor: '#fff',textAlign:'right' } },
                     [
-                        drawListItem(h),
-                        drawListItem(h),
-                        drawListItem(h),
-                        drawListItem(h),
-                        drawListItem(h),
-                        drawListItem(h),
-                        drawListItem(h),
-                        drawListItem(h),
+                        // drawListItem(h),
+                        h('button',{},'button'),
+                        h('button',{},'button'),
+                        h('button',{},'button'),
+
                     ]
                 )
             })
             console.log(node)
             node.mount(layer)
         }
-
-        // 注册全局组件
+ // 注册全局组件
+ easyCanvas.component('button', (opt, children, h) => this.drawButton(h, children))
         canvas.ontouchstart = ontouchstart
         canvas.ontouchmove = ontouchmove
         canvas.ontouchend = ontouchend

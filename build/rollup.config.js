@@ -9,6 +9,6 @@ export default {
     name: 'easyCanvas'
   },
   plugins: [
-    terser()
+    // terser()
   ]
 }
