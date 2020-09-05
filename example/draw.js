@@ -163,7 +163,7 @@ function drawButton(h, text = 'text', options = {}) {
         'text',
         {
           styles: {
-            lineHeight: 20,
+            lineHeight: 16,
             color: options.color || '#fff',
             textAlign: 'center',
             fontSize: 11,
@@ -225,7 +225,7 @@ function drawInlineBlock(h) {
         styles: {
           height: 20,
           backgroundColor: '#ff6c79',
-          borderRadius: 4,
+          borderRadius: 2,
           borderColor: '#fff',
           margin: 2,
           paddingLeft: 10,
@@ -238,7 +238,7 @@ function drawInlineBlock(h) {
           'text',
           {
             styles: {
-              lineHeight: 20,
+              lineHeight: 16,
               color: '#fff',
               fontSize: 11,
             },
@@ -305,10 +305,10 @@ function drawCard(h) {
           }),
         ]),
       ]),
-      h('view', {}, [
+      h('view', { styles: { lineHeight: 30 } }, [
         h(
           'text',
-          { styles: { color: '#fff', fontSize: 12, lineHeight: 20 } },
+          { styles: { color: '#fff', fontSize: 12, lineHeight: 20, verticalAlign: 'middle' } },
           '最新收益0.00'
         ),
         h(
@@ -317,18 +317,18 @@ function drawCard(h) {
             styles: {
               display: 'inline-block',
               marginLeft: 10,
-              marginTop: 3,
               height: 16,
               borderRadius: 8,
               paddingLeft: 5,
               paddingRight: 5,
               backgroundColor: '#666',
+              verticalAlign: 'middle'
             },
           },
           [
             h(
               'text',
-              { styles: { fontSize: 10, color: '#fff' } },
+              { styles: { fontSize: 10, lineHeight: 16, color: '#fff' } },
               '赠送权益'
             ),
           ]
@@ -343,15 +343,16 @@ function drawCard(h) {
             paddingTop: 20,
             borderTopWidth: 0.5,
             borderColor: '#fff',
-            alignItems: 'top'
+            alignItems: 'flex-end',
+            color: 'yellow'
           },
         },
         [
-          h('view', { styles: { flex: 1, color: '#fff' } }, [
-            h('text', { styles: { color: '#fff' } }, '风险评测'),
+          h('view', { styles: { flex: 1 } }, [
+            h('text', { styles: {} }, '风险评测'),
             h(
               'text',
-              { styles: { color: '#fff' } },
+              { styles: {} },
               '风险评测风险评测风险评测'
             ),
           ]),
@@ -364,8 +365,8 @@ function drawCard(h) {
               },
             },
             [
-              h('text', { styles: { color: '#fff', textAlign: 'center', width: '100%' } }, '我的定投'),
-              h('text', { styles: { color: '#fff' } }, '风险评测'),
+              h('text', { styles: { textAlign: 'center', width: '100%' } }, '我的定投'),
+              h('text', { styles: {} }, '风险评测'),
             ]
           ),
           h(
@@ -378,8 +379,8 @@ function drawCard(h) {
               },
             },
             [
-              h('text', { styles: { color: '#fff', textAlign: 'center' } }, '优惠券'),
-              h('text', { styles: { color: '#fff' } }, '风险评测'),
+              h('text', { styles: { textAlign: 'center' } }, '优惠券'),
+              h('text', { styles: {} }, '风险评测'),
             ]
           ),
         ]
@@ -432,7 +433,7 @@ function Dialog(h, options) {
   return h('view', {
     attrs: { className: 'dialog' }, styles: {
       position: 'absolute', top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, backgroundColor: 'rgba(0,0,0,0.5)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center'
+      display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start'
     }
   }, [
     h('view', {

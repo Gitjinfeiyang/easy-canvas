@@ -77,13 +77,21 @@
             layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: true })
 
             const node = easyCanvas.createElement((h) => {
-                return h('view', { styles: { backgroundColor: '#fff', textAlign: 'center' } },
+                return h('view', { styles: { backgroundColor: '#fff', textAlign: 'right' } },
                     [
-                        // drawListItem(h),
-                        h('button', {}, 'button1'),
-                        h('button', {}, 'button2'),
-                        h('button', {}, 'button3'),
-
+                        drawListItem(h),
+                        // h('button', {}, 'button1'),
+                        // h('button', {}, 'button2'),
+                        // h('button', {}, 'button3'),
+                        // h('view', {
+                        //     styles: {
+                        //         display: 'flex'
+                        //     }
+                        // }, [
+                        //     h('view', { styles: { width: 50, backgroundColor: 'blue' } }, [h('button', {}, '100')]),
+                        //     h('view', { styles: { flex: 1, backgroundColor: 'red' } }, [h('button', {}, 'flex-1')]),
+                        //     h('view', { styles: { flex: 1, backgroundColor: 'green' } }, [h('button', {}, 'flex-1')]),
+                        // ])
                     ]
                 )
             })
