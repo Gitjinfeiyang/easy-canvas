@@ -433,7 +433,7 @@ function Dialog(h, options) {
   return h('view', {
     attrs: { className: 'dialog' }, styles: {
       position: 'absolute', top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, backgroundColor: 'rgba(0,0,0,0.5)',
-      display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start'
+      display: 'flex', alignItems: 'center', justifyContent: 'center'
     }
   }, [
     h('view', {
