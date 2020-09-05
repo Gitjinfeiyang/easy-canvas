@@ -156,7 +156,13 @@ function drawButton(h, text = 'text', options = {}) {
         display: 'inline-block',
         paddingLeft: 10,
         paddingRight: 10,
+        verticalAlign:'middle'
       },
+      on:{
+        click(e){
+          console.log(e)
+        }
+      }
     }, options),
     [
       h(
@@ -299,10 +305,40 @@ function drawCard(h) {
           ),
         ]),
         h('view', { styles: { flex: 1, textAlign: 'right' } }, [
-          drawButton(h, '我的信息', {
-            backgroundColor: '#fff',
-            color: '#ff6c79',
-          }),
+          h(
+            'view',
+            {
+              styles: {
+                height: 20,
+                backgroundColor: '#fff',
+                borderRadius: 10,
+                borderColor: '#fff',
+                margin: 2,
+                display: 'inline-block',
+                paddingLeft: 10,
+                paddingRight: 10
+              },
+              on:{
+                click(e){
+                  console.log(e)
+                }
+              }
+            },
+            [
+              h(
+                'text',
+                {
+                  styles: {
+                    lineHeight: 16,
+                    color: '#ff6c79',
+                    textAlign: 'center',
+                    fontSize: 11,
+                  },
+                },
+                '我的信息'
+              ),
+            ]
+          )
         ]),
       ]),
       h('view', { styles: { lineHeight: 30 } }, [
