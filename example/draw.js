@@ -59,6 +59,7 @@ function drawSimple(h) {
                     height: 50,
                     width: 50,
                     display: 'inline-block',
+                    borderRadius:4
                   },
                   attrs: {
                     mode: 'aspectFill',
