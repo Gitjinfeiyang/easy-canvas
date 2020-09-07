@@ -1,7 +1,7 @@
 {
   "name": "easy-canvas-layout",
-  "version": "0.0.10",
-  "description": "A canvas tool to help easy layout in canvas.",
+  "version": "0.0.11",
+  "description": "A canvas lib help to easy layout in canvas.",
   "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
