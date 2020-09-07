@@ -468,6 +468,94 @@ function drawAbsolute(h) {
   return h('view', { styles: { position: 'fixed', top: 10, left: 10, zIndex: 10 } }, [drawButton(h, 'Absolute')])
 }
 
+function drawTicket(h) {
+  return h('view', {
+    styles: {
+      backgroundColor: ['#eac4a3', '#d0916a'],
+      margin: 10,
+      padding: 10,
+      borderRadius: 14,
+      overflow: 'hidden'
+    }
+  }, [
+    h('view', {
+      styles: {
+        backgroundColor: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        padding: 20,
+        borderRadius: 14
+      }
+    }, [
+      h('view', {
+        styles: {
+          textAlign: 'center',
+          width: 70,
+          marginRight: 10
+        }
+      }, [
+        h('view', { styles: { fontSize: 24, color: '#d0916a' } }, [h('text', {}, '¥500')]),
+        h('view', { styles: { fontSize: 10, color: '#9a9a9a' } }, [h('text', {}, '无门槛使用')])
+      ]),
+      h('view', {
+        styles: {
+          flex: 1,
+          paddingLeft: 10,
+          borderLeftWidth: 0.5,
+          borderColor: '#eac4a3'
+        }
+      }, [
+        h('view', { styles: { fontSize: 14, fontWeight: 600, color: '#333' } }, [h('text', {}, '随机券¥20-300')]),
+        h('view', { styles: { fontSize: 11, color: '#9a9a9a' } }, [h('text', {}, '领取后30天内可用')]),
+      ]),
+      h('view', {
+        styles: {
+          width: 100,
+          textAlign: 'right'
+        }
+      }, [
+        h('view', {
+          styles: {
+            display: 'inline-block',
+            fontSize: 12,
+            lineHeight: 24,
+            borderRadius: 12,
+            padding: [0, 10],
+            backgroundColor: '#d0916a',
+            color: '#fff'
+          }
+        }, [
+          h('text', {}, '领取')
+        ])
+      ])
+    ]),
+    h('view', {
+      styles: {
+        position: 'absolute',
+        marginTop: -10,
+        left: -10,
+        top: '50%',
+        width: 20,
+        height: 10,
+        backgroundColor: '#eac4a3',
+        borderRadius: 10
+      }
+    }),
+    h('view', {
+      styles: {
+        position: 'absolute',
+        marginTop: -10,
+        right: -10,
+        top: '50%',
+        width: 20,
+        height: 10,
+        backgroundColor: '#d0916a',
+        borderRadius: 10
+      }
+    }),
+  ])
+}
+
 function Dialog(h, options) {
   return h('view', {
     attrs: { className: 'dialog' }, styles: {
