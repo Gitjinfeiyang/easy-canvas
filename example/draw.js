@@ -111,13 +111,16 @@ function drawListItem(h, tag) {
         [
           h('image', {
             attrs: {
+              mode: 'aspectFill',
               src:
                 'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg',
             },
             styles: {
               borderRadius: 24,
               shadowBlur: 10,
-              shadowColor: '#000',
+              shadowColor: '#ccc',
+              width: 50,
+              height: 50
             },
           }),
         ]
