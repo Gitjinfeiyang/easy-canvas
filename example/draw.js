@@ -462,7 +462,7 @@ function drawScrollViewX(h) {
   )
 }
 function drawAbsolute(h) {
-  return h('view', { styles: { position: 'absolute', top: 10, left: 10, zIndex: 10 } }, [drawButton(h, 'Absolute')])
+  return h('view', { styles: { position: 'fixed', top: 10, left: 10, zIndex: 10 } }, [drawButton(h, 'Absolute')])
 }
 
 function Dialog(h, options) {
