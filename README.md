@@ -148,8 +148,10 @@ npm install easy-canvas-layout --save
 * ~~发布npm~~
 * ~~max-width~~
 * ~~vue模版支持~~
-* scroll-view点击区域判断
-* 移除元素时移除事件
+* scroll-view点击区域判断优化
+* ~~移除元素时移除事件~~
+* 滚动优化
+* 按需渲染
 
 ## MIT License
 

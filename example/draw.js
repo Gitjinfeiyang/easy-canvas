@@ -59,7 +59,7 @@ function drawSimple(h) {
                     height: 50,
                     width: 50,
                     display: 'inline-block',
-                    borderRadius:4
+                    borderRadius: 4
                   },
                   attrs: {
                     mode: 'aspectFill',
@@ -157,10 +157,10 @@ function drawButton(h, text = 'text', options = {}) {
         display: 'inline-block',
         paddingLeft: 10,
         paddingRight: 10,
-        verticalAlign:'middle'
+        verticalAlign: 'middle'
       },
-      on:{
-        click(e){
+      on: {
+        click(e) {
           console.log(e)
         }
       }
@@ -319,8 +319,8 @@ function drawCard(h) {
                 paddingLeft: 10,
                 paddingRight: 10
               },
-              on:{
-                click(e){
+              on: {
+                click(e) {
                   console.log(e)
                 }
               }
@@ -381,11 +381,12 @@ function drawCard(h) {
             borderTopWidth: 0.5,
             borderColor: '#fff',
             alignItems: 'flex-end',
-            color: 'yellow'
+            color: 'yellow',
+            textAlign: 'center'
           },
         },
         [
-          h('view', { styles: { flex: 1 } }, [
+          h('view', { styles: { flex: 1, } }, [
             h('text', { styles: {} }, '风险评测'),
             h(
               'text',
@@ -398,11 +399,10 @@ function drawCard(h) {
             {
               styles: {
                 flex: 1,
-                textAlign: 'center',
               },
             },
             [
-              h('text', { styles: { textAlign: 'center', width: '100%' } }, '我的定投'),
+              h('text', { styles: { width: '100%' } }, '我的定投'),
               h('text', { styles: {} }, '风险评测'),
             ]
           ),
@@ -411,12 +411,11 @@ function drawCard(h) {
             {
               styles: {
                 flex: 1,
-                textAlign: 'center',
                 verticalAlign: 'middle',
               },
             },
             [
-              h('text', { styles: { textAlign: 'center' } }, '优惠券'),
+              h('text', { styles: {} }, '优惠券'),
               h('text', { styles: {} }, '风险评测'),
             ]
           ),
