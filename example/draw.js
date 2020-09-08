@@ -561,6 +561,11 @@ function Dialog(h, options) {
     attrs: { className: 'dialog' }, styles: {
       position: 'absolute', top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, backgroundColor: 'rgba(0,0,0,0.5)',
       display: 'flex', alignItems: 'center', justifyContent: 'center'
+    },
+    on: {
+      click() {
+        console.log('outer')
+      }
     }
   }, [
     h('view', {
@@ -570,9 +575,13 @@ function Dialog(h, options) {
         borderRadius: 4,
         backgroundColor: '#fff',
       },
-
+      on: {
+        click() {
+          console.log('inner')
+        }
+      }
     }, [
-      h('view', { styles: { textAlign: 'center', fontWeight: 'bold', fontSize: 20, borderBottomWidth: 0.5, borderColor: '#ccc' } }, [h('text', {}, options.title || 'Notice')]),
+      h('view', { styles: { textAlign: 'center', fontWeight: 'bold', fontSize: 20, borderBottomWidth: 0.5, borderColor: '#ccc', lineHeight: 30 } }, [h('text', {}, options.title || 'Notice')]),
       h('view', { styles: { paddingTop: 20, color: '#666' } }, [h('text', {}, options.content || '')])
     ])
   ])
