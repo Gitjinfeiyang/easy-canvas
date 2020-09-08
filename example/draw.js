@@ -118,9 +118,10 @@ function drawListItem(h, tag) {
             styles: {
               borderRadius: 24,
               shadowBlur: 10,
-              shadowColor: '#ccc',
+              shadowColor: '#999',
               width: 50,
-              height: 50
+              height: 50,
+              shadowOffsetY:5
             },
           }),
         ]
@@ -286,8 +287,9 @@ function drawCard(h) {
         borderWidth: 1,
         borderColor: '#ff6c79',
         borderStyle: 'dash',
-        shadowColor: '#666',
+        shadowColor: '#999',
         shadowBlur: 20,
+        shadowOffsetY:10,
       },
     },
     [
@@ -518,14 +520,13 @@ function drawTicket(h) {
           styles: {
             display: 'inline-block',
             fontSize: 12,
-            lineHeight: 24,
             borderRadius: 12,
             padding: [0, 10],
             backgroundColor: '#d0916a',
             color: '#fff'
           }
         }, [
-          h('text', {}, '领取')
+          h('text', {styles:{lineHeight: 24,}}, '领取')
         ])
       ])
     ]),
