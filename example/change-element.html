@@ -44,7 +44,13 @@
 
             const node = easyCanvas.createElement((h) => {
                 const add = () => {
-                    node.appendChild(h('button', {}, 'hello'))
+                    node.appendChild(h('button', {
+                        on: {
+                            click(e) {
+                                add()
+                            }
+                        }
+                    }, 'Click me!'))
                 }
                 const deleteItem = () => node.removeChild(node.children[node.children.length - 1])
                 let dialog = null
@@ -88,10 +94,10 @@
                             }
                         }
                     }, 'Delete'),
-                    Dialog(h, {
-                        title: '提示',
-                        content: 'easy-canvas实现了在canvas中创建文档流，并且可以很轻松的支持组件化开发，并且没有第三方依赖，只要支持标准的canvas就可以使用，在实现基本功能的基础上添加了事件、scroll-view等支持。基础版支持小程序、web。'
-                    })
+                    // Dialog(h, {
+                    //     title: '提示',
+                    //     content: 'easy-canvas实现了在canvas中创建文档流，并且可以很轻松的支持组件化开发，并且没有第三方依赖，只要支持标准的canvas就可以使用，在实现基本功能的基础上添加了事件、scroll-view等支持。基础版支持小程序、web。'
+                    // })
 
                 ])
             })
