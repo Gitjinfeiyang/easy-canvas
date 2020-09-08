@@ -117,11 +117,8 @@ function drawListItem(h, tag) {
             },
             styles: {
               borderRadius: 24,
-              shadowBlur: 10,
-              shadowColor: '#999',
               width: 50,
               height: 50,
-              shadowOffsetY:5
             },
           }),
         ]
