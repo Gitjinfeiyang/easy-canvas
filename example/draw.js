@@ -147,31 +147,29 @@ function drawListItem(h, tag) {
 }
 function drawButton(h, text = 'text', options = {}) {
   return h(
-    'view',
-    Object.assign({
-      styles: {
-        height: 20,
-        backgroundColor: '#ff6c79',
-        borderRadius: 10,
-        borderColor: '#fff',
-        margin: 2,
-        display: 'inline-block',
-        paddingLeft: 10,
-        paddingRight: 10,
-        verticalAlign: 'middle'
-      },
-      on: {
-        click(e) {
-          console.log(e)
-        }
+    'view', {
+    styles: {
+      height: 20,
+      backgroundColor: '#ff6c79',
+      borderRadius: 10,
+      borderColor: '#fff',
+      margin: 2,
+      display: 'inline-block',
+      paddingLeft: 10,
+      paddingRight: 10,
+      lineHeight: 16,
+    },
+    on: {
+      click(e) {
+        console.log(e)
       }
-    }, options),
+    }
+  },
     [
       h(
         'text',
         {
           styles: {
-            lineHeight: 16,
             color: options.color || '#fff',
             textAlign: 'center',
             fontSize: 11,
@@ -239,6 +237,7 @@ function drawInlineBlock(h) {
           paddingLeft: 10,
           paddingRight: 10,
           display: 'inline-block',
+          lineHeight: 16
         },
       },
       [
@@ -286,7 +285,7 @@ function drawCard(h) {
         borderStyle: 'dash',
         shadowColor: '#999',
         shadowBlur: 20,
-        shadowOffsetY:10,
+        shadowOffsetY: 10,
       },
     },
     [
@@ -523,7 +522,7 @@ function drawTicket(h) {
             color: '#fff'
           }
         }, [
-          h('text', {styles:{lineHeight: 24,}}, '领取')
+          h('text', { styles: { lineHeight: 24, } }, '领取')
         ])
       ])
     ]),
@@ -583,6 +582,68 @@ function Dialog(h, options) {
       h('view', { styles: { paddingTop: 20, color: '#666' } }, [h('text', {}, options.content || '')])
     ])
   ])
+}
+
+
+const data = {
+  date: '2016-05-02',
+  name: '王小虎',
+  province: '上海',
+  city: '普陀区',
+  address: '上海市普陀区金沙江路 1518 弄',
+  zip: 200333,
+}
+function getTableData(count = 100) {
+  let list = []
+  for (let i = 0; i < count; i++) {
+    list.push(data)
+  }
+  return list
+}
+function drawTable(h) {
+  const tableData = getTableData(1000)
+  const tr = {
+    width: 700,
+    display: 'flex',
+    borderBottomWidth: 0.5,
+    borderColor: '#999',
+    padding: [10, 0],
+  }
+  const td = {
+    flex: 1,
+    color: '#666',
+    padding: [0, 5],
+    display: 'block',
+    maxLine: 1,
+  }
+  const th = {
+    flex: 1,
+    padding: [0, 5],
+    display: 'block',
+    maxLine: 1,
+    color: '#333',
+    textAlign: 'center',
+  }
+  const tdFirst = {
+    ...td,
+    color: '#333',
+    textAlign: 'center',
+    fontWeight: 800
+  }
+  return [
+    h('view', {
+      styles: tr
+    }, ['序号', '日期', '姓名', '地区', '城市', '详细地址', '邮编'].map(item => h('text', { styles: th }, item))),
+    ...tableData.map((item, index) => h('view', { styles: tr }, [
+      h('text', { styles: tdFirst }, index + 1),
+      h('text', { styles: td }, item.date),
+      h('text', { styles: td }, item.name),
+      h('text', { styles: td }, item.province),
+      h('text', { styles: td }, item.city),
+      h('text', { styles: td }, item.address),
+      h('text', { styles: td }, item.zip),
+    ]))
+  ]
 }
 
 

@@ -16,7 +16,7 @@
 </head>
 
 <body style="background:#fff;">
-    <canvas id="canvas" style="width:100%; height:100%; position:fixed;"></canvas>
+    <canvas id="canvas" style="width:100%; height:100%;position:fixed;"></canvas>
 
     <script src="../dist/easy-canvas.min.js"></script>
     <script src="./draw.js"></script>
@@ -42,30 +42,32 @@
             layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: false })
 
             const node = easyCanvas.createElement((h) => {
-                return h('view', { styles: { backgroundColor: '#fff' } }, [
-                    // this.drawBox(h),
-                    this.drawSimple(h),
-                    this.drawInlineBlock(h),
-                    this.drawTicket(h),
-                    this.drawScrollViewX(h),
-                    this.drawListItem(h),
-                    this.drawAbsolute(h),
-                    h('view', { styles: { textAlign: 'left', lineHeight: 20, padding: 5 } }, [
-                        ...('如果需要在text中间增加inline-block元素，请使用split将text分割成每个文字一个text元素，这种模式下maxline不生效，如果在最前面，请使用textIndent配合绝对定位'.split('').map(w => h('text', {}, w))),
-                        h('button', { styles: { backgroundColor: '#ffd8bf' } }, 'Inline Block'),
-                        h('text', { styles: { textIndent: 10 } }, '支持textIndent')
-                    ])
-                ])
+                return h('scroll-view', {
+                    styles: {
+                        width: w,
+                        height: window.innerHeight,
+                        direction: 'xy'
+                    },
+                    attrs: {
+                        renderOnDemand: true
+                    }
+                },
+                    [
+                        ...drawTable(h)
+                    ]
+                )
             })
-            node.mount(layer)
+
             console.log(node)
+            node.mount(layer)
         }
 
         // 注册全局组件
-        easyCanvas.component('button', (opt, children, h) => this.drawButton(h, children))
         canvas.ontouchstart = ontouchstart
         canvas.ontouchmove = ontouchmove
         canvas.ontouchend = ontouchend
+        canvas.onclick = onClick
+
     </script>
 </body>
 
