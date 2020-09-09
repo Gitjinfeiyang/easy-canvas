@@ -655,17 +655,17 @@ function setLayer(_layer) {
 }
 function ontouchstart(e) {
   e.preventDefault()
-  layer.eventManager.touchstart(e.pageX || e.touches[0].pageX, e.pageY || e.touches[0].pageY)
+  layer.eventManager.touchstart(e.pageX || e.touches[0].pageX || 0, e.pageY || e.touches[0].pageY || 0)
 }
 function ontouchmove(e) {
   e.preventDefault()
-  layer.eventManager.touchmove(e.pageX || e.touches[0].pageX, e.pageY || e.touches[0].pageY)
+  layer.eventManager.touchmove(e.pageX || e.touches[0].pageX || 0, e.pageY || e.touches[0].pageY || 0)
 }
 function ontouchend(e) {
   e.preventDefault()
   layer.eventManager.touchend(
-    e.pageX || e.changedTouches[0].pageX,
-    e.pageY || e.changedTouches[0].pageY
+    e.pageX || e.changedTouches[0].pageX || 0,
+    e.pageY || e.changedTouches[0].pageY || 0
   )
 }
 function onClick(e) {
