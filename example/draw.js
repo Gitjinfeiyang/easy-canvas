@@ -147,24 +147,25 @@ function drawListItem(h, tag) {
 }
 function drawButton(h, text = 'text', options = {}) {
   return h(
-    'view', {
-    styles: {
-      height: 20,
-      backgroundColor: '#ff6c79',
-      borderRadius: 10,
-      borderColor: '#fff',
-      margin: 2,
-      display: 'inline-block',
-      paddingLeft: 10,
-      paddingRight: 10,
-      lineHeight: 16,
-    },
-    on: {
-      click(e) {
-        console.log(e)
+    'view', Object.assign({
+      styles: {
+        height: 20,
+        backgroundColor: '#ff6c79',
+        borderRadius: 10,
+        borderColor: '#fff',
+        margin: 2,
+        display: 'inline-block',
+        paddingLeft: 10,
+        paddingRight: 10,
+        lineHeight: 16,
+        verticalAlign: 'middle'
+      },
+      on: {
+        click(e) {
+          console.log(e)
+        }
       }
-    }
-  },
+    }, options),
     [
       h(
         'text',
