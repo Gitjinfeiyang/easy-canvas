@@ -110,7 +110,9 @@
         canvas.ontouchstart = ontouchstart
         canvas.ontouchmove = ontouchmove
         canvas.ontouchend = ontouchend
-        canvas.onclick = onClick
+        canvas.onmousedown = ontouchstart
+        canvas.onmousemove = ontouchmove
+        canvas.onmouseup = ontouchend
 
     </script>
 </body>

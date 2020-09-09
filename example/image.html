@@ -78,11 +78,11 @@
             layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h })
 
             const node = easyCanvas.createElement((h) => {
-                return h('scroll-view', { styles: { backgroundColor: '#f1f1f1', height: window.innerHeight,width:'100%' } },
+                return h('scroll-view', { styles: { backgroundColor: '#f1f1f1', height: window.innerHeight, width: '100%' } },
                     [
                         h('card', {}, [
                             h('h6', {}, 'normal'),
-                            h('image', { attrs: { src },on:{load(img){console.log('image load',img)}} }, [])
+                            h('image', { attrs: { src }, on: { load(img) { console.log('image load', img) } } }, [])
                         ]),
                         h('card', {}, [
                             h('h6', {}, 'widthFix'),
@@ -115,6 +115,9 @@
         canvas.ontouchstart = ontouchstart
         canvas.ontouchmove = ontouchmove
         canvas.ontouchend = ontouchend
+        canvas.onmousedown = ontouchstart
+        canvas.onmousemove = ontouchmove
+        canvas.onmouseup = ontouchend
     </script>
 </body>
 

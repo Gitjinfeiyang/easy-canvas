@@ -119,6 +119,8 @@ function drawListItem(h, tag) {
               borderRadius: 24,
               width: 50,
               height: 50,
+              borderWidth: 0.5,
+              borderColor: '#ccc'
             },
           }),
         ]
@@ -653,17 +655,17 @@ function setLayer(_layer) {
 }
 function ontouchstart(e) {
   e.preventDefault()
-  layer.eventManager.touchstart(e.touches[0].pageX, e.touches[0].pageY)
+  layer.eventManager.touchstart(e.pageX || e.touches[0].pageX, e.pageY || e.touches[0].pageY)
 }
 function ontouchmove(e) {
   e.preventDefault()
-  layer.eventManager.touchmove(e.touches[0].pageX, e.touches[0].pageY)
+  layer.eventManager.touchmove(e.pageX || e.touches[0].pageX, e.pageY || e.touches[0].pageY)
 }
 function ontouchend(e) {
   e.preventDefault()
   layer.eventManager.touchend(
-    e.changedTouches[0].pageX,
-    e.changedTouches[0].pageY
+    e.pageX || e.changedTouches[0].pageX,
+    e.pageY || e.changedTouches[0].pageY
   )
 }
 function onClick(e) {

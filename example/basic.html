@@ -78,20 +78,21 @@
 
       const node = easyCanvas.createElement((h) => {
         let list = []
-        for(let i = 0; i<100; i++){
+        for (let i = 0; i < 100; i++) {
           list.push(drawListItem(h))
         }
-        return h('scroll-view', { styles: { backgroundColor: '#fff', height: window.innerHeight } },
+        return h('scroll-view', {
+          styles: {
+            backgroundColor: '#fff', height: window.innerHeight
+          },
+          attrs: {
+            renderOnDemand: true
+          }
+        },
           [
+            // drawTicket(h),
+            drawListItem(h),
             // ...list,
-            drawTicket(h),
-            drawListItem(h),
-            drawListItem(h),
-            drawListItem(h),
-            drawListItem(h),
-            drawListItem(h),
-            drawListItem(h),
-            drawListItem(h),
           ]
         )
       })
@@ -104,6 +105,9 @@
     canvas.ontouchstart = ontouchstart
     canvas.ontouchmove = ontouchmove
     canvas.ontouchend = ontouchend
+    canvas.onmousedown = ontouchstart
+    canvas.onmousemove = ontouchmove
+    canvas.onmouseup = ontouchend
   </script>
 </body>
 
