@@ -15,7 +15,7 @@
 - [x] `view` 基本元素，类似div
 - [x] `text` 文本 支持自动换行以及超过省略等功能,目前text实现为inline-block
 - [x] `image` 图片 `src` `mode`支持aspectFit以及aspectFill，其他css特性同web 支持`load`事件监听图片加载并且绘制完成
-- [x] `scroll-view` 滚动容器，需要在样式里设置`direction`，并且设置具体尺寸 实验性功能
+- [x] `scroll-view` 滚动容器，需要在样式里设置`direction` 支持x、y、xy，并且设置具体尺寸 设置`renderOnDemand`只绘制可见部分
 
 ## Styles
 属性使用像素的地方统一使用数字
@@ -87,6 +87,7 @@ npm install easy-canvas-layout --save
 
     // mount
     node.mount(layer)
+    layer.animate() // 运行则使用requestAnimationFrame绘制
 
 ```
 ### Register Component
