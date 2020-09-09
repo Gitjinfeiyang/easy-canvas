@@ -83,7 +83,7 @@ function drawListItem(h, tag) {
         tag
       },
       styles: {
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderColor: '#ccc',
         borderStyle: 'solid',
         display: 'flex',
@@ -91,7 +91,6 @@ function drawListItem(h, tag) {
         paddingRight: 5,
         paddingBottom: 5,
         paddingLeft: 5,
-        backgroundColor: '#f1f1f1',
         marginBottom: 10,
       },
       on: {
