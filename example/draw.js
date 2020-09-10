@@ -83,7 +83,7 @@ function drawListItem(h, tag) {
         tag
       },
       styles: {
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderColor: '#ccc',
         borderStyle: 'solid',
         display: 'flex',
@@ -91,7 +91,6 @@ function drawListItem(h, tag) {
         paddingRight: 5,
         paddingBottom: 5,
         paddingLeft: 5,
-        backgroundColor: '#f1f1f1',
         marginBottom: 10,
       },
       on: {
@@ -160,7 +159,7 @@ function drawButton(h, text = 'text', options = {}) {
         paddingLeft: 10,
         paddingRight: 10,
         lineHeight: 16,
-        verticalAlign: 'middle'
+        verticalAlign: 'middle',
       },
       on: {
         click(e) {
@@ -557,17 +556,12 @@ function drawTicket(h) {
 }
 
 function Dialog(h, options) {
-  return h('view', {
+  return h('view', Object.assign({
     attrs: { className: 'dialog' }, styles: {
       position: 'absolute', top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, backgroundColor: 'rgba(0,0,0,0.5)',
       display: 'flex', alignItems: 'center', justifyContent: 'center'
     },
-    on: {
-      click() {
-        console.log('outer')
-      }
-    }
-  }, [
+  }, options), [
     h('view', {
       styles: {
         width: 300,
@@ -655,17 +649,17 @@ function setLayer(_layer) {
 }
 function ontouchstart(e) {
   e.preventDefault()
-  layer.eventManager.touchstart(e.pageX || e.touches[0].pageX, e.pageY || e.touches[0].pageY)
+  layer.eventManager.touchstart(e.pageX || e.touches[0].pageX || 0, e.pageY || e.touches[0].pageY || 0)
 }
 function ontouchmove(e) {
   e.preventDefault()
-  layer.eventManager.touchmove(e.pageX || e.touches[0].pageX, e.pageY || e.touches[0].pageY)
+  layer.eventManager.touchmove(e.pageX || e.touches[0].pageX || 0, e.pageY || e.touches[0].pageY || 0)
 }
 function ontouchend(e) {
   e.preventDefault()
   layer.eventManager.touchend(
-    e.pageX || e.changedTouches[0].pageX,
-    e.pageY || e.changedTouches[0].pageY
+    e.pageX || e.changedTouches[0].pageX || 0,
+    e.pageY || e.changedTouches[0].pageY || 0
   )
 }
 function onClick(e) {
