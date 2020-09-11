@@ -1,5 +1,5 @@
 # 简介
-使用render函数，在canvas中创建文档流，实现静态布局.
+使用render函数，在canvas中创建文档流，快速实现布局.
 
 > *使用中有问题查看example中的代码，点击查看 [DEMO](https://gitjinfeiyang.github.io/easy-canvas/example/)*
 
