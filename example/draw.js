@@ -159,7 +159,7 @@ function drawButton(h, text = 'text', options = {}) {
         paddingLeft: 10,
         paddingRight: 10,
         lineHeight: 16,
-        verticalAlign: 'middle'
+        verticalAlign: 'middle',
       },
       on: {
         click(e) {
@@ -556,17 +556,12 @@ function drawTicket(h) {
 }
 
 function Dialog(h, options) {
-  return h('view', {
+  return h('view', Object.assign({
     attrs: { className: 'dialog' }, styles: {
       position: 'absolute', top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, backgroundColor: 'rgba(0,0,0,0.5)',
       display: 'flex', alignItems: 'center', justifyContent: 'center'
     },
-    on: {
-      click() {
-        console.log('outer')
-      }
-    }
-  }, [
+  }, options), [
     h('view', {
       styles: {
         width: 300,
