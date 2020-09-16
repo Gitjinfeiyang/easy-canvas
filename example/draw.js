@@ -600,7 +600,7 @@ function getTableData(count = 100) {
   return list
 }
 function drawTable(h) {
-  const tableData = getTableData(1000)
+  const tableData = getTableData(5000)
   const tr = {
     width: 700,
     display: 'flex',
