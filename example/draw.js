@@ -95,7 +95,10 @@ function drawListItem(h, tag) {
       },
       on: {
         click(e) {
-          alert(e.currentTarget.options.data.tag)
+          e.currentTarget.setStyles({
+            width: 200
+          })
+          console.log(e.currentTarget)
         },
       },
     },
