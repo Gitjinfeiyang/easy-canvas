@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body style="background:#fff;">
+    <canvas id="canvas" style="width:100%; height:100%;position:fixed;"></canvas>
+
+    <script src="../dist/easy-canvas.min.js"></script>
+    <script src="./ui.js"></script>
+    <script src="./draw.js"></script>
+    <script>
+        window.onload = function () {
+            main()
+
+        }
+        window.onresize = function () {
+            main()
+        }
+
+        function main() {
+            const canvas = document.querySelector('#canvas')
+
+            const ctx = canvas.getContext('2d')
+            const dpr = window.devicePixelRatio
+            const w = window.innerWidth
+            const h = window.innerHeight
+            canvas.width = w * dpr
+            canvas.height = h * dpr
+            ctx.scale(dpr, dpr)
+            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h })
+
+            const background = 'https://tse1-mm.cn.bing.net/th/id/OIP.Dkj8fnK1SsPHIBmAN9XnUAHaNK?pid=Api&rs=1'
+            const componentsList = [
+                { en:'Button',zh:'按钮'},
+                { en:'Radio',zh:'单选框'},
+                { en:'Checkbox',zh:'多选框'},
+                { en:'Select',zh:'选择器'},
+                { en:'Table',zh:'表格'},
+                { en:'Tag',zh:'标签'},
+                { en:'Avatar',zh:'头像'},
+                { en:'Alert',zh:'警告'},
+                { en:'Message',zh:'消息提示'},
+                { en:'Modal',zh:'对话框'},
+                { en:'Tabs',zh:'标签页'},
+                { en:'Steps',zh:'步骤条'},
+                { en:'Card',zh:'卡片'},
+            ]
+
+            const node = easyCanvas.createElement((c) => {
+                let lastSelect = null
+                return c('view', { styles: {
+                    display:'flex',
+                    width:w,
+                    height:h,
+                } },
+                    [
+                        // 左侧导航
+                        c('scroll-view',{
+                            styles:{
+                                width:300,
+                                height:'100%'
+                            }
+                        },[
+                            c('view', { styles: { height: 300,position:'relative',marginBottom:20 } }, [
+                                c('image', { styles: { width: '100%', height: '100%', position: 'absolute' }, attrs: { src: background, mode: 'aspectFill' }, }),
+                                c('view', { styles: { backgroundColor: 'rgba(255,255,255,0.5)', fontSize: 30, lineHeight: 40, padding: 10, position: 'absolute', bottom: 0, left: 0, width: '100%', textAlign: 'center' } }, [c('text', { styles: {} }, 'easyCanvas')])
+                            ]),
+
+                            ...componentsList.map(item => c('view',{
+                                on:{
+                                    click(e){
+                                        const target = layer.getElementBy('id',item.en)[0]
+                                        if(!target) return
+                                        const scrollView = layer.getElementBy('id','main')[1]
+                                        scrollView.scrollTo({y:target.y})
+                                        e.currentTarget.setStyles({backgroundColor:'#f1f1f1'})
+                                        if(lastSelect) lastSelect.setStyles({backgroundColor:''})
+                                        lastSelect = e.currentTarget
+                                    }
+                                },
+                                styles:{
+                                    padding:10,
+                                    color:'#666',
+                                    fontSize:16
+                                }
+                            },[c('text',{},item.en + ' '+ item.zh)]))
+                        ]),
+                        
+                        // 右侧content
+                        c('scroll-view',{
+                            styles:{
+                                flex:1,
+                                height:'100%',
+                                borderLeftWidth:0.5,
+                                borderColor:'#f1f1f1'
+                            },
+                            attrs:{
+                                id:'main'
+                            }
+                        },[
+                            Block(c,{
+                                title:'Button 按钮',
+                                description:'常用的操作按钮。',
+                                content:[
+                                    Line(c,[
+                                        Button(c,{
+                                            attrs:{type:'primary'},
+                                            styles:{marginRight:10}
+                                        },'主要按钮'),
+                                        Button(c,{
+                                            attrs:{type:'success'},
+                                            styles:{marginRight:10}
+                                        },'成功按钮'),
+                                        Button(c,{
+                                            attrs:{type:'info'},
+                                            styles:{marginRight:10}
+                                        },'信息按钮'),
+                                        Button(c,{
+                                            attrs:{type:'warning'},
+                                            styles:{marginRight:10}
+                                        },'警告按钮'),
+                                        Button(c,{
+                                            attrs:{type:'error'},
+                                            styles:{marginRight:10}
+                                        },'危险按钮'),
+                                    ]),
+
+                                    Line(c,[
+                                        Button(c,{
+                                            attrs:{type:'primary',plain:true},
+                                            styles:{marginRight:10}
+                                        },'主要按钮'),
+                                        Button(c,{
+                                            attrs:{type:'success',plain:true},
+                                            styles:{marginRight:10}
+                                        },'成功按钮'),
+                                        Button(c,{
+                                            attrs:{type:'info',plain:true},
+                                            styles:{marginRight:10}
+                                        },'信息按钮'),
+                                        Button(c,{
+                                            attrs:{type:'warning',plain:true},
+                                            styles:{marginRight:10}
+                                        },'警告按钮'),
+                                        Button(c,{
+                                            attrs:{type:'error',plain:true},
+                                            styles:{marginRight:10}
+                                        },'危险按钮'),
+                                    ]),
+
+                                    Line(c,[
+                                        Button(c,{
+                                            attrs:{type:'primary',round:true},
+                                            styles:{marginRight:10}
+                                        },'主要按钮'),
+                                        Button(c,{
+                                            attrs:{type:'success',round:true},
+                                            styles:{marginRight:10}
+                                        },'成功按钮'),
+                                        Button(c,{
+                                            attrs:{type:'info',round:true},
+                                            styles:{marginRight:10}
+                                        },'信息按钮'),
+                                        Button(c,{
+                                            attrs:{type:'warning',round:true},
+                                            styles:{marginRight:10}
+                                        },'警告按钮'),
+                                        Button(c,{
+                                            attrs:{type:'error',round:true},
+                                            styles:{marginRight:10}
+                                        },'危险按钮'),
+                                    ]),
+                                    
+                                ]
+                            },'Button'),
+
+                            Block(c,{
+                                title:'Radio 单选框',
+                                description:'在一组备选项中进行单选',
+                                content:[
+                                    Radio(c,{})
+                                ]
+                            },'Radio'),
+
+                            Block(c,{
+                                title:'Checkbox 多选框',
+                                description:'一组备选项中进行多选',
+                                content:[
+                                    Radio(c,{})
+                                ]
+                            },'Checkbox'),
+
+                            Block(c,{
+                                title:'Button 按钮',
+                                description:'常用的操作按钮。',
+                                content:[
+
+                                ]
+                            }),
+
+                            Block(c,{
+                                title:'Button 按钮',
+                                description:'常用的操作按钮。',
+                                content:[
+
+                                ]
+                            }),
+
+                            Block(c,{
+                                title:'Button 按钮',
+                                description:'常用的操作按钮。',
+                                content:[
+
+                                ]
+                            }),
+
+                            Block(c,{
+                                title:'Button 按钮',
+                                description:'常用的操作按钮。',
+                                content:[
+
+                                ]
+                            }),
+
+                            Block(c,{
+                                title:'Button 按钮',
+                                description:'常用的操作按钮。',
+                                content:[
+
+                                ]
+                            }),
+
+                            Block(c,{
+                                title:'Button 按钮',
+                                description:'常用的操作按钮。',
+                                content:[
+
+                                ]
+                            }),
+
+                        ])
+                    ]
+                )
+            })
+
+            console.log(node)
+            node.mount(layer)
+        }
+
+        // 注册全局组件
+        canvas.ontouchstart = ontouchstart
+        canvas.ontouchmove = ontouchmove
+        canvas.ontouchend = ontouchend
+        canvas.onmousedown = ontouchstart
+        canvas.onmousemove = ontouchmove
+        canvas.onmouseup = ontouchend
+
+    </script>
+</body>
+
+</html>
