@@ -160,6 +160,7 @@ npm install easy-canvas-layout --save
 
 ### 已知问题
 * linear-gradient必须在视图内创建才生效
+* 不在文档流中的元素事件判断有问题，会与下面的元素一起触发
 
 ## MIT License
 

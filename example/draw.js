@@ -95,7 +95,10 @@ function drawListItem(h, tag) {
       },
       on: {
         click(e) {
-          alert(e.currentTarget.options.data.tag)
+          e.currentTarget.setStyles({
+            width: 200
+          })
+          console.log(e.currentTarget)
         },
       },
     },
@@ -288,6 +291,7 @@ function drawCard(h) {
         shadowColor: '#999',
         shadowBlur: 20,
         shadowOffsetY: 10,
+        position: 'relative'
       },
     },
     [
@@ -465,7 +469,7 @@ function drawScrollViewX(h) {
   )
 }
 function drawAbsolute(h) {
-  return h('view', { styles: { position: 'fixed', top: 10, left: 10, zIndex: 10 } }, [drawButton(h, 'Absolute')])
+  return h('view', { styles: { position: 'absolute', top: 10, left: 10, zIndex: 10 } }, [drawButton(h, 'Absolute')])
 }
 
 function drawTicket(h) {
@@ -475,7 +479,8 @@ function drawTicket(h) {
       margin: 10,
       padding: 10,
       borderRadius: 14,
-      overflow: 'hidden'
+      overflow: 'hidden',
+      position: 'relative'
     }
   }, [
     h('view', {
@@ -598,7 +603,7 @@ function getTableData(count = 100) {
   return list
 }
 function drawTable(h) {
-  const tableData = getTableData(1000)
+  const tableData = getTableData(5000)
   const tr = {
     width: 700,
     display: 'flex',
