@@ -76,17 +76,17 @@
                         },[
                             c('view', { styles: { height: 300,position:'relative',marginBottom:20 } }, [
                                 c('image', { styles: { width: '100%', height: '100%', position: 'absolute' }, attrs: { src: background, mode: 'aspectFill' }, }),
-                                c('view', { styles: { backgroundColor: 'rgba(255,255,255,0.5)', fontSize: 30, lineHeight: 40, padding: 10, position: 'absolute', bottom: 0, left: 0, width: '100%', textAlign: 'center' } }, [c('text', { styles: {} }, 'easyCanvas')])
+                                c('view', { attrs:{id:'title'}, styles: { backgroundColor: 'rgba(255,255,255,0.5)', fontSize: 30, lineHeight: 40, padding: 10, position: 'absolute', bottom: 0, left: 0, width: '100%', textAlign: 'center' } }, [c('text', { styles: {} }, 'easyCanvas')])
                             ]),
 
                             ...componentsList.map(item => c('view',{
                                 on:{
                                     click(e){
                                         const target = layer.getElementBy('id',item.en)[0]
-                                        if(!target) return
+                                        if(!target || e.currentTarget === lastSelect) return
                                         const scrollView = layer.getElementBy('id','main')[1]
                                         scrollView.scrollTo({y:target.y})
-                                        e.currentTarget.setStyles({backgroundColor:'#f1f1f1'})
+                                        e.currentTarget.setStyles({backgroundColor:'#f1f1f1',color:'#333'})
                                         if(lastSelect) lastSelect.setStyles({backgroundColor:''})
                                         lastSelect = e.currentTarget
                                     }
@@ -122,7 +122,15 @@
                                         },'主要按钮'),
                                         Button(c,{
                                             attrs:{type:'success'},
-                                            styles:{marginRight:10}
+                                            styles:{marginRight:10},
+                                            on:{
+                                                click(e){
+                                                    e.currentTarget.setStyles({
+                                                        width:e.currentTarget.renderStyles.width + 10
+                                                    })
+                                                    console.log(e.currentTarget)
+                                                }
+                                            }
                                         },'成功按钮'),
                                         Button(c,{
                                             attrs:{type:'info'},
