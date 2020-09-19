@@ -1,6 +1,6 @@
 {
   "name": "easy-canvas-layout",
-  "version": "0.0.18",
+  "version": "0.1.0",
   "description": "A canvas lib help to easy layout in canvas.",
   "main": "./lib/index.js",
   "scripts": {
