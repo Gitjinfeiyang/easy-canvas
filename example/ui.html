@@ -40,7 +40,7 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h })
+            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h,debug:false })
 
             const background = 'https://tse1-mm.cn.bing.net/th/id/OIP.Dkj8fnK1SsPHIBmAN9XnUAHaNK?pid=Api&rs=1'
             const componentsList = [
@@ -199,7 +199,15 @@
                                 title:'Radio 单选框',
                                 description:'在一组备选项中进行单选',
                                 content:[
-                                    Radio(c,{})
+                                    RadioGroup(c,{
+                                        attrs:{
+                                            options:[
+                                                {label:'上海',value:'shanghai'},
+                                                {label:'北京',value:'beijing'},
+                                                {label:'杭州',value:'hangzhou'},
+                                            ]
+                                        }
+                                    })
                                 ]
                             },'Radio'),
 
@@ -207,7 +215,6 @@
                                 title:'Checkbox 多选框',
                                 description:'一组备选项中进行多选',
                                 content:[
-                                    Radio(c,{})
                                 ]
                             },'Checkbox'),
 

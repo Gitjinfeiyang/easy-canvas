@@ -74,25 +74,50 @@ function Button(c,{attrs,styles,on},content){
     },typeof content === 'string'?[c('text',{},content)]:content)
 }
 
-function Radio(c,{attrs,styles,on},content){
-    return c('view',{
+function RadioGroup(c,{attrs,styles,on},content){
+    let value = attrs.value
+    let selected = null
+    const onItemClick = item => {
+        selected && selected.setStyles({
+            borderColor:'#ccc',
+            borderWidth:0.5
+        })
+        item.setStyles({
+            borderColor:THEME.PRIMARY,
+            borderWidth:4,
+        })
+        value = item.options.attrs.value
+        selected = item
+    }
 
-    },[
-        c('view',{styles:{}},[
+    const _radioGroup =  c('view',{
+
+    },
+    attrs.options.map(item => c('view',{styles:{display:'inline-block',marginRight:10}},[
             c('view',{
+                attrs:{
+                    value:item.value
+                },
                 styles:{
                     width:14,
                     height:14,
                     borderRadius:7,
-                    borderColor:THEME.PRIMARY,
-                    borderWidth:4,
                     display:'inline-block',
+                    borderColor:'#ccc',
+                    borderWidth:0.5
+                },
+                on:{
+                    click(e){
+                        onItemClick(this)
+                    }
                 }
             }),
             c('text',{styles:{
                 marginLeft:6,
                 color:'#606266'
-            }},'radio')
+            }},item.label)
         ])
-    ])
+    )
+    )
+    return _radioGroup
 }
