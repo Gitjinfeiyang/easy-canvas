@@ -98,7 +98,7 @@
                                 }
                             },[c('text',{},item.en + ' '+ item.zh)]))
                         ]),
-                        
+
                         // 右侧content
                         c('scroll-view',{
                             styles:{
@@ -191,7 +191,7 @@
                                             styles:{marginRight:10}
                                         },'危险按钮'),
                                     ]),
-                                    
+
                                 ]
                             },'Button'),
 
@@ -219,10 +219,18 @@
                             },'Checkbox'),
 
                             Block(c,{
-                                title:'Button 按钮',
-                                description:'常用的操作按钮。',
+                                title:'Select 选择器',
+                                description:'当选项过多时，使用下拉菜单展示并选择内容。',
                                 content:[
-
+                                    Select(c,{
+                                        attrs:{
+                                            options:[
+                                                {label:'上海',value:'shanghai'},
+                                                {label:'北京',value:'beijing'},
+                                                {label:'杭州',value:'hangzhou'},
+                                            ]
+                                        }
+                                    })
                                 ]
                             }),
 
