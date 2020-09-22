@@ -561,11 +561,16 @@ function drawTicket(h) {
 }
 
 function Dialog(h, options) {
-  return h('view', Object.assign({
+  const instance = h('view', Object.assign({
     attrs: { className: 'dialog' }, styles: {
       position: 'absolute', top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, backgroundColor: 'rgba(0,0,0,0.5)',
       display: 'flex', alignItems: 'center', justifyContent: 'center'
     },
+    on: {
+      click() {
+        instance.remove()
+      }
+    }
   }, options), [
     h('view', {
       styles: {
@@ -574,9 +579,10 @@ function Dialog(h, options) {
         borderRadius: 4,
         backgroundColor: '#fff',
       },
-      on: {
-        click() {
-          console.log('inner')
+      on:{
+        click(e){
+          // 点击这里停止冒泡，阻止关闭弹窗
+          e.stopPropagation()
         }
       }
     }, [
@@ -584,6 +590,7 @@ function Dialog(h, options) {
       h('view', { styles: { paddingTop: 20, color: '#666' } }, [h('text', {}, options.content || '')])
     ])
   ])
+  return instance
 }
 
 

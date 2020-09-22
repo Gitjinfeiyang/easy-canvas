@@ -254,3 +254,75 @@ function Avatar(h,{attrs}){
     },
   })
 }
+
+function Alert(c,{attrs,styles,on},content){
+  const size = 'large'
+  const nums = SIZE[size]
+  let _styles = Object.assign({
+    backgroundColor: PLAIN_THEME[attrs.type.toUpperCase() || 'info'],
+    borderRadius: 4,
+    color: THEME[attrs.type.toUpperCase() || 'info'],
+    lineHeight: nums.lineHeight,
+    padding: nums.padding,
+    fontSize:nums.fontSize
+  }, styles || {})
+
+
+  return c('view', {
+    attrs: Object.assign({
+
+    }, attrs || {}),
+    styles: _styles,
+    on: on || {},
+  }, typeof content === 'string' ? [c('text', {}, content)] : content)
+}
+
+function Tabs(c,{attrs,styles,on}){
+  return c('view',{
+    styles:Object.assign({},styles)
+  },[
+    c('view',{},)
+  ])
+}
+
+function Message(c,options,content){
+  const instance = c('view',{
+    styles:{
+      position:'fixed',
+      left:'49%',
+      top:30,
+      shadowColor:'#ccc',
+      shadowBlur:20,
+    }
+  },[Button(c,options,content)])
+  setTimeout(() => {
+    instance.remove()
+  },3000)
+  return instance
+}
+
+function Dialog(h, options) {
+  return h('view', Object.assign({
+    attrs: { className: 'dialog' }, styles: {
+      position: 'absolute', top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, backgroundColor: 'rgba(0,0,0,0.5)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center'
+    },
+  }, options), [
+    h('view', {
+      styles: {
+        width: 300,
+        padding: 20,
+        borderRadius: 4,
+        backgroundColor: '#fff',
+      },
+      on: {
+        click() {
+          console.log('inner')
+        }
+      }
+    }, [
+      h('view', { styles: { textAlign: 'center', fontWeight: 'bold', fontSize: 20, borderBottomWidth: 0.5, borderColor: '#ccc', lineHeight: 30 } }, [h('text', {}, options.title || 'Notice')]),
+      h('view', { styles: { paddingTop: 20, color: '#666' } }, [h('text', {}, options.content || '')])
+    ])
+  ])
+}

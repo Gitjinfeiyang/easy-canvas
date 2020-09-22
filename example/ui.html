@@ -53,7 +53,7 @@
                 { en:'Avatar',zh:'头像'},
                 { en:'Alert',zh:'警告'},
                 { en:'Message',zh:'消息提示'},
-                { en:'Modal',zh:'对话框'},
+                { en:'Dialog',zh:'对话框'},
                 { en:'Tabs',zh:'标签页'},
                 { en:'Steps',zh:'步骤条'},
                 { en:'Card',zh:'卡片'},
@@ -277,20 +277,68 @@
                             },'Avatar'),
 
                             Block(c,{
-                                title:'Button 按钮',
-                                description:'常用的操作按钮。',
+                                title:'Alert 警告',
+                                description:'用于页面中展示重要的提示信息。',
                                 content:[
-
+                                    Alert(c,{attrs:{type:'primary'},styles:{marginBottom:8}},'用于页面中展示重要的提示信息。'),
+                                    Alert(c,{attrs:{type:'success'},styles:{marginBottom:8}},'用于页面中展示重要的提示信息。'),
+                                    Alert(c,{attrs:{type:'info'},styles:{marginBottom:8}},'用于页面中展示重要的提示信息。'),
+                                    Alert(c,{attrs:{type:'warning'},styles:{marginBottom:8}},'用于页面中展示重要的提示信息。'),
+                                    Alert(c,{attrs:{type:'error'},styles:{marginBottom:8}},'用于页面中展示重要的提示信息。'),
                                 ]
-                            }),
+                            },'Alert'),
 
                             Block(c,{
-                                title:'Button 按钮',
-                                description:'常用的操作按钮。',
+                                title:'Message 消息提示',
+                                description:'常用于主动操作后的反馈提示。与 Notification 的区别是后者更多用于系统级通知的被动提醒。',
+                                content:[
+                                    Button(c,{attrs:{type:'primary'},on:{
+                                        click(){
+                                            this.root.appendChild(Message(c,{attrs:{type:'warning',size:'large'}},'Message 消息提示'))
+                                        }
+                                    }},'点击消息提示')
+                                ]
+                            },'Message'),
+
+
+                            Block(c,{
+                                title:'Dialog 对话框',
+                                description:'在保留当前页面状态的情况下，告知用户并承载相关操作。',
+                                content:[
+                                    Button(c,{attrs:{type:'primary'},on:{
+                                        click(){
+                                            this.root.appendChild(Dialog(c,{
+                                                title:'Dialog 对话框',
+                                                content:'在保留当前页面状态的情况下，告知用户并承载相关操作。点击遮罩关闭弹窗。'
+                                            }))
+                                        }
+                                    }},'点击弹出对话框')
+                                ]
+                            },'Dialog'),
+
+                            Block(c,{
+                                title:'Tabs 标签页',
+                                description:'分隔内容上有关联但属于不同类别的数据集合。',
                                 content:[
 
                                 ]
-                            }),
+                            },'Tabs'),
+
+                            Block(c,{
+                                title:'Steps 步骤条',
+                                description:'引导用户按照流程完成任务的分步导航条，可根据实际应用场景设定步骤，步骤不得少于 2 步。',
+                                content:[
+
+                                ]
+                            },'Steps'),
+
+                            Block(c,{
+                                title:'Card 卡片',
+                                description:'将信息聚合在卡片容器中展示。',
+                                content:[
+
+                                ]
+                            },'Card'),
 
                         ])
                     ]
@@ -299,6 +347,7 @@
 
             console.log(node)
             node.mount(layer)
+            layer.animate()
         }
 
         // 注册全局组件
