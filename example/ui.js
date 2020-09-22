@@ -45,14 +45,22 @@ function Line(c, content) {
 }
 
 // 按钮组件
+const SIZE = {
+  large:{lineHeight:40,padding:[0,20],borderRadius:20,fontSize:14},
+  medium:{lineHeight:30,padding:[0,15],borderRadius:15,fontSize:12},
+  small:{lineHeight:20,padding:[0,10],borderRadius:10,fontSize:10},
+}
 function Button(c, { attrs, styles, on }, content) {
+  const size = attrs.size || 'medium'
+  const nums = SIZE[size]
   let _styles = Object.assign({
     backgroundColor: THEME[attrs.type.toUpperCase() || 'info'],
     display: 'inline-block',
     borderRadius: 2,
     color: '#fff',
-    lineHeight: 40,
-    padding: [0, 20]
+    lineHeight: nums.lineHeight,
+    padding: nums.padding,
+    fontSize:nums.fontSize
   }, styles || {})
 
   if (attrs.plain) {
@@ -63,7 +71,7 @@ function Button(c, { attrs, styles, on }, content) {
   }
 
   if (attrs.round) {
-    _styles.borderRadius = 20
+    _styles.borderRadius = nums.borderRadius
   }
 
   return c('view', {
@@ -179,4 +187,70 @@ function Select(c,{attrs,styles,on}){
       }
     },[c('text',{styles:{maxLine:1}},'label label labellabel')]),
   ])
+}
+
+function Table(h,{attrs,styles,on}){
+    const columns = attrs && attrs.columns
+    const data = attrs && attrs.data
+    const tr = {
+      display: 'flex',
+      borderBottomWidth: 0.5,
+      borderColor: '#999',
+      padding: [10, 0],
+    }
+    const td = {
+      flex: 1,
+      color: '#666',
+      padding: [0, 5],
+      display: 'block',
+      maxLine: 1,
+    }
+    const th = {
+      flex: 1,
+      padding: [0, 5],
+      display: 'block',
+      maxLine: 1,
+      color: '#333',
+      textAlign: 'center',
+    }
+    const tdFirst = {
+      ...td,
+      color: '#333',
+      textAlign: 'center',
+      fontWeight: 800
+    }
+    return h('view',{},[
+      h('view', {
+        styles: tr
+      }, columns.map(item => h('text', { styles: th }, item.name))),
+      ...data.map((item, index) => {
+        return h('view', { styles: tr },
+          columns.map(column => {
+            return column.render && column.render(item) || h('text', { styles: td }, item[column.value])
+          })
+        )
+      })
+    ])
+}
+
+function Tag(c,{attrs,styles},content){
+  attrs.plain = true
+  attrs.size = 'small'
+  return Button(c,{attrs,styles},content)
+}
+
+function Avatar(h,{attrs}){
+  return h('image', {
+    attrs: {
+      mode: 'aspectFill',
+      src:attrs.src
+    },
+    styles: {
+      borderRadius: 24,
+      width: 50,
+      height: 50,
+      borderWidth: 0.5,
+      borderColor: '#ccc'
+    },
+  })
 }
