@@ -40,7 +40,13 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h,debug:false })
+            layer = easyCanvas.createLayer(ctx, {
+                dpr,
+                width: w,
+                height: h,
+                debug:false,
+                animate:true
+            })
 
             const background = 'https://tse1-mm.cn.bing.net/th/id/OIP.Dkj8fnK1SsPHIBmAN9XnUAHaNK?pid=Api&rs=1'
             const componentsList = [
@@ -311,6 +317,7 @@
                                                 title:'Dialog 对话框',
                                                 content:'在保留当前页面状态的情况下，告知用户并承载相关操作。点击遮罩关闭弹窗。'
                                             }))
+                                            console.log(this.root)
                                         }
                                     }},'点击弹出对话框')
                                 ]
