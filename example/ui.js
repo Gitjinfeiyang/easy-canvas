@@ -140,13 +140,13 @@ function Select(c,{attrs,styles,on}){
   const SelectPanel = c('view',{
     styles:{
       width:'100%',
-      // position:'absolute',
-      // top:44,
-      // left:0,
+      position:'absolute',
+      top:44,
+      left:0,
       height:200,
       borderColor:'#f1f1f1',
       borderRadius:2,
-      borderWidth:0.5
+      borderWidth:0.5,
     },
   },
   attrs.options.map(item => {
