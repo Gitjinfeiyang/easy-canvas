@@ -679,3 +679,8 @@ function onClick(e) {
   layer.eventManager.click(e.pageX, e.pageY)
 }
 
+function onMousewheel(e){
+  e.preventDefault()
+  layer.eventManager.mousewheel(e.pageX,e.pageY,-e.deltaX,-e.deltaY)
+}
+
