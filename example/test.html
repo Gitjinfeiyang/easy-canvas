@@ -39,7 +39,7 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: false })
+            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: true })
 
             const node = easyCanvas.createElement((h) => {
                 return h('view', { styles: { backgroundColor: '#fff' } }, [
