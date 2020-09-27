@@ -40,7 +40,13 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h,debug:false })
+            layer = easyCanvas.createLayer(ctx, {
+                dpr,
+                width: w,
+                height: h,
+                debug:false,
+                animate:false
+            })
 
             const background = 'https://tse1-mm.cn.bing.net/th/id/OIP.Dkj8fnK1SsPHIBmAN9XnUAHaNK?pid=Api&rs=1'
             const componentsList = [
@@ -216,6 +222,7 @@
                             },'Checkbox'),
 
                             Block(c,{
+                                styles:{zIndex:10},
                                 title:'Select 选择器',
                                 description:'当选项过多时，使用下拉菜单展示并选择内容。',
                                 content:[
@@ -235,20 +242,30 @@
                                 title:'Table 表格',
                                 description:'用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。',
                                 content:[
-                                    Table(c,{
-                                        attrs:{
-                                            columns:[
-                                                {name:'姓名',value:'name'},
-                                                {name:'性别',value:'sex'},
-                                                {name:'年龄',value:'age'},
-                                            ],
-                                            data:[
-                                                {name:'爸爸',sex:'男',age:'33'},
-                                                {name:'爸爸',sex:'男',age:'33'},
-                                                {name:'爸爸',sex:'男',age:'33'},
-                                            ]
-                                        }
-                                    })
+                                    c('scroll-view',{
+                                        styles:{height:200,direction:'y'},
+                                    },[
+                                        Table(c,{
+                                            attrs:{
+                                                columns:[
+                                                    {name:'姓名',value:'name'},
+                                                    {name:'性别',value:'sex'},
+                                                    {name:'年龄',value:'age'},
+                                                ],
+                                                data:[
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                ]
+                                            }
+                                        })
+                                    ])
                                 ]
                             },'Table'),
 
@@ -311,6 +328,7 @@
                                                 title:'Dialog 对话框',
                                                 content:'在保留当前页面状态的情况下，告知用户并承载相关操作。点击遮罩关闭弹窗。'
                                             }))
+                                            console.log(this.root)
                                         }
                                     }},'点击弹出对话框')
                                 ]
@@ -357,6 +375,7 @@
         canvas.onmousedown = ontouchstart
         canvas.onmousemove = ontouchmove
         canvas.onmouseup = ontouchend
+        canvas.onmousewheel = onmousewheel
 
     </script>
 </body>

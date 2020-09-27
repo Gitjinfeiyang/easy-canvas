@@ -51,7 +51,7 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h })
+            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h,animate:true })
 
             const background = 'https://tse1-mm.cn.bing.net/th/id/OIP.Dkj8fnK1SsPHIBmAN9XnUAHaNK?pid=Api&rs=1'
             const node = easyCanvas.createElement((h) => {

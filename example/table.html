@@ -39,7 +39,7 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: false })
+            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: false,animate:false })
 
             const node = easyCanvas.createElement((h) => {
                 return h('scroll-view', {
@@ -69,7 +69,7 @@
         canvas.onmousedown = ontouchstart
         canvas.onmousemove = ontouchmove
         canvas.onmouseup = ontouchend
-
+        canvas.onmousewheel = onmousewheel
     </script>
 </body>
 

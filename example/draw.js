@@ -36,7 +36,7 @@ function drawSimple(h) {
                   styles: {
                     flex: 1,
                     paddingLeft: 10,
-                    borderLeftWidth: 10,
+                    borderLeftWidth: 15,
                     borderColor: '#8170ff',
                   },
                 },
@@ -677,5 +677,10 @@ function ontouchend(e) {
 function onClick(e) {
   e.preventDefault()
   layer.eventManager.click(e.pageX, e.pageY)
+}
+
+function onmousewheel(e){
+  e.preventDefault()
+  layer.eventManager.mousewheel(e.pageX,e.pageY,-e.deltaX,-e.deltaY)
 }
 

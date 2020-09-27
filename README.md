@@ -157,6 +157,7 @@ npm install easy-canvas-layout --save
 * ~~移除元素时移除事件~~
 * 滚动优化
 * ~~按需渲染~~
+* zIndex
 
 ### 已知问题
 * linear-gradient必须在视图内创建才生效
