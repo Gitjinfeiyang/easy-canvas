@@ -241,20 +241,30 @@
                                 title:'Table 表格',
                                 description:'用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。',
                                 content:[
-                                    Table(c,{
-                                        attrs:{
-                                            columns:[
-                                                {name:'姓名',value:'name'},
-                                                {name:'性别',value:'sex'},
-                                                {name:'年龄',value:'age'},
-                                            ],
-                                            data:[
-                                                {name:'爸爸',sex:'男',age:'33'},
-                                                {name:'爸爸',sex:'男',age:'33'},
-                                                {name:'爸爸',sex:'男',age:'33'},
-                                            ]
-                                        }
-                                    })
+                                    c('scroll-view',{
+                                        styles:{height:200,direction:'y'},
+                                    },[
+                                        Table(c,{
+                                            attrs:{
+                                                columns:[
+                                                    {name:'姓名',value:'name'},
+                                                    {name:'性别',value:'sex'},
+                                                    {name:'年龄',value:'age'},
+                                                ],
+                                                data:[
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                    {name:'爸爸',sex:'男',age:'33'},
+                                                ]
+                                            }
+                                        })
+                                    ])
                                 ]
                             },'Table'),
 
