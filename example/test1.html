@@ -40,22 +40,26 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: true })
+            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: false })
 
             const node = easyCanvas.createElement((c) => {
                 return c('scroll-view', { styles: { backgroundColor: '#fff',height:200 } }, [
 
-                                    Select(c,{
-                                        attrs:{
-                                            options:[
-                                                {label:'上海',value:'shanghai'},
-                                                {label:'北京',value:'beijing'},
-                                                {label:'杭州',value:'hangzhou'},
-                                            ]
-                                        }
-                                    }),
+                // Steps(c,{
+                //                         attrs:{
+                //                             steps:[
+                //                                 {value:1,label:'步骤一'},
+                //                                 {value:2,label:'步骤二'},
+                //                                 {value:3,label:'步骤三'},
+                //                             ]
+                //                         }
+                //                     }),
 
-                            c('view',{},[c('text',{},'line2')])
+                c('view',{styles:{display:'flex'}},[
+                    c('view',{styles:{width:100,height:40,backgroundColor:'blue'}}),
+                    c('view',{styles:{flex:1,height:40,backgroundColor:'green'}}),
+                ])
+
                 ])
             })
             node.mount(layer)
