@@ -89,7 +89,6 @@ npm install easy-canvas-layout --save
 
     // mount
     node.mount(layer)
-    layer.animate() // 运行则使用requestAnimationFrame绘制
 
 ```
 ### Register Component
@@ -142,22 +141,22 @@ npm install easy-canvas-layout --save
 * ~~支持position~~
 * ~~inline-block换行以及textAlign~~
 * ~~通过栈实现属性继承~~
-* 支持flex-direction
+* ~~支持flex-direction~~
 * ~~box-shadow 待优化~~
-* 兼容小程序measuretext
+* ~~兼容小程序measuretext~~
 * ~~兼容小程序image~~
 * ~~打包问题解决~~
-* scroll-view嵌套 ~~translate值继承~~
+* ~~scroll-view嵌套~~ ~~translate值继承~~
 * 补充其他属性
 * ~~image 支持mode~~
 * ~~发布npm~~
 * ~~max-width~~
 * ~~vue模版支持~~
-* scroll-view点击区域判断优化
+* ~~scroll-view点击区域判断优化~~
 * ~~移除元素时移除事件~~
-* 滚动优化
+* ~~滚动优化~~
 * ~~按需渲染~~
-* zIndex
+* zIndex 急急急！！！
 
 ### 已知问题
 * linear-gradient必须在视图内创建才生效
