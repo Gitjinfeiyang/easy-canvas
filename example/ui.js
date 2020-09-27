@@ -13,12 +13,12 @@ const PLAIN_THEME = {
   ERROR: '#fef0f0'
 }
 
-function Block(c, { title, description, content }, id) {
+function Block(c, { title, description, content,styles }, id) {
   return c('view', {
-    styles: {
+    styles: Object.assign({
       marginBottom: 20,
       padding: 20
-    },
+    },styles||{}),
     attrs: {
       id
     }
@@ -141,12 +141,14 @@ function Select(c,{attrs,styles,on}){
     styles:{
       width:'100%',
       position:'absolute',
-      top:44,
+      bottom:44,
       left:0,
-      height:200,
       borderColor:'#f1f1f1',
       borderRadius:2,
       borderWidth:0.5,
+      backgroundColor:'#fff',
+      shadowBlur:10,
+      shadowColor:'#dedede'
     },
   },
   attrs.options.map(item => {
@@ -185,7 +187,7 @@ function Select(c,{attrs,styles,on}){
         borderRadius:2,
         padding:[0,10]
       }
-    },[c('text',{styles:{maxLine:1}},'label label labellabel')]),
+    },[c('text',{styles:{maxLine:1}},'label')]),
   ])
 }
 
@@ -219,7 +221,10 @@ function Table(h,{attrs,styles,on}){
       textAlign: 'center',
       fontWeight: 800
     }
-    return h('view',{},[
+    return h('view',{
+      styles:{
+      }
+    },[
       h('view', {
         styles: tr
       }, columns.map(item => h('text', { styles: th }, item.name))),
