@@ -43,7 +43,7 @@
             layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: false })
 
             const node = easyCanvas.createElement((c) => {
-                return c('scroll-view', { styles: { backgroundColor: '#fff',height:200 } }, [
+                return c('view', { styles: { backgroundColor: '#ccc',width:400,height:200 } }, [
 
                 // Steps(c,{
                 //                         attrs:{
@@ -56,8 +56,18 @@
                 //                     }),
 
                 c('view',{styles:{display:'flex'}},[
-                    c('view',{styles:{width:100,height:40,backgroundColor:'blue'}}),
-                    c('view',{styles:{flex:1,height:40,backgroundColor:'green'}}),
+                    c('view',{styles:{width:60,height:40,backgroundColor:'blue'}}),
+                    c('view',{styles:{width:'auto',height:40,backgroundColor:'red'}},[c('text',{},'AUTO')]),
+                    c('view',{styles:{flex:1,height:40,backgroundColor:'green'}},[
+                        c('text',{},'FLEX:1'),
+                        c('text',{},'FLEX:1'),
+                        c('text',{},'FLEX:1'),
+                        c('text',{},'FLEX:1'),
+                        c('text',{},'FLEX:1'),
+                        c('text',{},'FLEX:1'),
+                        c('text',{},'FLEX:1'),
+                        c('text',{},'FLEX:1'),
+                    ]),
                 ])
 
                 ])

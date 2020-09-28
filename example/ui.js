@@ -143,7 +143,7 @@ function Select(c,{attrs,styles,on}){
       position:'absolute',
       bottom:44,
       left:0,
-      borderColor:'#f1f1f1',
+      borderColor:'#e4e7ed',
       borderRadius:2,
       borderWidth:0.5,
       backgroundColor:'#fff',
@@ -182,7 +182,7 @@ function Select(c,{attrs,styles,on}){
       styles:{
         lineHeight:40,
         color:'#666',
-        borderColor:'#f1f1f1',
+        borderColor:'#e4e7ed',
         borderWidth:0.5,
         borderRadius:2,
         padding:[0,10]
@@ -197,7 +197,7 @@ function Table(h,{attrs,styles,on}){
     const tr = {
       display: 'flex',
       borderBottomWidth: 0.5,
-      borderColor: '#999',
+      borderColor: '#e4e7ed',
       padding: [10, 0],
     }
     const td = {
@@ -335,7 +335,11 @@ function Dialog(h, options) {
 function Steps(c,options){
   const steps = c('view',{styles:{display:'flex'}},options.attrs.steps.map((step,index) => {
     return c('view',{attrs:{step:step.value},
-    styles:{position:'relative',flex:index === options.attrs.steps.length - 1?null:1,width:'auto'}
+    styles:{
+      position:'relative',
+      flex:index === options.attrs.steps.length - 1?null:1,
+      width:index === options.attrs.steps.length - 1?100:'auto',
+    }
   },[
       c('view',{
         styles:{
@@ -356,4 +360,30 @@ function Steps(c,options){
     ])
   }))
   return steps
+}
+
+function Tabs(c,options){
+  let lastTab = options.attrs.tabs[0].content
+  return c('view',{
+  },[
+    c('view',{
+      styles:{
+        borderBottomWidth:1,
+        borderColor:'#e4e7ed'
+      }
+    },options.attrs.tabs.map(tab => c('text',{
+      styles:{padding:[10,20],color:'#333'},
+      on:{
+        click(e){
+          if(lastTab){
+            this.parent.parent.getElementBy('ref','tabContainer')[0].removeChild(lastTab)
+          }
+          lastTab = this.parent.parent.getElementBy('ref','tabContainer')[0].appendChild(tab.content)
+        }
+      }
+    },tab.label))),
+    c('view',{attrs:{ref:'tabContainer'}},[
+      lastTab
+    ])
+  ])
 }

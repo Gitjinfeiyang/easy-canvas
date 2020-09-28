@@ -372,7 +372,24 @@
                                 title:'Tabs 标签页',
                                 description:'分隔内容上有关联但属于不同类别的数据集合。',
                                 content:[
-
+                                    Tabs(c,{
+                                        attrs:{
+                                            tabs:[
+                                                {
+                                                    label:'用户管理',
+                                                    content:c('text',{},'用户管理')
+                                                },
+                                                {
+                                                    label:'配置管理',
+                                                    content:c('text',{},'配置管理')
+                                                },
+                                                {
+                                                    label:'定时任务补偿',
+                                                    content:c('text',{},'定时任务补偿')
+                                                },
+                                            ]
+                                        }
+                                    })
                                 ]
                             },'Tabs'),
 
@@ -380,7 +397,15 @@
                                 title:'Steps 步骤条',
                                 description:'引导用户按照流程完成任务的分步导航条，可根据实际应用场景设定步骤，步骤不得少于 2 步。',
                                 content:[
-
+                                    Steps(c,{
+                                        attrs:{
+                                            steps:[
+                                                {value:1,label:'步骤一'},
+                                                {value:2,label:'步骤二'},
+                                                {value:3,label:'步骤三'},
+                                            ]
+                                        }
+                                    })
                                 ]
                             },'Steps'),
 
