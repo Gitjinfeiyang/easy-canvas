@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Gitjinfeiyang/easy-canvas#readme",
   "devDependencies": {
+    "gulp": "^4.0.2",
     "rollup-plugin-terser": "^7.0.0"
   }
 }
