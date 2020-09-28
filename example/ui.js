@@ -331,3 +331,29 @@ function Dialog(h, options) {
     ])
   ])
 }
+
+function Steps(c,options){
+  const steps = c('view',{styles:{display:'flex'}},options.attrs.steps.map((step,index) => {
+    return c('view',{attrs:{step:step.value},
+    styles:{position:'relative',flex:index === options.attrs.steps.length - 1?null:1,width:'auto'}
+  },[
+      c('view',{
+        styles:{
+          position:'absolute',
+          top:14,
+          right:0,
+          width:'100%',
+          height:3,
+          backgroundColor:'#ccc',
+          visible:index === options.attrs.steps.length - 1?false:true
+        }
+      }),
+      c('view',{
+        styles:{width:28,height:28,borderRadius:12,borderWidth:3,borderColor:'#333',color:'#333',textAlign:'center',backgroundColor:'#fff'}
+      },[c('text',{},index+1)]),
+      c('view',{},[c('text',{},step.label)]),
+
+    ])
+  }))
+  return steps
+}
