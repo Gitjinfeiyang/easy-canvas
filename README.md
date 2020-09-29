@@ -22,7 +22,7 @@
 ## Styles
 属性使用像素的地方统一使用数字
 
-- [x] `display` block | inline-block | flex, text默认是inline的
+- [x] `display` block | inline-block | flex, text默认是inline-block的
 - [x] `width` auto 100% Number 这里盒模型使用border-box，不可修改
 - [x] `height`
 - [x] `flex` flex不支持auto，固定宽度直接使用width
