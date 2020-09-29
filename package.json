@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c ./build/rollup.config.js",
+    "dev": "gulp --gulpfile ./build/gulpfile.js",
     "copy": "cp ./dist/easy-canvas.min.js ./example/weapp && cp ./example/draw.js ./example/weapp"
   },
   "repository": {
@@ -19,6 +20,8 @@
   },
   "homepage": "https://github.com/Gitjinfeiyang/easy-canvas#readme",
   "devDependencies": {
+    "gulp": "^4.0.2",
+    "rollup": "^2.28.2",
     "rollup-plugin-terser": "^7.0.0"
   }
 }
