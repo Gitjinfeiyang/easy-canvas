@@ -36,7 +36,7 @@ function drawSimple(h) {
                   styles: {
                     flex: 1,
                     paddingLeft: 10,
-                    borderLeftWidth: 10,
+                    borderLeftWidth: 15,
                     borderColor: '#8170ff',
                   },
                 },
@@ -83,7 +83,7 @@ function drawListItem(h, tag) {
         tag
       },
       styles: {
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderColor: '#ccc',
         borderStyle: 'solid',
         display: 'flex',
@@ -91,12 +91,14 @@ function drawListItem(h, tag) {
         paddingRight: 5,
         paddingBottom: 5,
         paddingLeft: 5,
-        backgroundColor: '#f1f1f1',
         marginBottom: 10,
       },
       on: {
         click(e) {
-          alert(e.currentTarget.options.data.tag)
+          e.currentTarget.setStyles({
+            width: 200
+          })
+          console.log(e.currentTarget)
         },
       },
     },
@@ -119,6 +121,8 @@ function drawListItem(h, tag) {
               borderRadius: 24,
               width: 50,
               height: 50,
+              borderWidth: 0.5,
+              borderColor: '#ccc'
             },
           }),
         ]
@@ -158,7 +162,7 @@ function drawButton(h, text = 'text', options = {}) {
         paddingLeft: 10,
         paddingRight: 10,
         lineHeight: 16,
-        verticalAlign: 'middle'
+        verticalAlign: 'middle',
       },
       on: {
         click(e) {
@@ -287,6 +291,7 @@ function drawCard(h) {
         shadowColor: '#999',
         shadowBlur: 20,
         shadowOffsetY: 10,
+        position: 'relative'
       },
     },
     [
@@ -464,7 +469,7 @@ function drawScrollViewX(h) {
   )
 }
 function drawAbsolute(h) {
-  return h('view', { styles: { position: 'fixed', top: 10, left: 10, zIndex: 10 } }, [drawButton(h, 'Absolute')])
+  return h('view', { styles: { position: 'absolute', top: 10, left: 10, zIndex: 10 } }, [drawButton(h, 'Absolute')])
 }
 
 function drawTicket(h) {
@@ -474,7 +479,8 @@ function drawTicket(h) {
       margin: 10,
       padding: 10,
       borderRadius: 14,
-      overflow: 'hidden'
+      overflow: 'hidden',
+      position: 'relative'
     }
   }, [
     h('view', {
@@ -555,17 +561,17 @@ function drawTicket(h) {
 }
 
 function Dialog(h, options) {
-  return h('view', {
+  const instance = h('view', Object.assign({
     attrs: { className: 'dialog' }, styles: {
       position: 'absolute', top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, backgroundColor: 'rgba(0,0,0,0.5)',
       display: 'flex', alignItems: 'center', justifyContent: 'center'
     },
     on: {
       click() {
-        console.log('outer')
+        instance.remove()
       }
     }
-  }, [
+  }, options), [
     h('view', {
       styles: {
         width: 300,
@@ -573,9 +579,10 @@ function Dialog(h, options) {
         borderRadius: 4,
         backgroundColor: '#fff',
       },
-      on: {
-        click() {
-          console.log('inner')
+      on:{
+        click(e){
+          // 点击这里停止冒泡，阻止关闭弹窗
+          e.stopPropagation()
         }
       }
     }, [
@@ -583,6 +590,7 @@ function Dialog(h, options) {
       h('view', { styles: { paddingTop: 20, color: '#666' } }, [h('text', {}, options.content || '')])
     ])
   ])
+  return instance
 }
 
 
@@ -602,7 +610,7 @@ function getTableData(count = 100) {
   return list
 }
 function drawTable(h) {
-  const tableData = getTableData(1000)
+  const tableData = getTableData(5000)
   const tr = {
     width: 700,
     display: 'flex',
@@ -653,21 +661,26 @@ function setLayer(_layer) {
 }
 function ontouchstart(e) {
   e.preventDefault()
-  layer.eventManager.touchstart(e.touches[0].pageX, e.touches[0].pageY)
+  layer.eventManager.touchstart(e.pageX || e.touches[0].pageX || 0, e.pageY || e.touches[0].pageY || 0)
 }
 function ontouchmove(e) {
   e.preventDefault()
-  layer.eventManager.touchmove(e.touches[0].pageX, e.touches[0].pageY)
+  layer.eventManager.touchmove(e.pageX || e.touches[0].pageX || 0, e.pageY || e.touches[0].pageY || 0)
 }
 function ontouchend(e) {
   e.preventDefault()
   layer.eventManager.touchend(
-    e.changedTouches[0].pageX,
-    e.changedTouches[0].pageY
+    e.pageX || e.changedTouches[0].pageX || 0,
+    e.pageY || e.changedTouches[0].pageY || 0
   )
 }
 function onClick(e) {
   e.preventDefault()
   layer.eventManager.click(e.pageX, e.pageY)
+}
+
+function onmousewheel(e){
+  e.preventDefault()
+  layer.eventManager.mousewheel(e.pageX,e.pageY,-e.deltaX,-e.deltaY)
 }
 

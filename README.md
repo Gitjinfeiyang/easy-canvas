@@ -1,7 +1,9 @@
 # 简介
-使用render函数，在canvas中创建文档流，实现静态布局.
+使用render函数，在canvas中创建文档流，快速实现布局.
 
-> *使用中有问题查看example中的代码，点击查看 [DEMO](https://gitjinfeiyang.github.io/easy-canvas/example/)*
+> 使用中有问题查看example中的代码，点击查看 [DEMO](https://gitjinfeiyang.github.io/easy-canvas/example/)
+
+> [easyCanvas实现原理解析](https://juejin.im/post/6871124987550531592)
 
 - vue组件 [vue-easy-canvas](https://github.com/Gitjinfeiyang/vue-easy-canvas)
 - 支持文档流，参照web，无需设置x、y以及宽高
@@ -87,7 +89,6 @@ npm install easy-canvas-layout --save
 
     // mount
     node.mount(layer)
-    layer.animate() // 运行则使用requestAnimationFrame绘制
 
 ```
 ### Register Component
@@ -140,24 +141,26 @@ npm install easy-canvas-layout --save
 * ~~支持position~~
 * ~~inline-block换行以及textAlign~~
 * ~~通过栈实现属性继承~~
-* 支持flex-direction
+* ~~支持flex-direction~~
 * ~~box-shadow 待优化~~
-* 兼容小程序measuretext
+* ~~兼容小程序measuretext~~
 * ~~兼容小程序image~~
 * ~~打包问题解决~~
-* scroll-view嵌套 ~~translate值继承~~
+* ~~scroll-view嵌套~~ ~~translate值继承~~
 * 补充其他属性
 * ~~image 支持mode~~
 * ~~发布npm~~
 * ~~max-width~~
 * ~~vue模版支持~~
-* scroll-view点击区域判断优化
+* ~~scroll-view点击区域判断优化~~
 * ~~移除元素时移除事件~~
-* 滚动优化
+* ~~滚动优化~~
 * ~~按需渲染~~
+* zIndex 急急急！！！
 
 ### 已知问题
 * linear-gradient必须在视图内创建才生效
+* 不在文档流中的元素事件判断有问题，会与下面的元素一起触发
 
 ## MIT License
 

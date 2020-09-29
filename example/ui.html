@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body style="background:#fff;">
+    <canvas id="canvas" style="width:100%; height:100%;position:fixed;"></canvas>
+
+    <script src="../dist/easy-canvas.min.js"></script>
+    <script src="./ui.js"></script>
+    <script src="./draw.js"></script>
+    <script>
+        window.onload = function () {
+            main()
+
+        }
+        window.onresize = function () {
+            main()
+        }
+
+        function main() {
+            const canvas = document.querySelector('#canvas')
+
+            const ctx = canvas.getContext('2d')
+            const dpr = window.devicePixelRatio
+            const w = window.innerWidth
+            const h = window.innerHeight
+            canvas.width = w * dpr
+            canvas.height = h * dpr
+            ctx.scale(dpr, dpr)
+            layer = easyCanvas.createLayer(ctx, {
+                dpr,
+                width: w,
+                height: h,
+                debug: false,
+                animate: false
+            })
+
+            const background = 'https://tse1-mm.cn.bing.net/th/id/OIP.Dkj8fnK1SsPHIBmAN9XnUAHaNK?pid=Api&rs=1'
+            const componentsList = [
+                { en: 'Button', zh: '按钮' },
+                { en: 'Table', zh: '表格' },
+                { en: 'Tag', zh: '标签' },
+                { en: 'Avatar', zh: '头像' },
+                { en: 'Alert', zh: '警告' },
+                { en: 'Message', zh: '消息提示' },
+                { en: 'Dialog', zh: '对话框' },
+                { en: 'Tabs', zh: '标签页' },
+                { en: 'Steps', zh: '步骤条' },
+                { en: 'Card', zh: '卡片' },
+                { en: 'Progress', zh: '进度条' },
+                { en: 'Radio', zh: '单选框' },
+                { en: 'Checkbox', zh: '多选框' },
+                { en: 'Select', zh: '选择器' },
+            ]
+
+            const node = easyCanvas.createElement((c) => {
+                let lastSelect = null
+                return c('view', {
+                    styles: {
+                        display: 'flex',
+                        width: w,
+                        height: h,
+                    }
+                },
+                    [
+                        // 左侧导航
+                        c('scroll-view', {
+                            attrs: {
+                                renderOnDemand: true
+                            },
+                            styles: {
+                                width: 300,
+                                height: '100%'
+                            }
+                        }, [
+                            c('view', { styles: { textAlign: 'center', margin: [40, 0], position: 'relative' } }, [
+                                c('view', {
+                                    styles: {
+                                        display: 'inline-block',
+                                        height: 160,
+                                        width: 160,
+                                        position: 'relative',
+                                        borderRadius: 150,
+                                        shadowColor: '#dedede',
+                                        shadowBlur: 10,
+                                    }
+                                }, [
+                                    c('image', { styles: { width: '100%', height: '100%', position: 'absolute', left: 0, top: 0 }, attrs: { src: background, mode: 'aspectFill' }, on: { load(e) { console.log(e) } } }),
+                                ]),
+                                c('view', {
+                                    attrs: { id: 'title' },
+                                    on: {
+                                        click() {
+                                            window.location.href = "https://github.com/Gitjinfeiyang/easy-canvas"
+                                        }
+                                    },
+                                    styles: { backgroundColor: 'rgba(255,255,255,0.8)', color: '#666', fontSize: 26, position: 'absolute', bottom: -20, left: 0, width: '100%', textAlign: 'center' }
+                                }, [
+                                    c('text', {
+                                        styles: {
+                                            lineHeight: 40,
+                                            verticalAlign: 'middle'
+                                        }
+                                    }, 'easyCanvas'),
+                                    Button(c, {
+                                        attrs: { type: 'info', plain: true, size: 'small' },
+                                        styles: { verticalAlign: 'middle', marginLeft: 10, padding: [2, 10] }
+                                    }, [
+                                        c('image', {
+                                            styles: {
+                                                height: 18,
+                                                display: 'inline-block',
+                                                verticalAlign: 'middle',
+                                                marginRight: 8
+                                            },
+                                            attrs: { src: './github-logo.png' }
+                                        }),
+                                        c('text', { styles: { fontWeight: 800, color: '#333' } }, 'Follow')
+                                    ]),
+                                ])
+                            ]),
+
+                            ...componentsList.map(item => c('view', {
+                                on: {
+                                    click(e) {
+                                        const target = layer.getElementBy('id', item.en)[0]
+                                        if (!target || e.currentTarget === lastSelect) return
+                                        const scrollView = layer.getElementBy('id', 'main')[1]
+                                        scrollView.scrollTo({ y: target.y })
+                                        e.currentTarget.setStyles({ backgroundColor: '#f1f1f1', color: '#333' })
+                                        if (lastSelect) lastSelect.setStyles({ backgroundColor: '' })
+                                        lastSelect = e.currentTarget
+                                    }
+                                },
+                                styles: {
+                                    padding: 10,
+                                    color: '#666',
+                                    fontSize: 16
+                                }
+                            }, [c('text', {}, item.en + ' ' + item.zh)]))
+                        ]),
+
+                        // 右侧content
+                        c('scroll-view', {
+                            styles: {
+                                flex: 1,
+                                height: '100%',
+                                borderLeftWidth: 0.5,
+                                borderColor: '#f1f1f1'
+                            },
+                            attrs: {
+                                id: 'main',
+                                renderOnDemand: true
+                            }
+                        }, [
+                            Block(c, {
+                                title: 'Button 按钮',
+                                description: '常用的操作按钮。',
+                                content: [
+                                    Button(c, {
+                                        attrs: { type: 'primary' },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '主要按钮'),
+                                    Button(c, {
+                                        attrs: { type: 'success' },
+                                        styles: { marginRight: 10, marginBottom: 8 },
+                                        on: {
+                                            click(e) {
+                                                e.currentTarget.setStyles({
+                                                    width: e.currentTarget.renderStyles.width + 10
+                                                })
+                                                console.log(e.currentTarget)
+                                            }
+                                        }
+                                    }, '成功按钮'),
+                                    Button(c, {
+                                        attrs: { type: 'info' },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '信息按钮'),
+                                    Button(c, {
+                                        attrs: { type: 'warning' },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '警告按钮'),
+                                    Button(c, {
+                                        attrs: { type: 'error' },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '危险按钮'),
+                                    c('view'),
+
+                                    Button(c, {
+                                        attrs: { type: 'primary', plain: true },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '主要按钮'),
+                                    Button(c, {
+                                        attrs: { type: 'success', plain: true },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '成功按钮'),
+                                    Button(c, {
+                                        attrs: { type: 'info', plain: true },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '信息按钮'),
+                                    Button(c, {
+                                        attrs: { type: 'warning', plain: true },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '警告按钮'),
+                                    Button(c, {
+                                        attrs: { type: 'error', plain: true },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '危险按钮'),
+                                    c('view'),
+
+                                    Button(c, {
+                                        attrs: { type: 'primary', round: true },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '主要按钮'),
+                                    Button(c, {
+                                        attrs: { type: 'success', round: true },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '成功按钮'),
+                                    Button(c, {
+                                        attrs: { type: 'info', round: true },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '信息按钮'),
+                                    Button(c, {
+                                        attrs: { type: 'warning', round: true },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '警告按钮'),
+                                    Button(c, {
+                                        attrs: { type: 'error', round: true },
+                                        styles: { marginRight: 10, marginBottom: 8 }
+                                    }, '危险按钮'),
+
+                                ]
+                            }, 'Button'),
+
+                            Block(c, {
+                                title: 'Table 表格',
+                                description: '用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。',
+                                content: [
+                                    Card(c, {
+                                        attrs: {
+                                            content:
+                                                c('scroll-view', {
+                                                    styles: { height: 200, direction: 'y' },
+                                                }, [
+                                                    Table(c, {
+                                                        attrs: {
+                                                            columns: [
+                                                                { name: '姓名', value: 'name' },
+                                                                { name: '性别', value: 'sex' },
+                                                                { name: '年龄', value: 'age' },
+                                                            ],
+                                                            data: [
+                                                                { name: '爸爸', sex: '男', age: '33' },
+                                                                { name: '爸爸', sex: '男', age: '33' },
+                                                                { name: '爸爸', sex: '男', age: '33' },
+                                                                { name: '爸爸', sex: '男', age: '33' },
+                                                                { name: '爸爸', sex: '男', age: '33' },
+                                                                { name: '爸爸', sex: '男', age: '33' },
+                                                                { name: '爸爸', sex: '男', age: '33' },
+                                                                { name: '爸爸', sex: '男', age: '33' },
+                                                                { name: '爸爸', sex: '男', age: '33' },
+                                                            ]
+                                                        }
+                                                    })
+                                                ])
+                                        }
+                                    })
+
+
+                                ]
+                            }, 'Table'),
+
+                            Block(c, {
+                                title: 'Tag 标签',
+                                description: '用于标记和选择。',
+                                content: [
+                                    Tag(c, { attrs: { type: 'primary' }, styles: { marginRight: 10, marginBottom: 8 } }, '标签一'),
+                                    Tag(c, { attrs: { type: 'success' }, styles: { marginRight: 10, marginBottom: 8 } }, '标签一'),
+                                    Tag(c, { attrs: { type: 'info' }, styles: { marginRight: 10, marginBottom: 8 } }, '标签一'),
+                                    Tag(c, { attrs: { type: 'warning' }, styles: { marginRight: 10, marginBottom: 8 } }, '标签一'),
+                                    Tag(c, { attrs: { type: 'error' }, styles: { marginRight: 10, marginBottom: 8 } }, '标签一'),
+                                ]
+                            }, 'Tag'),
+
+                            Block(c, {
+                                title: 'Avatar 头像',
+                                description: '用图标、图片或者字符的形式展示用户或事物信息。',
+                                content: [
+                                    Avatar(c, {
+                                        attrs: {
+                                            src: 'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
+                                        }
+                                    })
+                                ]
+                            }, 'Avatar'),
+
+                            Block(c, {
+                                title: 'Alert 警告',
+                                description: '用于页面中展示重要的提示信息。',
+                                content: [
+                                    Alert(c, { attrs: { type: 'primary' }, styles: { marginBottom: 8 } }, '用于页面中展示重要的提示信息。'),
+                                    Alert(c, { attrs: { type: 'success' }, styles: { marginBottom: 8 } }, '用于页面中展示重要的提示信息。'),
+                                    Alert(c, { attrs: { type: 'info' }, styles: { marginBottom: 8 } }, '用于页面中展示重要的提示信息。'),
+                                    Alert(c, { attrs: { type: 'warning' }, styles: { marginBottom: 8 } }, '用于页面中展示重要的提示信息。'),
+                                    Alert(c, { attrs: { type: 'error' }, styles: { marginBottom: 8 } }, '用于页面中展示重要的提示信息。'),
+                                ]
+                            }, 'Alert'),
+
+                            Block(c, {
+                                title: 'Message 消息提示',
+                                description: '常用于主动操作后的反馈提示。与 Notification 的区别是后者更多用于系统级通知的被动提醒。',
+                                content: [
+                                    Button(c, {
+                                        attrs: { type: 'primary' }, on: {
+                                            click() {
+                                                this.root.appendChild(Message(c, { attrs: { type: 'warning', size: 'large' } }, 'Message 消息提示'))
+                                            }
+                                        }
+                                    }, '点击消息提示')
+                                ]
+                            }, 'Message'),
+
+
+                            Block(c, {
+                                title: 'Dialog 对话框',
+                                description: '在保留当前页面状态的情况下，告知用户并承载相关操作。',
+                                content: [
+                                    Button(c, {
+                                        attrs: { type: 'primary' }, on: {
+                                            click() {
+                                                this.root.appendChild(Dialog(c, {
+                                                    title: 'Dialog 对话框',
+                                                    content: '在保留当前页面状态的情况下，告知用户并承载相关操作。点击遮罩关闭弹窗。'
+                                                }))
+                                                console.log(this.root)
+                                            }
+                                        }
+                                    }, '点击弹出对话框')
+                                ]
+                            }, 'Dialog'),
+
+                            Block(c, {
+                                title: 'Tabs 标签页',
+                                description: '分隔内容上有关联但属于不同类别的数据集合。',
+                                content: [
+                                    Card(c, {
+                                        attrs: {
+                                            content:
+                                                Tabs(c, {
+                                                    attrs: {
+                                                        tabs: [
+                                                            {
+                                                                label: '用户管理',
+                                                                content: c('text', { styles: { padding: 20 } }, '用户管理')
+                                                            },
+                                                            {
+                                                                label: '配置管理',
+                                                                content: c('text', { styles: { padding: 20 } }, '配置管理')
+                                                            },
+                                                            {
+                                                                label: '定时任务补偿',
+                                                                content: c('text', { styles: { padding: 20 } }, '定时任务补偿')
+                                                            },
+                                                        ]
+                                                    }
+                                                })
+                                        }
+                                    })
+                                ]
+                            }, 'Tabs'),
+
+                            Block(c, {
+                                title: 'Steps 步骤条',
+                                description: '引导用户按照流程完成任务的分步导航条，可根据实际应用场景设定步骤，步骤不得少于 2 步。',
+                                content: [
+                                    Steps(c, {
+                                        attrs: {
+                                            steps: [
+                                                { value: 1, label: '步骤一' },
+                                                { value: 2, label: '步骤二' },
+                                                { value: 3, label: '步骤三' },
+                                            ],
+                                            value: 1
+                                        }
+                                    })
+                                ]
+                            }, 'Steps'),
+
+                            Block(c, {
+                                title: 'Card 卡片',
+                                description: '将信息聚合在卡片容器中展示。',
+                                content: [
+                                    Card(c, {
+                                        attrs: {
+                                            title: '卡片',
+                                        }
+                                    })
+                                ]
+                            }, 'Card'),
+
+                            Block(c, {
+                                title: 'Progress 进度条',
+                                description: '用于展示操作进度，告知用户当前状态和预期。',
+                                content: [
+                                    c('view', { styles: { marginBottom: 10 } }, [
+                                        Progress(c, {
+                                            attrs: {
+                                                percentage: 50,
+                                                type: 'primary'
+                                            }
+                                        })
+                                    ]),
+                                    c('view', { styles: { marginBottom: 10 } }, [
+                                        Progress(c, {
+                                            attrs: {
+                                                percentage: 70,
+                                                type: 'success'
+                                            }
+                                        })
+                                    ]),
+                                    c('view', { styles: { marginBottom: 10 } }, [
+                                        Progress(c, {
+                                            attrs: {
+                                                percentage: 90,
+                                                type: 'warning'
+                                            }
+                                        })
+                                    ]),
+                                    c('view', { styles: { marginBottom: 10 } }, [
+                                        Progress(c, {
+                                            attrs: {
+                                                percentage: 100,
+                                                type: 'error'
+                                            }
+                                        })
+                                    ])
+                                ]
+                            }, 'Progress'),
+
+                            Block(c, {
+                                title: 'Radio 单选框',
+                                description: '在一组备选项中进行单选',
+                                content: [
+                                    RadioGroup(c, {
+                                        attrs: {
+                                            options: [
+                                                { label: '上海', value: 'shanghai' },
+                                                { label: '北京', value: 'beijing' },
+                                                { label: '杭州', value: 'hangzhou' },
+                                            ]
+                                        }
+                                    })
+                                ]
+                            }, 'Radio'),
+
+                            Block(c, {
+                                title: 'Checkbox 多选框',
+                                description: '一组备选项中进行多选',
+                                content: [
+                                    RadioGroup(c, {
+                                        attrs: {
+                                            options: [
+                                                { label: '上海', value: 'shanghai' },
+                                                { label: '北京', value: 'beijing' },
+                                                { label: '杭州', value: 'hangzhou' },
+                                            ]
+                                        }
+                                    })
+                                ]
+                            }, 'Checkbox'),
+
+                            Block(c, {
+                                styles: { zIndex: 10 },
+                                title: 'Select 选择器',
+                                description: '当选项过多时，使用下拉菜单展示并选择内容。',
+                                content: [
+                                    Select(c, {
+                                        attrs: {
+                                            options: [
+                                                { label: '上海', value: 'shanghai' },
+                                                { label: '北京', value: 'beijing' },
+                                                { label: '杭州', value: 'hangzhou' },
+                                            ]
+                                        }
+                                    })
+                                ]
+                            }, 'Select'),
+
+                        ]),
+
+
+
+                    ]
+                )
+            })
+
+            console.log(node)
+            node.mount(layer)
+            layer.animate()
+        }
+
+        // 注册全局组件
+        canvas.ontouchstart = ontouchstart
+        canvas.ontouchmove = ontouchmove
+        canvas.ontouchend = ontouchend
+        canvas.onmousedown = ontouchstart
+        canvas.onmousemove = ontouchmove
+        canvas.onmouseup = ontouchend
+        canvas.onmousewheel = onmousewheel
+
+    </script>
+</body>
+
+</html>

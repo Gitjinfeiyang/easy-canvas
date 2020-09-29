@@ -41,16 +41,17 @@
             ctx.scale(dpr, dpr)
             layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, })
 
-
+            let addIndex = 1
             const node = easyCanvas.createElement((h) => {
                 const add = () => {
                     node.appendChild(h('button', {
                         on: {
                             click(e) {
-                                add()
+                                e.currentTarget.remove()
                             }
                         }
-                    }, 'Click me!'))
+                    }, 'Click me! '+addIndex))
+                    addIndex+=1
                 }
                 const deleteItem = () => node.removeChild(node.children[node.children.length - 1])
                 let dialog = null
@@ -110,7 +111,9 @@
         canvas.ontouchstart = ontouchstart
         canvas.ontouchmove = ontouchmove
         canvas.ontouchend = ontouchend
-        canvas.onclick = onClick
+        canvas.onmousedown = ontouchstart
+        canvas.onmousemove = ontouchmove
+        canvas.onmouseup = ontouchend
 
     </script>
 </body>

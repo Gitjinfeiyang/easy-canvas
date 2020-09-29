@@ -32,9 +32,10 @@
         const host = 'https://gitjinfeiyang.github.io/easy-canvas/example/'
         const examples = [
             { title: 'Basic', desc: '基本布局', url: 'basic.html' },
-            { title: 'Table', desc: '在渲染1000行数据、10000个元素下滚动', url: 'table.html' },
-            { title: 'Event 事件', desc: '事件监听', url: 'event.html' },
+            { title: 'Table', desc: '在渲染5000行数据、40000个元素下滚动', url: 'table.html' },
             { title: 'Image 图片', desc: '图片缩放类型', url: 'image.html' },
+            { title: 'Components 组件库', desc: 'UI组件库示例', url: 'ui.html' },
+            { title: 'Event 事件', desc: '事件监听', url: 'event.html' },
             { title: 'Demo', desc: '展示了滚动、事件、flex布局、文本换行对齐等能力', url: 'test.html' },
             { title: '操作element', desc: '类似修改dom的能力', url: 'change-element.html' },
             { title: 'Test', desc: '测试用', url: 'test1.html' },
@@ -50,7 +51,7 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h })
+            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h,animate:true })
 
             const background = 'https://tse1-mm.cn.bing.net/th/id/OIP.Dkj8fnK1SsPHIBmAN9XnUAHaNK?pid=Api&rs=1'
             const node = easyCanvas.createElement((h) => {
@@ -77,7 +78,7 @@
                 })
                 return h('scroll-view', { styles: { backgroundColor: '#f1f1f1', height: window.innerHeight } },
                     [
-                        h('view', { styles: { height: 300 } }, [
+                        h('view', { styles: { height: 300,position:'relative' } }, [
                             h('image', { styles: { width: '100%', height: '100%', position: 'absolute' }, attrs: { src: background, mode: 'aspectFill' }, }),
                             h('view', { styles: { backgroundColor: 'rgba(255,255,255,0.5)', fontSize: 30, lineHeight: 40, padding: 10, position: 'absolute', bottom: 0, left: 0, width: '100%', textAlign: 'center' } }, [h('text', { styles: {} }, 'easyCanvas')])
                         ]),
@@ -93,7 +94,9 @@
         canvas.ontouchstart = ontouchstart
         canvas.ontouchmove = ontouchmove
         canvas.ontouchend = ontouchend
-        canvas.onclick = onClick
+        canvas.onmousedown = ontouchstart
+        canvas.onmousemove = ontouchmove
+        canvas.onmouseup = ontouchend
     </script>
 </body>
 

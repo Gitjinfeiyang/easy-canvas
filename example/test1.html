@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body style="background:#fff;">
+    <canvas id="canvas" style="width:100%; height:100%; position:fixed;"></canvas>
+
+    <script src="../dist/easy-canvas.min.js"></script>
+    <script src="./draw.js"></script>
+    <script src="./ui.js"></script>
+    <script>
+        window.onload = function () {
+            main()
+
+        }
+        window.onresize = function () {
+            main()
+        }
+
+        function main() {
+            const canvas = document.querySelector('#canvas')
+
+            const ctx = canvas.getContext('2d')
+            const dpr = window.devicePixelRatio
+            const w = window.innerWidth
+            const h = window.innerHeight
+            canvas.width = w * dpr
+            canvas.height = h * dpr
+            ctx.scale(dpr, dpr)
+            layer = easyCanvas.createLayer(ctx, {
+                dpr,
+                width: w,
+                height: h,
+                debug: false,
+                lifecycle: {
+                    onEffectSuccess(res) {
+                        console.log(res)
+                    }
+                }
+            })
+
+            const node = easyCanvas.createElement((c) => {
+                return c('scroll-view', { styles: { backgroundColor: '#ccc', width: 400, height: h } }, [
+                    drawShare(c)
+                ])
+            })
+            node.mount(layer)
+            console.log(node)
+        }
+
+        // 注册全局组件
+        easyCanvas.component('button', (opt, children, h) => this.drawButton(h, children))
+        canvas.ontouchstart = ontouchstart
+        canvas.ontouchmove = ontouchmove
+        canvas.ontouchend = ontouchend
+        canvas.onmousedown = ontouchstart
+        canvas.onmousemove = ontouchmove
+        canvas.onmouseup = ontouchend
+
+
+
+
+        function drawShare(c) {
+            return c('view', {
+                styles: {
+                    backgroundColor: 'yellow',
+                    padding: 20
+                }
+            }, [
+                c('view', {
+                    styles: {
+                    }
+                }, [
+                    c('image', { // 丁香家logo　
+                        styles: {
+                            width: 'auto',
+                            height: 30
+                        },
+                        attrs: {
+                            src: 'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
+                        }
+                    }),
+                ]),
+
+                c('view', {
+                    styles: {
+                        margin: [20, 0]
+                    }
+                }, [
+                    c('view', {
+                        styles: {
+                            color: '#333',
+                            fontSize: 24
+                        }
+                    }, [c('text', {}, '喝牛奶涨肚子小知识')]),
+                    c('view', {
+                        styles: {
+                            color: '#666',
+                            fontSize: 12
+                        }
+                    }, [c('text', {}, '来自 喝牛奶涨肚子')]),
+                ]),
+
+                c('view', {
+                    styles: {
+                        backgroundColor: '#fff',
+                        borderRadius: 8,
+                        shadowBlur: 10,
+                        shadowColor: '#ccc'
+                    }
+                }, [
+                    c('image', {
+                        styles: { width: '100%', display: 'block' },
+                        attrs: {
+                            src: 'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
+                        }
+                    }),
+                    c('image', {
+                        styles: { width: '100%', display: 'block' },
+                        attrs: {
+                            src: 'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
+                        }
+                    }),
+                ]),
+
+                c('view', {
+                    styles: {
+                        margin: [40, 0],
+                        textAlign: 'center'
+                    }
+                }, [
+                    c('image', {
+                        styles: {
+                            width: 100,
+                            height: 100,
+                            verticalAlign: 'middle',
+                            display: 'inline-block',
+                            borderRadius: 50
+                        },
+                        attrs: {
+                            mode: 'aspectFit',
+                            src: 'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
+                        }
+                    }),
+                    c('view', {
+                        styles: {
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
+                            marginLeft: 20
+                        }
+                    }, [
+                        c('view', { styles: { fontSize: 16, color: '#333' } }, [c('text', {}, '更多相关内容')]),
+                        c('view', { styles: { fontSize: 14, color: '#999' } }, [c('text', {}, '长按小程序查看')]),
+                    ])
+                ])
+            ])
+        }
+    </script>
+</body>
+
+</html>
