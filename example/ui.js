@@ -13,12 +13,12 @@ const PLAIN_THEME = {
   ERROR: '#fef0f0'
 }
 
-function Block(c, { title, description, content,styles }, id) {
+function Block(c, { title, description, content, styles }, id) {
   return c('view', {
     styles: Object.assign({
       marginBottom: 20,
       padding: 20
-    },styles||{}),
+    }, styles || {}),
     attrs: {
       id
     }
@@ -46,9 +46,9 @@ function Line(c, content) {
 
 // 按钮组件
 const SIZE = {
-  large:{lineHeight:40,padding:[0,20],borderRadius:20,fontSize:14},
-  medium:{lineHeight:30,padding:[0,15],borderRadius:15,fontSize:12},
-  small:{lineHeight:20,padding:[0,10],borderRadius:10,fontSize:10},
+  large: { lineHeight: 40, padding: [0, 20], borderRadius: 20, fontSize: 14 },
+  medium: { lineHeight: 30, padding: [0, 15], borderRadius: 15, fontSize: 12 },
+  small: { lineHeight: 20, padding: [0, 10], borderRadius: 10, fontSize: 10 },
 }
 function Button(c, { attrs, styles, on }, content) {
   const size = attrs.size || 'medium'
@@ -60,7 +60,7 @@ function Button(c, { attrs, styles, on }, content) {
     color: '#fff',
     lineHeight: nums.lineHeight,
     padding: nums.padding,
-    fontSize:nums.fontSize
+    fontSize: nums.fontSize
   }, styles || {})
 
   if (attrs.plain) {
@@ -135,120 +135,120 @@ function RadioGroup(c, { attrs, styles, on }, content) {
   return _radioGroup
 }
 
-function Select(c,{attrs,styles,on}){
+function Select(c, { attrs, styles, on }) {
   let showSelect = false
-  const SelectPanel = c('view',{
-    styles:{
-      width:'100%',
-      position:'absolute',
-      bottom:44,
-      left:0,
-      borderColor:'#e4e7ed',
-      borderRadius:2,
-      borderWidth:0.5,
-      backgroundColor:'#fff',
-      shadowBlur:10,
-      shadowColor:'#dedede'
+  const SelectPanel = c('view', {
+    styles: {
+      width: '100%',
+      position: 'absolute',
+      bottom: 44,
+      left: 0,
+      borderColor: '#e4e7ed',
+      borderRadius: 2,
+      borderWidth: 0.5,
+      backgroundColor: '#fff',
+      shadowBlur: 10,
+      shadowColor: '#dedede'
     },
   },
-  attrs.options.map(item => {
-    return c('view',{
-      styles:{
-        padding:10
-      }
-    },[c('text',{},item.label)])
-  })
+    attrs.options.map(item => {
+      return c('view', {
+        styles: {
+          padding: 10
+        }
+      }, [c('text', {}, item.label)])
+    })
   )
   const toggleSelect = (target) => {
-    if(showSelect){
+    if (showSelect) {
       SelectPanel.remove()
-    }else{
+    } else {
       target.appendChild(SelectPanel)
     }
     showSelect = !showSelect
   }
-  return c('view',{
-    styles:{
-      width:100,
-      position:'relative'
+  return c('view', {
+    styles: {
+      width: 100,
+      position: 'relative'
     },
-    on:{
-      click(){
+    on: {
+      click() {
         toggleSelect(this)
       }
     }
-  },[
-    c('view',{
-      styles:{
-        lineHeight:40,
-        color:'#666',
-        borderColor:'#e4e7ed',
-        borderWidth:0.5,
-        borderRadius:2,
-        padding:[0,10]
+  }, [
+    c('view', {
+      styles: {
+        lineHeight: 40,
+        color: '#666',
+        borderColor: '#e4e7ed',
+        borderWidth: 0.5,
+        borderRadius: 2,
+        padding: [0, 10]
       }
-    },[c('text',{styles:{maxLine:1}},'label')]),
+    }, [c('text', { styles: { maxLine: 1 } }, 'label')]),
   ])
 }
 
-function Table(h,{attrs,styles,on}){
-    const columns = attrs && attrs.columns
-    const data = attrs && attrs.data
-    const tr = {
-      display: 'flex',
-      borderBottomWidth: 0.5,
-      borderColor: '#e4e7ed',
-      padding: [10, 0],
+function Table(h, { attrs, styles, on }) {
+  const columns = attrs && attrs.columns
+  const data = attrs && attrs.data
+  const tr = {
+    display: 'flex',
+    borderBottomWidth: 0.5,
+    borderColor: '#e4e7ed',
+    padding: [10, 0],
+  }
+  const td = {
+    flex: 1,
+    color: '#666',
+    padding: [0, 5],
+    display: 'block',
+    maxLine: 1,
+  }
+  const th = {
+    flex: 1,
+    padding: [0, 5],
+    display: 'block',
+    maxLine: 1,
+    color: '#333',
+    textAlign: 'center',
+  }
+  const tdFirst = {
+    ...td,
+    color: '#333',
+    textAlign: 'center',
+    fontWeight: 800
+  }
+  return h('view', {
+    styles: {
     }
-    const td = {
-      flex: 1,
-      color: '#666',
-      padding: [0, 5],
-      display: 'block',
-      maxLine: 1,
-    }
-    const th = {
-      flex: 1,
-      padding: [0, 5],
-      display: 'block',
-      maxLine: 1,
-      color: '#333',
-      textAlign: 'center',
-    }
-    const tdFirst = {
-      ...td,
-      color: '#333',
-      textAlign: 'center',
-      fontWeight: 800
-    }
-    return h('view',{
-      styles:{
-      }
-    },[
-      h('view', {
-        styles: tr
-      }, columns.map(item => h('text', { styles: th }, item.name))),
-      ...data.map((item, index) => {
-        return h('view', { styles: tr },
-          columns.map(column => {
-            return column.render && column.render(item) || h('text', { styles: td }, item[column.value])
-          })
-        )
-      })
-    ])
+  }, [
+    h('view', {
+      styles: tr
+    }, columns.map(item => h('text', { styles: th }, item.name))),
+    ...data.map((item, index) => {
+      return h('view', { styles: tr },
+        columns.map(column => {
+          return column.render && column.render(item) || h('text', { styles: td }, item[column.value])
+        })
+      )
+    })
+  ])
 }
 
-function Tag(c,{attrs,styles},content){
+function Tag(c, { attrs, styles }, content) {
   attrs.plain = true
   attrs.size = 'small'
-  return Button(c,{attrs,styles},content)
+  return Button(c, { attrs, styles }, content)
 }
 
-function Avatar(h,{attrs}){
+function Avatar(h, { attrs }) {
   return h('image', {
     attrs: {
       mode: 'aspectFill',
-      src:attrs.src
+      src: attrs.src
     },
     styles: {
       borderRadius: 24,
@@ -260,7 +260,7 @@ function Avatar(h,{attrs}){
   })
 }
 
-function Alert(c,{attrs,styles,on},content){
+function Alert(c, { attrs, styles, on }, content) {
   const size = 'large'
   const nums = SIZE[size]
   let _styles = Object.assign({
@@ -269,7 +269,7 @@ function Alert(c,{attrs,styles,on},content){
     color: THEME[attrs.type.toUpperCase() || 'info'],
     lineHeight: nums.lineHeight,
     padding: nums.padding,
-    fontSize:nums.fontSize
+    fontSize: nums.fontSize
   }, styles || {})
 
 
@@ -282,27 +282,27 @@ function Alert(c,{attrs,styles,on},content){
   }, typeof content === 'string' ? [c('text', {}, content)] : content)
 }
 
-function Tabs(c,{attrs,styles,on}){
-  return c('view',{
-    styles:Object.assign({},styles)
-  },[
-    c('view',{},)
+function Tabs(c, { attrs, styles, on }) {
+  return c('view', {
+    styles: Object.assign({}, styles)
+  }, [
+    c('view', {},)
   ])
 }
 
-function Message(c,options,content){
-  const instance = c('view',{
-    styles:{
-      position:'fixed',
-      left:'49%',
-      top:30,
-      shadowColor:'#ccc',
-      shadowBlur:20,
+function Message(c, options, content) {
+  const instance = c('view', {
+    styles: {
+      position: 'fixed',
+      left: '49%',
+      top: 30,
+      shadowColor: '#ccc',
+      shadowBlur: 20,
     }
-  },[Button(c,options,content)])
+  }, [Button(c, options, content)])
   setTimeout(() => {
     instance.remove()
-  },3000)
+  }, 3000)
   return instance
 }
 
@@ -332,58 +332,106 @@ function Dialog(h, options) {
   ])
 }
 
-function Steps(c,options){
-  const steps = c('view',{styles:{display:'flex'}},options.attrs.steps.map((step,index) => {
-    return c('view',{attrs:{step:step.value},
-    styles:{
-      position:'relative',
-      flex:index === options.attrs.steps.length - 1?null:1,
-      width:index === options.attrs.steps.length - 1?100:'auto',
-    }
-  },[
-      c('view',{
-        styles:{
-          position:'absolute',
-          top:14,
-          right:0,
-          width:'100%',
-          height:3,
-          backgroundColor:'#ccc',
-          visible:index === options.attrs.steps.length - 1?false:true
+function Steps(c, options) {
+  const steps = c('view', { styles: { display: 'flex' } }, options.attrs.steps.map((step, index) => {
+    return c('view', {
+      attrs: { step: step.value },
+      styles: {
+        position: 'relative',
+        flex: index === options.attrs.steps.length - 1 ? null : 1,
+        width: index === options.attrs.steps.length - 1 ? 100 : 'auto',
+      }
+    }, [
+      c('view', {
+        styles: {
+          position: 'absolute',
+          top: 14,
+          right: 0,
+          width: '100%',
+          height: 3,
+          backgroundColor: '#ccc',
+          visible: index === options.attrs.steps.length - 1 ? false : true
         }
       }),
-      c('view',{
-        styles:{width:28,height:28,borderRadius:12,borderWidth:3,borderColor:'#333',color:'#333',textAlign:'center',backgroundColor:'#fff'}
-      },[c('text',{},index+1)]),
-      c('view',{},[c('text',{},step.label)]),
+      c('view', {
+        styles: { width: 28, height: 28, borderRadius: 12, borderWidth: 3, borderColor: '#333', color: '#333', textAlign: 'center', backgroundColor: '#fff' }
+      }, [c('text', {}, index + 1)]),
+      c('view', {}, [c('text', {}, step.label)]),
 
     ])
   }))
   return steps
 }
 
-function Tabs(c,options){
+function Tabs(c, options) {
   let lastTab = options.attrs.tabs[0].content
-  return c('view',{
-  },[
-    c('view',{
-      styles:{
-        borderBottomWidth:1,
-        borderColor:'#e4e7ed'
+  return c('view', {
+  }, [
+    c('view', {
+      styles: {
+        borderBottomWidth: 1,
+        borderColor: '#e4e7ed'
       }
-    },options.attrs.tabs.map(tab => c('text',{
-      styles:{padding:[10,20],color:'#333'},
-      on:{
-        click(e){
-          if(lastTab){
-            this.parent.parent.getElementBy('ref','tabContainer')[0].removeChild(lastTab)
+    }, options.attrs.tabs.map(tab => c('text', {
+      styles: { padding: [10, 20], color: '#333' },
+      on: {
+        click(e) {
+          if (lastTab) {
+            this.parent.parent.getElementBy('ref', 'tabContainer')[0].removeChild(lastTab)
           }
-          lastTab = this.parent.parent.getElementBy('ref','tabContainer')[0].appendChild(tab.content)
+          lastTab = this.parent.parent.getElementBy('ref', 'tabContainer')[0].appendChild(tab.content)
         }
       }
-    },tab.label))),
-    c('view',{attrs:{ref:'tabContainer'}},[
+    }, tab.label))),
+    c('view', { attrs: { ref: 'tabContainer' } }, [
       lastTab
     ])
+  ])
+}
+
+function Card(c, options) {
+  return c('view', {
+    styles: {
+      backgroundColor: '#fff',
+      borderRadius: 4,
+      shadowColor: '#dedede',
+      shadowBlur: 20,
+      padding: 20
+    }
+  }, [
+    options.attrs.title ? c('text', {
+      styles: {
+        fontSize: 28,
+        fontWeight: 800,
+        borderBottomWidth: 0.5,
+        borderColor: '#f1f1f1'
+      }
+    }, options.attrs.title) : null,
+    options.attrs.content
+  ])
+}
+
+function Progress(c, options) {
+  return c('view', {}, [
+    c('view', {
+      styles: {
+        display: 'inline-block',
+        backgroundColor: '#ebeef5',
+        width: 300,
+        height: 6,
+        borderRadius: 3
+      }
+    }, [
+      c('view', {
+        styles: {
+          height: '100%',
+          width: `${options.attrs.percentage}%`,
+          borderRadius: 3,
+          backgroundColor: THEME[options.attrs.type.toUpperCase()]
+        }
+      })
+    ]),
+
+    c('text', { styles: { color: '#666', fontSize: 12, marginLeft: 6 } }, `${options.attrs.percentage}%`)
   ])
 }
