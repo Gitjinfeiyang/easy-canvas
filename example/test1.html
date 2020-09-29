@@ -40,10 +40,20 @@
             canvas.width = w * dpr
             canvas.height = h * dpr
             ctx.scale(dpr, dpr)
-            layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: false })
+            layer = easyCanvas.createLayer(ctx, {
+                dpr,
+                width: w,
+                height: h,
+                debug: false,
+                lifecycle: {
+                    onEffectSuccess(res) {
+                        console.log(res)
+                    }
+                }
+            })
 
             const node = easyCanvas.createElement((c) => {
-                return c('scroll-view', { styles: { backgroundColor: '#ccc',width:400,height:h } }, [
+                return c('scroll-view', { styles: { backgroundColor: '#ccc', width: 400, height: h } }, [
                     drawShare(c)
                 ])
             })
@@ -63,97 +73,97 @@
 
 
 
-        function drawShare(c){
-            return c('view',{
-                styles:{
-                    backgroundColor:'yellow',
-                    padding:20
+        function drawShare(c) {
+            return c('view', {
+                styles: {
+                    backgroundColor: 'yellow',
+                    padding: 20
                 }
-            },[
-                c('view',{
-                    styles:{
+            }, [
+                c('view', {
+                    styles: {
                     }
-                },[
-                    c('image',{ // 丁香家logo　
-                        styles:{
-                            width:'auto',
-                            height:30
+                }, [
+                    c('image', { // 丁香家logo　
+                        styles: {
+                            width: 'auto',
+                            height: 30
                         },
-                        attrs:{
-                            src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
+                        attrs: {
+                            src: 'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
                         }
                     }),
                 ]),
 
-                c('view',{
-                    styles:{
-                        margin:[20,0]
+                c('view', {
+                    styles: {
+                        margin: [20, 0]
                     }
-                },[
-                    c('view',{
-                        styles:{
-                            color:'#333',
-                            fontSize:24
+                }, [
+                    c('view', {
+                        styles: {
+                            color: '#333',
+                            fontSize: 24
                         }
-                    },[c('text',{},'喝牛奶涨肚子小知识')]),
-                    c('view',{
-                        styles:{
-                            color:'#666',
-                            fontSize:12
+                    }, [c('text', {}, '喝牛奶涨肚子小知识')]),
+                    c('view', {
+                        styles: {
+                            color: '#666',
+                            fontSize: 12
                         }
-                    },[c('text',{},'来自 喝牛奶涨肚子')]),
+                    }, [c('text', {}, '来自 喝牛奶涨肚子')]),
                 ]),
 
-                c('view',{
-                    styles:{
-                        backgroundColor:'#fff',
-                        borderRadius:8,
-                        shadowBlur:10,
-                        shadowColor:'#ccc'
+                c('view', {
+                    styles: {
+                        backgroundColor: '#fff',
+                        borderRadius: 8,
+                        shadowBlur: 10,
+                        shadowColor: '#ccc'
                     }
-                },[
-                    c('image',{
-                        styles:{width:'100%',display:'block'},
-                        attrs:{
-                            src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
+                }, [
+                    c('image', {
+                        styles: { width: '100%', display: 'block' },
+                        attrs: {
+                            src: 'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
                         }
                     }),
-                    c('image',{
-                        styles:{width:'100%',display:'block'},
-                        attrs:{
-                            src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
+                    c('image', {
+                        styles: { width: '100%', display: 'block' },
+                        attrs: {
+                            src: 'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
                         }
                     }),
                 ]),
 
-                c('view',{
-                    styles:{
-                        margin:[40,0],
-                        textAlign:'center'
+                c('view', {
+                    styles: {
+                        margin: [40, 0],
+                        textAlign: 'center'
                     }
-                },[
-                    c('image',{
-                        styles:{
-                            width:100,
-                            height:100,
-                            verticalAlign:'middle',
-                            display:'inline-block',
-                            borderRadius:50
+                }, [
+                    c('image', {
+                        styles: {
+                            width: 100,
+                            height: 100,
+                            verticalAlign: 'middle',
+                            display: 'inline-block',
+                            borderRadius: 50
                         },
-                        attrs:{
-                            mode:'aspectFit',
-                            src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
+                        attrs: {
+                            mode: 'aspectFit',
+                            src: 'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg'
                         }
                     }),
-                    c('view',{
-                        styles:{
-                            display:'inline-block',
-                            verticalAlign:'middle',
-                            marginLeft:20
+                    c('view', {
+                        styles: {
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
+                            marginLeft: 20
                         }
-                    },[
-                        c('view',{styles:{fontSize:16,color:'#333'}},[c('text',{},'更多相关内容')]),
-                        c('view',{styles:{fontSize:14,color:'#999'}},[c('text',{},'长按小程序查看')]),
+                    }, [
+                        c('view', { styles: { fontSize: 16, color: '#333' } }, [c('text', {}, '更多相关内容')]),
+                        c('view', { styles: { fontSize: 14, color: '#999' } }, [c('text', {}, '长按小程序查看')]),
                     ])
                 ])
             ])
