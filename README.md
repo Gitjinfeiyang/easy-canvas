@@ -2,7 +2,9 @@
 使用render函数，在canvas中创建文档流，快速实现布局.
 
 > 使用中有问题查看example中的代码，点击查看 [DEMO](https://gitjinfeiyang.github.io/easy-canvas/example/)
-
+>
+> [在CodePen中尝试一下](https://codepen.io/Fiyoung/pen/pobvWRa?editors=1010)
+>
 > [easyCanvas实现原理解析](https://juejin.im/post/6871124987550531592)
 
 - vue组件 [vue-easy-canvas](https://github.com/Gitjinfeiyang/vue-easy-canvas)
