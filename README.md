@@ -73,7 +73,6 @@ npm install easy-canvas-layout --save
       dpr: 2,
       width: 300,
       height: 600,
-      canvas   // 小程序环境必传
     })
 
     // create a node tree
