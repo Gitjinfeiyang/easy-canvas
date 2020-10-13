@@ -1,3 +1,5 @@
+> EN | [中文](./README.md)
+
 # Introduction
 Use the render function to create a document flow in the canvas and quickly implement the layout.
 

@@ -1,3 +1,5 @@
+> 中文｜[EN](./README_EN.md)
+
 # 简介
 使用render函数，在canvas中创建文档流，快速实现布局.
 
