@@ -56,6 +56,7 @@
 - [x] `shadowOffsetY`
 - [x] `position` `static` `absolute`
 - [x] `opacity` `Number`
+- [x] `textDecoration` `Array`
 
 
 ## Installation

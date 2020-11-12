@@ -139,7 +139,7 @@ function drawListItem(h, tag) {
           [
             h(
               'text',
-              { styles: { fontSize: 12, color: '#666', maxLine: 2 } },
+              { styles: { fontSize: 12, color: '#666', maxLine: 2, textDecoration: ['line-through'] } },
               '小程序提供了一个简单、高效的应用开发框架和丰富的组件及API，帮助开发者在微信中开发具有原生 APP 体验的服务'
             ),
             drawInlineBlock(h),
@@ -579,8 +579,8 @@ function Dialog(h, options) {
         borderRadius: 4,
         backgroundColor: '#fff',
       },
-      on:{
-        click(e){
+      on: {
+        click(e) {
           // 点击这里停止冒泡，阻止关闭弹窗
           e.stopPropagation()
         }
@@ -679,8 +679,8 @@ function onClick(e) {
   layer.eventManager.click(e.pageX, e.pageY)
 }
 
-function onmousewheel(e){
+function onmousewheel(e) {
   e.preventDefault()
-  layer.eventManager.mousewheel(e.pageX,e.pageY,-e.deltaX,-e.deltaY)
+  layer.eventManager.mousewheel(e.pageX, e.pageY, -e.deltaX, -e.deltaY)
 }
 
