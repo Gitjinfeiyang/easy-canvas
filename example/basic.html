@@ -74,7 +74,7 @@
       canvas.width = w * dpr
       canvas.height = h * dpr
       ctx.scale(dpr, dpr)
-      layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h })
+      layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: true })
 
       const node = easyCanvas.createElement((h) => {
         let list = []

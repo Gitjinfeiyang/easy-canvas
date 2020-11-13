@@ -161,7 +161,7 @@ function drawButton(h, text = 'text', options = {}) {
         display: 'inline-block',
         paddingLeft: 10,
         paddingRight: 10,
-        lineHeight: 16,
+        lineHeight: 20,
         verticalAlign: 'middle',
       },
       on: {
@@ -242,7 +242,7 @@ function drawInlineBlock(h) {
           paddingLeft: 10,
           paddingRight: 10,
           display: 'inline-block',
-          lineHeight: 16
+          lineHeight: 20
         },
       },
       [
@@ -515,7 +515,7 @@ function drawTicket(h) {
       ]),
       h('view', {
         styles: {
-          width: 100,
+          width: 60,
           textAlign: 'right'
         }
       }, [
@@ -540,7 +540,7 @@ function drawTicket(h) {
         left: -10,
         top: '50%',
         width: 20,
-        height: 10,
+        height: 20,
         backgroundColor: '#eac4a3',
         borderRadius: 10
       }
@@ -552,7 +552,7 @@ function drawTicket(h) {
         right: -10,
         top: '50%',
         width: 20,
-        height: 10,
+        height: 20,
         backgroundColor: '#d0916a',
         borderRadius: 10
       }
