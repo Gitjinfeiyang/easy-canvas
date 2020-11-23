@@ -36,7 +36,7 @@ function drawSimple(h) {
                   styles: {
                     flex: 1,
                     paddingLeft: 10,
-                    borderLeftWidth: 10,
+                    borderLeftWidth: 15,
                     borderColor: '#8170ff',
                   },
                 },
@@ -59,6 +59,7 @@ function drawSimple(h) {
                     height: 50,
                     width: 50,
                     display: 'inline-block',
+                    borderRadius: 4
                   },
                   attrs: {
                     mode: 'aspectFill',
@@ -82,7 +83,7 @@ function drawListItem(h, tag) {
         tag
       },
       styles: {
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderColor: '#ccc',
         borderStyle: 'solid',
         display: 'flex',
@@ -90,12 +91,14 @@ function drawListItem(h, tag) {
         paddingRight: 5,
         paddingBottom: 5,
         paddingLeft: 5,
-        backgroundColor: '#f1f1f1',
         marginBottom: 10,
       },
       on: {
         click(e) {
-          alert(e.currentTarget.options.data.tag)
+          e.currentTarget.setStyles({
+            width: 200
+          })
+          console.log(e.currentTarget)
         },
       },
     },
@@ -110,13 +113,16 @@ function drawListItem(h, tag) {
         [
           h('image', {
             attrs: {
+              mode: 'aspectFill',
               src:
                 'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&fm=26&gp=0.jpg',
             },
             styles: {
               borderRadius: 24,
-              shadowBlur: 10,
-              shadowColor: '#000',
+              width: 50,
+              height: 50,
+              borderWidth: 0.5,
+              borderColor: '#ccc'
             },
           }),
         ]
@@ -133,7 +139,7 @@ function drawListItem(h, tag) {
           [
             h(
               'text',
-              { styles: { fontSize: 12, color: '#666', maxLine: 2 } },
+              { styles: { fontSize: 12, color: '#666', maxLine: 2, textDecoration: ['line-through'] } },
               '小程序提供了一个简单、高效的应用开发框架和丰富的组件及API，帮助开发者在微信中开发具有原生 APP 体验的服务'
             ),
             drawInlineBlock(h),
@@ -145,25 +151,30 @@ function drawListItem(h, tag) {
 }
 function drawButton(h, text = 'text', options = {}) {
   return h(
-    'view',
-    {
+    'view', Object.assign({
       styles: {
         height: 20,
-        backgroundColor: options.backgroundColor || '#ff6c79',
+        backgroundColor: '#ff6c79',
         borderRadius: 10,
         borderColor: '#fff',
         margin: 2,
         display: 'inline-block',
         paddingLeft: 10,
         paddingRight: 10,
+        lineHeight: 20,
+        verticalAlign: 'middle',
       },
-    },
+      on: {
+        click(e) {
+          console.log(e)
+        }
+      }
+    }, options),
     [
       h(
         'text',
         {
           styles: {
-            lineHeight: 20,
             color: options.color || '#fff',
             textAlign: 'center',
             fontSize: 11,
@@ -225,12 +236,13 @@ function drawInlineBlock(h) {
         styles: {
           height: 20,
           backgroundColor: '#ff6c79',
-          borderRadius: 4,
+          borderRadius: 2,
           borderColor: '#fff',
           margin: 2,
           paddingLeft: 10,
           paddingRight: 10,
           display: 'inline-block',
+          lineHeight: 20
         },
       },
       [
@@ -238,7 +250,7 @@ function drawInlineBlock(h) {
           'text',
           {
             styles: {
-              lineHeight: 20,
+              lineHeight: 16,
               color: '#fff',
               fontSize: 11,
             },
@@ -256,10 +268,12 @@ function drawInlineBlock(h) {
         borderColor: '#ccc',
         paddingTop: 4,
         marginTop: 4,
-        textAlign: 'center',
+        textAlign: 'right'
       },
     },
-    [...buttonList]
+    [
+      ...buttonList,
+    ]
   )
 }
 function drawCard(h) {
@@ -269,12 +283,15 @@ function drawCard(h) {
       styles: {
         backgroundColor: '#ff6c79',
         margin: 10,
-        padding: [10,20],
+        padding: [10, 20],
         borderRadius: 6,
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderColor: '#ff6c79',
-        shadowColor: '#666',
+        borderStyle: 'dash',
+        shadowColor: '#999',
         shadowBlur: 20,
+        shadowOffsetY: 10,
+        position: 'relative'
       },
     },
     [
@@ -287,7 +304,7 @@ function drawCard(h) {
           '总资产(元)'
         ),
       ]),
-      h('view', { styles: { display: 'flex' } }, [
+      h('view', { styles: { display: 'flex', justifyContent: 'flex-start' } }, [
         h('view', { styles: { flex: 1 } }, [
           h(
             'text',
@@ -296,16 +313,46 @@ function drawCard(h) {
           ),
         ]),
         h('view', { styles: { flex: 1, textAlign: 'right' } }, [
-          drawButton(h, '我的信息', {
-            backgroundColor: '#fff',
-            color: '#ff6c79',
-          }),
+          h(
+            'view',
+            {
+              styles: {
+                height: 20,
+                backgroundColor: '#fff',
+                borderRadius: 10,
+                borderColor: '#fff',
+                margin: 2,
+                display: 'inline-block',
+                paddingLeft: 10,
+                paddingRight: 10
+              },
+              on: {
+                click(e) {
+                  console.log(e)
+                }
+              }
+            },
+            [
+              h(
+                'text',
+                {
+                  styles: {
+                    lineHeight: 16,
+                    color: '#ff6c79',
+                    textAlign: 'center',
+                    fontSize: 11,
+                  },
+                },
+                '我的信息'
+              ),
+            ]
+          )
         ]),
       ]),
-      h('view', {}, [
+      h('view', { styles: { lineHeight: 30 } }, [
         h(
           'text',
-          { styles: { color: '#fff', fontSize: 12, lineHeight: 20 } },
+          { styles: { color: '#fff', fontSize: 12, lineHeight: 20, verticalAlign: 'middle' } },
           '最新收益0.00'
         ),
         h(
@@ -314,18 +361,18 @@ function drawCard(h) {
             styles: {
               display: 'inline-block',
               marginLeft: 10,
-              marginTop: 3,
               height: 16,
               borderRadius: 8,
               paddingLeft: 5,
               paddingRight: 5,
               backgroundColor: '#666',
+              verticalAlign: 'middle'
             },
           },
           [
             h(
               'text',
-              { styles: { fontSize: 10, color: '#fff' } },
+              { styles: { fontSize: 10, lineHeight: 16, color: '#fff' } },
               '赠送权益'
             ),
           ]
@@ -340,14 +387,17 @@ function drawCard(h) {
             paddingTop: 20,
             borderTopWidth: 0.5,
             borderColor: '#fff',
+            alignItems: 'flex-end',
+            color: 'yellow',
+            textAlign: 'center'
           },
         },
         [
-          h('view', { styles: { flex: 1, color: '#fff' } }, [
-            h('text', { styles: { color: '#fff' } }, '风险评测'),
+          h('view', { styles: { flex: 1, } }, [
+            h('text', { styles: {} }, '风险评测'),
             h(
               'text',
-              { styles: { color: '#fff' } },
+              { styles: {} },
               '风险评测风险评测风险评测'
             ),
           ]),
@@ -356,13 +406,11 @@ function drawCard(h) {
             {
               styles: {
                 flex: 1,
-                textAlign: 'center',
-                verticalAlign: 'middle',
               },
             },
             [
-              h('text', { styles: { color: '#fff', textAlign: 'center', width: '100%' } }, '我的定投'),
-              h('text', { styles: { color: '#fff' } }, '风险评测'),
+              h('text', { styles: { width: '100%' } }, '我的定投'),
+              h('text', { styles: {} }, '风险评测'),
             ]
           ),
           h(
@@ -370,13 +418,12 @@ function drawCard(h) {
             {
               styles: {
                 flex: 1,
-                textAlign: 'center',
                 verticalAlign: 'middle',
               },
             },
             [
-              h('text', { styles: { color: '#fff', textAlign: 'center' } }, '优惠券'),
-              h('text', { styles: { color: '#fff' } }, '风险评测'),
+              h('text', { styles: {} }, '优惠券'),
+              h('text', { styles: {} }, '风险评测'),
             ]
           ),
         ]
@@ -425,27 +472,215 @@ function drawAbsolute(h) {
   return h('view', { styles: { position: 'absolute', top: 10, left: 10, zIndex: 10 } }, [drawButton(h, 'Absolute')])
 }
 
+function drawTicket(h) {
+  return h('view', {
+    styles: {
+      backgroundColor: ['#eac4a3', '#d0916a'],
+      margin: 10,
+      padding: 10,
+      borderRadius: 14,
+      overflow: 'hidden',
+      position: 'relative'
+    }
+  }, [
+    h('view', {
+      styles: {
+        backgroundColor: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        padding: 20,
+        borderRadius: 14
+      }
+    }, [
+      h('view', {
+        styles: {
+          textAlign: 'center',
+          width: 70,
+          marginRight: 10
+        }
+      }, [
+        h('view', { styles: { fontSize: 24, color: '#d0916a' } }, [h('text', {}, '¥500')]),
+        h('view', { styles: { fontSize: 10, color: '#9a9a9a' } }, [h('text', {}, '无门槛使用')])
+      ]),
+      h('view', {
+        styles: {
+          flex: 1,
+          paddingLeft: 10,
+          borderLeftWidth: 0.5,
+          borderColor: '#eac4a3'
+        }
+      }, [
+        h('view', { styles: { fontSize: 14, fontWeight: 600, color: '#333' } }, [h('text', {}, '随机券¥20-300')]),
+        h('view', { styles: { fontSize: 11, color: '#9a9a9a' } }, [h('text', {}, '领取后30天内可用')]),
+      ]),
+      h('view', {
+        styles: {
+          width: 60,
+          textAlign: 'right'
+        }
+      }, [
+        h('view', {
+          styles: {
+            display: 'inline-block',
+            fontSize: 12,
+            borderRadius: 12,
+            padding: [0, 10],
+            backgroundColor: '#d0916a',
+            color: '#fff'
+          }
+        }, [
+          h('text', { styles: { lineHeight: 24, } }, '领取')
+        ])
+      ])
+    ]),
+    h('view', {
+      styles: {
+        position: 'absolute',
+        marginTop: -10,
+        left: -10,
+        top: '50%',
+        width: 20,
+        height: 20,
+        backgroundColor: '#eac4a3',
+        borderRadius: 10
+      }
+    }),
+    h('view', {
+      styles: {
+        position: 'absolute',
+        marginTop: -10,
+        right: -10,
+        top: '50%',
+        width: 20,
+        height: 20,
+        backgroundColor: '#d0916a',
+        borderRadius: 10
+      }
+    }),
+  ])
+}
+
+function Dialog(h, options) {
+  const instance = h('view', Object.assign({
+    attrs: { className: 'dialog' }, styles: {
+      position: 'absolute', top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, backgroundColor: 'rgba(0,0,0,0.5)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center'
+    },
+    on: {
+      click() {
+        instance.remove()
+      }
+    }
+  }, options), [
+    h('view', {
+      styles: {
+        width: 300,
+        padding: 20,
+        borderRadius: 4,
+        backgroundColor: '#fff',
+      },
+      on: {
+        click(e) {
+          // 点击这里停止冒泡，阻止关闭弹窗
+          e.stopPropagation()
+        }
+      }
+    }, [
+      h('view', { styles: { textAlign: 'center', fontWeight: 'bold', fontSize: 20, borderBottomWidth: 0.5, borderColor: '#ccc', lineHeight: 30 } }, [h('text', {}, options.title || 'Notice')]),
+      h('view', { styles: { paddingTop: 20, color: '#666' } }, [h('text', {}, options.content || '')])
+    ])
+  ])
+  return instance
+}
+
+
+const data = {
+  date: '2016-05-02',
+  name: '王小虎',
+  province: '上海',
+  city: '普陀区',
+  address: '上海市普陀区金沙江路 1518 弄',
+  zip: 200333,
+}
+function getTableData(count = 100) {
+  let list = []
+  for (let i = 0; i < count; i++) {
+    list.push(data)
+  }
+  return list
+}
+function drawTable(h) {
+  const tableData = getTableData(5000)
+  const tr = {
+    width: 700,
+    display: 'flex',
+    borderBottomWidth: 0.5,
+    borderColor: '#999',
+    padding: [10, 0],
+  }
+  const td = {
+    flex: 1,
+    color: '#666',
+    padding: [0, 5],
+    display: 'block',
+    maxLine: 1,
+  }
+  const th = {
+    flex: 1,
+    padding: [0, 5],
+    display: 'block',
+    maxLine: 1,
+    color: '#333',
+    textAlign: 'center',
+  }
+  const tdFirst = {
+    ...td,
+    color: '#333',
+    textAlign: 'center',
+    fontWeight: 800
+  }
+  return [
+    h('view', {
+      styles: tr
+    }, ['序号', '日期', '姓名', '地区', '城市', '详细地址', '邮编'].map(item => h('text', { styles: th }, item))),
+    ...tableData.map((item, index) => h('view', { styles: tr }, [
+      h('text', { styles: tdFirst }, index + 1),
+      h('text', { styles: td }, item.date),
+      h('text', { styles: td }, item.name),
+      h('text', { styles: td }, item.province),
+      h('text', { styles: td }, item.city),
+      h('text', { styles: td }, item.address),
+      h('text', { styles: td }, item.zip),
+    ]))
+  ]
+}
+
 
 function setLayer(_layer) {
   layer = _layer
 }
 function ontouchstart(e) {
   e.preventDefault()
-  layer.eventManager.touchstart(e.touches[0].pageX, e.touches[0].pageY)
+  layer.eventManager.touchstart(e.pageX || e.touches[0].pageX || 0, e.pageY || e.touches[0].pageY || 0)
 }
 function ontouchmove(e) {
   e.preventDefault()
-  layer.eventManager.touchmove(e.touches[0].pageX, e.touches[0].pageY)
+  layer.eventManager.touchmove(e.pageX || e.touches[0].pageX || 0, e.pageY || e.touches[0].pageY || 0)
 }
 function ontouchend(e) {
   e.preventDefault()
   layer.eventManager.touchend(
-    e.changedTouches[0].pageX,
-    e.changedTouches[0].pageY
+    e.pageX || e.changedTouches[0].pageX || 0,
+    e.pageY || e.changedTouches[0].pageY || 0
   )
 }
 function onClick(e) {
   e.preventDefault()
   layer.eventManager.click(e.pageX, e.pageY)
+}
+
+function onmousewheel(e) {
+  e.preventDefault()
+  layer.eventManager.mousewheel(e.pageX, e.pageY, -e.deltaX, -e.deltaY)
 }
 

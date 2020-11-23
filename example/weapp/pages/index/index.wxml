@@ -1,6 +1,6 @@
 <canvas
   type="2d"
-  style="width:300px; height:600px;"
+  style="width:420px; height:336px;"
   canvas-id="myCanvas"
   id="myCanvas"
   bindtouchstart="ontouchstart"
