@@ -17,6 +17,7 @@ Page({
     })
   },
   onLoad: function () {
+
     const query = wx.createSelectorQuery()
     query.select('#myCanvas')
       .fields({ node: true, size: true })
@@ -45,6 +46,13 @@ Page({
                 borderColor: 'rgba(116, 97, 255, 0.11)',
                 borderRadius: 8,
               },
+              on: {
+                click(e) {
+                  wx.showToast({
+                    title: '点击查看'
+                  })
+                }
+              }
             },
             [
               c(
@@ -167,6 +175,7 @@ Page({
                             textAlign: 'center',
                             width: 'auto',
                           },
+
                         },
                         [c('text', {}, '点击查看')],
                       ),
