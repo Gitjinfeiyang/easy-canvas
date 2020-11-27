@@ -74,7 +74,7 @@
       canvas.width = w * dpr
       canvas.height = h * dpr
       ctx.scale(dpr, dpr)
-      layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: true })
+      layer = easyCanvas.createLayer(ctx, { dpr, width: w, height: h, debug: false })
 
       const node = easyCanvas.createElement((h) => {
         let list = []
@@ -90,9 +90,33 @@
           }
         },
           [
-            drawTicket(h),
-            drawListItem(h),
-            ...list,
+            // drawTicket(h),
+            // drawListItem(h),
+            // ...list,
+            h('view', {
+              styles: {
+                backgroundColor: '#ccc'
+              }
+            }, [
+              h('view', {
+                styles: {
+                  width: 100,
+                  height: 100,
+                  backgroundColor: '#fff',
+                  borderColor: '#333',
+                  borderWidth: 2,
+                  padding: 10,
+                  margin: 10,
+                }
+              }, [h('view', {
+                styles: {
+                  width: '100%',
+                  backgroundColor: '#f00',
+                  color: '#333',
+                  height: '100%'
+                }
+              }, 'sdsdsfd')])
+            ])
           ]
         )
       })
