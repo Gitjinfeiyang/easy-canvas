@@ -5,6 +5,8 @@
 
 > 使用中有问题查看example中的代码，点击查看 [DEMO](https://gitjinfeiyang.github.io/easy-canvas/example/)
 >
+> 有问题可以微信联系 Memeda_Caonima，备注easy-canvas
+>
 > [在CodePen中尝试一下](https://codepen.io/Fiyoung/pen/pobvWRa?editors=1010)
 >
 > [easyCanvas实现原理解析](https://juejin.im/post/6871124987550531592)
