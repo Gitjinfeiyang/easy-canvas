@@ -195,7 +195,7 @@ Page({
                     lineHeight: 24,
                   },
                 },
-                [c('text', { styles: { lineHeight: 24 } }, '- 丁香医生旗下健康商店 -')],
+                [c('text', { styles: { lineHeight: 24 } }, '- copyright -')],
               ),
             ],
           );
