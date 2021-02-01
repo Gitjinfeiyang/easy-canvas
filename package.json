@@ -2,7 +2,7 @@
   "name": "easy-canvas-layout",
   "version": "0.1.10",
   "description": "A canvas lib help to easy layout in canvas.",
-  "miniprogram_dist": "dist",
+  "miniprogram": "dist",
   "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
