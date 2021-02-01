@@ -354,7 +354,7 @@ function Steps(c, options) {
         }
       }),
       c('view', {
-        styles: { width: 28, height: 28, borderRadius: 12, borderWidth: 3, borderColor: '#333', color: '#333', textAlign: 'center', backgroundColor: '#fff' }
+        styles: { width: 28, height: 28, borderRadius: 14, borderWidth: 3, borderColor: '#333', color: '#333', textAlign: 'center', backgroundColor: '#fff',lineHeight:28 }
       }, [c('text', {}, index + 1)]),
       c('view', {}, [c('text', {}, step.label)]),
 
