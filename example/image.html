@@ -47,6 +47,7 @@
         easyCanvas.component('card', (opt, children, h) => Card(h, children))
 
         function Title(h, level, title) {
+            console.log(title)
             return h('view', {
                 styles: {
                     padding: 10,
@@ -56,10 +57,7 @@
                     fontWeight: 800,
                     marginBottom: 8,
                 }
-            }, [h('text', {
-                styles: {
-                }
-            }, title)])
+            }, title)
         }
         [1, 2, 3, 4, 5, 6].forEach(level => {
             easyCanvas.component(`h${level}`, (opt, children, h) => Title(h, level, children))

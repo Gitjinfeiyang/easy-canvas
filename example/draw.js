@@ -163,6 +163,7 @@ function drawButton(h, text = 'text', options = {}) {
         paddingRight: 10,
         lineHeight: 20,
         verticalAlign: 'middle',
+        color:'#fff'
       },
       on: {
         click(e) {
@@ -170,19 +171,7 @@ function drawButton(h, text = 'text', options = {}) {
         }
       }
     }, options),
-    [
-      h(
-        'text',
-        {
-          styles: {
-            color: options.color || '#fff',
-            textAlign: 'center',
-            fontSize: 11,
-          },
-        },
-        text
-      ),
-    ]
+    text
   )
 }
 function drawBox(h) {
