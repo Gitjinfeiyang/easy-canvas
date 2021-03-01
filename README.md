@@ -185,6 +185,7 @@ node.mount(layer);
 - 微信小程序请使用 canvas.getContext() api 来创建，即同层渲染 api，否则在 ios 上 overflow 效果不生效，新老 api 不能混用
 - ios 小程序 7.0.20 版本目前反馈 drawImage api 存在问题，微信问题
 - Canvas.getImage() api 无法正确加载带有查询功能的图片 url，比如 https://xxx?w=100&h=100，这种目前可以通过先下载好图片，再放到 src 上
+- 企业微信小程序同时加载多张图片，只能加载出来一张，是微信问题，目前解决方案为在图片 attrs 增加 `timeout`，可以延迟图片加载时机
 
 ## MIT License
 
