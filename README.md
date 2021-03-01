@@ -20,49 +20,6 @@
 - 高性能，scroll-view 支持脏矩形，只绘制可视部分
 - 支持操作 element，类似操作 dom 修改文档流
 
-## 支持元素
-
-- [x] `view` 基本元素，类似 div
-- [x] `text` 文本 支持自动换行以及超过省略等功能,目前 text 实现为 inline-block
-- [x] `image` 图片 `src` `mode`支持 aspectFit 以及 aspectFill，其他 css 特性同 web 支持`load`事件监听图片加载并且绘制完成
-- [x] `scroll-view` 滚动容器，需要在样式里设置`direction` 支持 x、y、xy，并且设置具体尺寸 设置`renderOnDemand`只绘制可见部分
-
-## Styles
-
-属性使用像素的地方统一使用数字
-
-- [x] `display` block | inline-block | flex, text 默认是 inline 的
-- [x] `width` auto 100% Number 这里盒模型使用 border-box，不可修改
-- [x] `height`
-- [x] `flex` flex 不支持 auto，固定宽度直接使用 width
-- [x] `minWidth` `maxWidth` `minHeight` `maxHeight` 如果设置了具体宽度高度不生效
-- [x] `margin` `marginLeft`,`marginRight`,`marginTop`,`marginBottom` margin 支持数组缩写例如 [10,20] [10,20,10,20]
-- [x] `paddingLeft`,`paddingRight`,`paddingTop`,`paddingBottom` 同上
-- [x] `backgroundColor`
-- [x] `borderRadius`
-- [x] `borderWidth` `borderTopWidth` ... 细边框直接设置 0.5
-- [x] `borderColor`
-- [x] `lineHeight` 字体相关的只在 text 内有效
-- [x] `color`
-- [x] `fontSize`
-- [x] `textAlign` left right center
-- [x] `textIndent` Number
-- [x] `verticalAlign` top middle bottom
-- [x] `justifyContent` flex-start center flex-end flex 布局 水平方向对其
-- [x] `alignItems` flex-start center flex-end flex 布局 垂直方向对其
-- [x] `maxLine` 最大行数，超出自动省略号，只支持在 text 中使用
-- [x] `whiteSpace` normal nowrap 控制换行，不能控制字体
-- [x] `overflow` hidden 如果添加了圆角，会自动加上 hidden
-- [ ] `flexDirection`
-- [x] `borderStyle` dash Array 详见 ctx.setLineDash()
-- [x] `shadowBlur` 设置了阴影会自动加上 overflow:hidden;
-- [x] `shadowColor`
-- [x] `shadowOffsetX`
-- [x] `shadowOffsetY`
-- [x] `position` `static` `absolute`
-- [x] `opacity` `Number`
-- [x] `textDecoration` `Array`
-
 ## Installation
 
 ```bash
@@ -157,6 +114,66 @@ node.mount(layer);
 
 ```
 
+## 支持元素
+
+- [x] `view` 基本元素，类似 div
+- [x] `text` 文本 支持自动换行以及超过省略等功能,目前 text 实现为 inline-block
+- [x] `image` 图片 `src` `mode`支持 aspectFit 以及 aspectFill，其他 css 特性同 web 支持`load`事件监听图片加载并且绘制完成
+- [x] `scroll-view` 滚动容器，需要在样式里设置`direction` 支持 x、y、xy，并且设置具体尺寸 设置`renderOnDemand`只绘制可见部分
+
+## Styles
+
+属性使用像素的地方统一使用数字
+
+| name            | des                                                                 | default    | options                          |
+| --------------- | ------------------------------------------------------------------- | ---------- | -------------------------------- |
+| display         | 表现                                                                | ---        | `block` `inline-block` `flex`    |
+| width           | 宽度                                                                | ---        | `auto` `<Number>`                |
+| height          | 高度                                                                | ---        | `auto` `<Number>`                |
+| flex            | flex 值，目前只支持数字，固定宽度直接设置 width                     | ---        | `<Number>`                       |
+| flexDirection   | flex 方向                                                           | row        | `row` `column`                   |
+| margin          | 外边距，支持数组缩写例如 [10,20] [10,20,10,20]                      | 0          | `Array` `<Number>`               |
+| marginLeft      | 外边距                                                              | 0          | `<Number>`                       |
+| marginRight     | 外边距                                                              | 0          | `<Number>`                       |
+| marginTop       | 外边距                                                              | 0          | `<Number>`                       |
+| marginBottom    | 外边距                                                              | 0          | `<Number>`                       |
+| padding         | 内边距，支持数组缩写例如 [10,20] [10,20,10,20]                      | 0          | `Array` `<Number>`               |
+| paddingLeft     | 内边距                                                              | 0          | `<Number>`                       |
+| paddingRight    | 内边距                                                              | 0          | `<Number>`                       |
+| paddingTop      | 内边距                                                              | 0          | `<Number>`                       |
+| paddingBottom   | 内边距                                                              | 0          | `<Number>`                       |
+| backgroundColor | 背景色，设置为数组时，会转换为水平渐变                              | ---        | `String` `Array`                 |
+| borderRadius    | 圆角，只要设置圆角会自动加上 overflow:hidden                        | 0          | `<Number>`                       |
+| borderWidth     | 边框宽度，也可单独设置 borderTopWidth ...等单个边                   | 0          | `<Number>`                       |
+| borderColor     | 边框颜色                                                            | ---        | `<String>`                       |
+| borderStyle     | 边框样式，数组见 ctx.setLineDash() api                              | solid      | `solid` `<Array>`                |
+| lineHeight      | 行高，默认为 1.4，手动设置只能设置像素值，如 36                     | 1.4        | `<Number>`                       |
+| color           | 字体颜色                                                            | #000       | `<String>`                       |
+| fontSize        | 字体大小                                                            | 14         | `<Number>`                       |
+| textAlign       | 对齐方式                                                            | left       | `left` `center` `right`          |
+| textIndent      | 首行缩紧                                                            | 0          | `<Number>`                       |
+| verticalAlign   | 竖向对齐                                                            | middle     | `top` `middle` `bottom`          |
+| justifyContent  | 主轴对齐                                                            | flex-start | `flex-start` `center` `flex-end` |
+| alignItems      | 交叉轴对齐                                                          | flex-start | `flex-start` `center` `flex-end` |
+| maxLine         | 最大行数，只能在 text 内使用，超出省略号显示                        | ---        | `<Number>`                       |
+| whiteSpace      | 是否换行                                                            | normal     | `normal` `nowrap`                |
+| overflow        | 超出是否显示                                                        | visible    | `visible` `hidden`               |
+| shadowBlur      | 设置了阴影会自动加上 overflow:hidden;                               | 0          | `<Number>`                       |
+| shadowColor     | 阴影颜色                                                            | ---        | `<String>`                       |
+| shadowOffsetX   | 阴影水平偏移                                                        | ---        | `<Number>`                       |
+| shadowOffsetY   | 阴影纵向偏移                                                        | ---        | `<Number>`                       |
+| position        | 定位，绝对定位需要设置相对定位元素为 relative，否则根据顶层元素定位 | static     | `static` `absolute` `fixed`      |
+| opacity         | 透明度 取值 0-1                                                     | ---        | `<Number>`                       |
+| textDecoration  | 文字修饰                                                            | ---        | `<Array>`                        |
+
+### 已知问题
+
+- linear-gradient 必须在 scroll-view 视图内创建才生效 对于生成分享图场景不会有这个问题
+- 微信小程序请使用 canvas.getContext() api 来创建，即同层渲染 api，否则在 ios 上 overflow 效果不生效，新老 api 不能混用
+- ios 小程序 7.0.20 版本目前反馈 drawImage api 存在问题，微信问题
+- Canvas.getImage() api 无法正确加载带有查询功能的图片 url，比如 https://xxx?w=100&h=100，这种目前可以通过先下载好图片，再放到 src 上
+- 企业微信小程序同时加载多张图片，只能加载出来一张，是微信问题，目前解决方案为在图片 attrs 增加 `timeout`，可以延迟图片加载时机
+
 ## TodoList
 
 - ~~支持 position~~
@@ -178,14 +195,6 @@ node.mount(layer);
 - ~~滚动优化~~
 - ~~按需渲染~~
 - zIndex 急急急！！！
-
-### 已知问题
-
-- linear-gradient 必须在 scroll-view 视图内创建才生效 对于生成分享图场景不会有这个问题
-- 微信小程序请使用 canvas.getContext() api 来创建，即同层渲染 api，否则在 ios 上 overflow 效果不生效，新老 api 不能混用
-- ios 小程序 7.0.20 版本目前反馈 drawImage api 存在问题，微信问题
-- Canvas.getImage() api 无法正确加载带有查询功能的图片 url，比如 https://xxx?w=100&h=100，这种目前可以通过先下载好图片，再放到 src 上
-- 企业微信小程序同时加载多张图片，只能加载出来一张，是微信问题，目前解决方案为在图片 attrs 增加 `timeout`，可以延迟图片加载时机
 
 ## MIT License
 
