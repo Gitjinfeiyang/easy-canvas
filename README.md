@@ -181,8 +181,10 @@ node.mount(layer);
 
 ### 已知问题
 
-- linear-gradient 必须在视图内创建才生效
-- 微信小程序请使用 canvas.getContext() api 来创建，否则在 ios 上 overflow 效果不生效
+- linear-gradient 必须在 scroll-view 视图内创建才生效 对于生成分享图场景不会有这个问题
+- 微信小程序请使用 canvas.getContext() api 来创建，即同层渲染 api，否则在 ios 上 overflow 效果不生效，新老 api 不能混用
+- ios 小程序 7.0.20 版本目前反馈 drawImage api 存在问题，微信问题
+- Canvas.getImage() api 无法正确加载带有查询功能的图片 url，比如 https://xxx?w=100&h=100，这种目前可以通过先下载好图片，再放到 src 上
 
 ## MIT License
 
