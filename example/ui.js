@@ -89,11 +89,15 @@ function RadioGroup(c, { attrs, styles, on }, content) {
   const onItemClick = item => {
     selected && selected.setStyles({
       borderColor: '#ccc',
-      borderWidth: 0.5
+      borderWidth: 0.5,
+      width:14,
+      height:14
     })
     item.setStyles({
       borderColor: THEME.PRIMARY,
       borderWidth: 4,
+      width:6,
+      height:6
     })
     value = item.options.attrs.value
     selected = item
