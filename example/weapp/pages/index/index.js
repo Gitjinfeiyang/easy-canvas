@@ -219,21 +219,7 @@ Page({
                   [c('text', { styles: { lineHeight: 24 } }, '- copyright -')],
                 ),
               ],
-            ),
-            c('image',{
-              attrs:{
-                src:'https://myunonline-qyyx-1304736005.cos.ap-shanghai.myqcloud.com/mp-customer-images/logo-share.png',
-                timeout:100
-              },
-              on:{
-                load(info,img){
-                  console.log('title',info,img)
-                },
-                error(error){
-                  console.log('title',error)
-                }
-              }
-            })
+            )
           ])
         });
         node.mount(this.layer)
