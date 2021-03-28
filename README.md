@@ -195,6 +195,7 @@ node.mount(layer);
 - ~~滚动优化~~
 - ~~按需渲染~~
 - zIndex 急急急！！！
+- 分片渲染，实现类似react fiber特性
 
 ## MIT License
 
