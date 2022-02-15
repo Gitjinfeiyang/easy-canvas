@@ -10,7 +10,7 @@
 >
 > [在 CodePen 中尝试一下](https://codepen.io/Fiyoung/pen/pobvWRa?editors=1010)
 >
-> [easyCanvas 实现原理解析](https://juejin.im/post/6871124987550531592)
+> [easyCanvas 实现原理解析](https://juejin.cn/post/7062168571329118238/)
 
 - vue 组件 [vue-easy-canvas](https://github.com/Gitjinfeiyang/vue-easy-canvas)
 - 支持文档流，参照 web，无需设置 x、y 以及宽高

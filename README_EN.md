@@ -7,7 +7,7 @@ Use the render function to create a document flow in the canvas and quickly impl
 >
 > [Try it in CodePen](https://codepen.io/Fiyoung/pen/pobvWRa?editors=1010)
 >
-> [Analysis of easyCanvas implementation principle](https://juejin.im/post/6871124987550531592)
+> [Analysis of easyCanvas implementation principle](https://juejin.cn/post/7062168571329118238/)
 
 - vue component [vue-easy-canvas](https://github.com/Gitjinfeiyang/vue-easy-canvas)
 - Support document flow, refer to web, no need to set x, y, width and height
